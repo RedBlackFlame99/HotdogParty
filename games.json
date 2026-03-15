@@ -998,6 +998,21 @@
         "name": "Poxel.io",
         "path": "games/poxel/poxel.html",
         "icon": "games/poxel/icon.png"
+    },
+    {
+        "name": "Breaklock",
+        "path": "games/breaklock/index.html",
+        "icon": "games/breaklock/assets/icons/ios-180x180.png"
+    },
+    {
+        "name": "Captain Callisto",
+        "path": "games/captaincallisto/index.html",
+        "icon": "There is no icon :("
+    },
+    {
+        "name": "Clicker Heros",
+        "path": "games/clickerheroes/index.html",
+        "icon": "games/clickerheroes/clicker-heros.jpg"
     }
 
 ]
