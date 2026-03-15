@@ -376,7 +376,7 @@
     },
     {
         "name": "Bowmasters",
-        "path": "games/bowmasters/clbowmasters.html",
+        "path": "games/bowmasters/clbowmaster.html",
         "icon": "games/bowmasters/icon.png"
     },
     {
@@ -491,7 +491,7 @@
     },
     {
         "name": "Icey Purple Head",
-        "path": "games/icey_purple_head/cliceypurplehead.html",
+        "path": "games/icey_purple_head/clicypurplehead.html",
         "icon": "games/icey_purple_head/icon.png"
     },
     {
@@ -526,7 +526,7 @@
     },
     {
         "name": "Minecraft Parkour",
-        "path": "games/mc/mcparkour/blockcraftparkour.html",
+        "path": "games/mc/mcparkour/clblockcraftparkour.html",
         "icon": "games/mc/mcparkour/icon.png"
     },
     {
