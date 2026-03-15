@@ -1,2 +1,2 @@
-# redblackflame99.github.io
-cool game site
+# Hotdog Party
+This is the new best games site for school.
