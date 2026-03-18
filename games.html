@@ -10,7 +10,6 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;overflow:hidden;}
 .shape{position:absolute;width:60px;height:60px;background:linear-gradient(45deg,#ff7b00,#ffae00);opacity:.18;border-radius:14px;animation:float 18s linear infinite;}
 @keyframes float{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-70px) rotate(180deg)}100%{transform:translateY(0) rotate(360deg)}}
-
 /* TOPBAR */
 .topbar{position:fixed;top:0;left:0;width:100%;background:rgba(18,18,18,.97);backdrop-filter:blur(12px);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 24px rgba(0,0,0,.7);box-sizing:border-box;z-index:1000;border-bottom:1px solid rgba(255,140,0,.12);}
 .top-center{position:absolute;left:50%;transform:translateX(-50%);font-size:13px;font-weight:600;color:#555;pointer-events:none;letter-spacing:.5px;}
@@ -29,13 +28,10 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .discord-btn{display:flex;align-items:center;gap:8px;background:#5865F2;padding:8px 16px;border-radius:10px;color:white;text-decoration:none;font-weight:700;font-size:14px;border:1px solid rgba(255,255,255,.1);transition:.2s;box-shadow:0 2px 10px rgba(88,101,242,.35);}
 .discord-btn svg{width:22px;height:22px;}
 .discord-btn:hover{background:#ff8c00;box-shadow:0 0 16px rgba(255,140,0,.5);}
-
 /* LAYOUT */
 .games-layout{display:flex;justify-content:center;align-items:start;gap:24px;padding:24px 24px 0;}
-
 /* LEFT PANEL */
 .games-left{flex:0 0 220px;position:sticky;top:104px;display:flex;flex-direction:column;gap:14px;}
-
 /* Game of the Day */
 .gotd-panel{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:16px;overflow:hidden;}
 .gotd-header{padding:12px 14px;background:#161616;border-bottom:1px solid #2a2a2a;display:flex;align-items:center;gap:8px;}
@@ -48,7 +44,6 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .gotd-name{font-size:14px;font-weight:700;color:#ddd;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .gotd-play-btn{width:100%;padding:9px;background:linear-gradient(45deg,#ff8c00,#ffd000);border:none;border-radius:9px;color:#111;font-weight:900;font-size:13px;cursor:pointer;transition:.2s;text-decoration:none;display:block;text-align:center;}
 .gotd-play-btn:hover{transform:scale(1.03);box-shadow:0 4px 16px rgba(255,140,0,.5);}
-
 /* Recently Played */
 .recent-panel{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:16px;overflow:hidden;}
 .recent-header{padding:12px 14px;background:#161616;border-bottom:1px solid #2a2a2a;display:flex;align-items:center;justify-content:space-between;gap:8px;}
@@ -68,7 +63,6 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .recent-empty-icon{font-size:32px;margin-bottom:8px;}
 .recent-empty-text{font-size:12px;color:#555;font-weight:600;line-height:1.5;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-
 /* Search */
 .games-center{flex:0 1 900px;min-width:0;}
 .search-container{position:relative;max-width:100%;margin-bottom:18px;}
@@ -76,14 +70,39 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .search{width:100%;padding:11px 16px 11px 42px;border-radius:12px;border:2px solid #2a2a2a;background:#1a1a1a;color:#fff;font-size:15px;outline:none;transition:.25s;box-sizing:border-box;}
 .search::placeholder{color:#555;}
 .search:focus{border-color:#ff8c00;box-shadow:0 0 10px rgba(255,140,0,.4);background:#1f1f1f;}
-
 /* Games grid */
 .games{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
-.game{position:relative;aspect-ratio:1/1;border-radius:12px;overflow:hidden;cursor:pointer;background:#1a1a1a;transition:.2s;border:2px solid transparent;text-decoration:none;display:block;}
+/* Game card wrapper — needed for report btn positioning */
+.game-wrap{position:relative;}
+.game{position:relative;aspect-ratio:1/1;border-radius:12px;overflow:hidden;cursor:pointer;background:#1a1a1a;transition:.2s;border:2px solid transparent;text-decoration:none;display:block;width:100%;}
 .game:hover{transform:scale(1.05);border-color:#ff8c00;box-shadow:0 0 16px rgba(255,140,0,.3);}
 .game img{width:100%;height:100%;object-fit:cover;}
 .game .title{position:absolute;bottom:0;width:100%;text-align:center;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.45) 50%,rgba(0,0,0,0) 100%);padding:28px 8px 8px;opacity:0;transition:.22s;font-weight:600;font-size:12px;box-sizing:border-box;color:white;}
 .game:hover .title{opacity:1;}
+/* Report button on game card */
+.report-card-btn{
+  position:absolute;
+  top:5px;
+  right:5px;
+  width:24px;
+  height:24px;
+  border-radius:6px;
+  background:rgba(0,0,0,.7);
+  border:1px solid rgba(255,60,60,.4);
+  color:#ff6b6b;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transition:.18s;
+  z-index:10;
+  padding:0;
+  flex-shrink:0;
+}
+.report-card-btn svg{width:13px;height:13px;pointer-events:none;}
+.report-card-btn:hover{background:rgba(220,50,50,.85);border-color:#ff4444;color:white;box-shadow:0 0 8px rgba(255,50,50,.5);}
+.game-wrap:hover .report-card-btn{opacity:1;}
 
 /* Leaderboard */
 .games-right{flex:0 0 240px;position:sticky;top:104px;}
@@ -106,17 +125,43 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .lb-bar-wrap{height:3px;background:#222;border-radius:2px;margin-top:5px;}
 .lb-bar{height:3px;background:linear-gradient(90deg,#ff7b00,#ffcc00);border-radius:2px;transition:width .4s;}
 .lb-empty{padding:24px;text-align:center;color:#444;font-size:13px;}
-
 /* Scroll top */
 .scroll-top{position:fixed;bottom:28px;right:28px;width:46px;height:46px;background:linear-gradient(45deg,#ff8c00,#ffd000);border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(255,140,0,.5);opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .25s,transform .25s;z-index:999;}
 .scroll-top.visible{opacity:1;pointer-events:auto;transform:translateY(0);}
 .scroll-top:hover{transform:translateY(-3px);}
 .scroll-top svg{width:22px;height:22px;color:#111;}
+
+/* Report toast */
+.report-toast{
+  position:fixed;
+  bottom:80px;
+  left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:#1e1e1e;
+  border:1px solid #333;
+  border-radius:12px;
+  padding:10px 20px;
+  font-size:13px;
+  font-weight:600;
+  color:#ddd;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .25s, transform .25s;
+  z-index:9999;
+  white-space:nowrap;
+  box-shadow:0 4px 20px rgba(0,0,0,.5);
+}
+.report-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.report-toast.success{border-color:rgba(80,200,80,.4);color:#6ddb6d;}
+.report-toast.error{border-color:rgba(255,80,80,.4);color:#ff7070;}
 </style>
 </head>
 <body>
 
 <div class="bg" id="bg"></div>
+
+<!-- Report Toast -->
+<div class="report-toast" id="reportToast"></div>
 
 <div class="topbar">
   <div class="top-center">Created by RedTheDev & ControlMC</div>
@@ -141,7 +186,6 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 </div>
 
 <div class="games-layout">
-
   <!-- LEFT PANEL -->
   <div class="games-left">
     <div class="gotd-panel">
@@ -158,7 +202,6 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
         <a class="gotd-play-btn" id="gotdBtn" href="#">▶ Play Now</a>
       </div>
     </div>
-
     <div class="recent-panel">
       <div class="recent-header">
         <div class="recent-header-title">🕹️ Recently Played</div>
@@ -189,7 +232,6 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
       </div>
     </div>
   </div>
-
 </div>
 
 <button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
@@ -197,14 +239,65 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 </button>
 
 <script>
-const FB_URL    = "https://hotdog-party-61e77-default-rtdb.firebaseio.com/plays"
+// ====== REPLACE THIS WITH YOUR DISCORD WEBHOOK URL ======
+const DISCORD_WEBHOOK_URL = "YOUR_DISCORD_WEBHOOK_URL_HERE";
+// ========================================================
 
+const FB_URL = "https://hotdog-party-61e77-default-rtdb.firebaseio.com/plays"
 let allGames = []
 
 function gameURL(game) {
   return "game.html?path=" + encodeURIComponent(game.path) +
-         "&name=" + encodeURIComponent(game.name) +
-         "&icon=" + encodeURIComponent(game.icon)
+    "&name=" + encodeURIComponent(game.name) +
+    "&icon=" + encodeURIComponent(game.icon)
+}
+
+// ---- REPORT FUNCTION ----
+async function reportGame(gameName, gamePath, e) {
+  e.preventDefault()
+  e.stopPropagation()
+
+  const toast = document.getElementById("reportToast")
+
+  // Rate-limit: one report per game per session
+  const reported = JSON.parse(sessionStorage.getItem("hotdog_reported") || "[]")
+  if (reported.includes(gamePath)) {
+    showToast("⚠️ Already reported \"" + gameName + "\"", "error")
+    return
+  }
+
+  try {
+    await fetch(DISCORD_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        embeds: [{
+          title: "🚨 Broken Game Report",
+          description: "A user reported that a game isn't working.",
+          color: 0xff4444,
+          fields: [
+            { name: "🎮 Game", value: gameName, inline: true },
+            { name: "📁 Path", value: gamePath, inline: true }
+          ],
+          footer: { text: "Hotdog Party · Games List" },
+          timestamp: new Date().toISOString()
+        }]
+      })
+    })
+    reported.push(gamePath)
+    sessionStorage.setItem("hotdog_reported", JSON.stringify(reported))
+    showToast("✅ Reported \"" + gameName + "\" as broken!", "success")
+  } catch {
+    showToast("❌ Failed to send report. Try again.", "error")
+  }
+}
+
+function showToast(msg, type) {
+  const toast = document.getElementById("reportToast")
+  toast.textContent = msg
+  toast.className = "report-toast " + type + " show"
+  clearTimeout(toast._t)
+  toast._t = setTimeout(() => { toast.className = "report-toast " + type }, 2800)
 }
 
 // ---- GAME OF THE DAY ----
@@ -219,36 +312,32 @@ function setupGameOfTheDay(games) {
   document.getElementById("gotdImg").src = game.icon
   document.getElementById("gotdName").textContent = game.name
   document.getElementById("gotdLink").href = gameURL(game)
-  document.getElementById("gotdBtn").href  = gameURL(game)
+  document.getElementById("gotdBtn").href = gameURL(game)
 }
 
 // ---- RECENTLY PLAYED ----
 const RECENT_KEY = "hotdog_recent"
-
 function loadRecentlyPlayed() {
   const container = document.getElementById("recentList")
-  const clearBtn   = document.getElementById("recentClear")
+  const clearBtn = document.getElementById("recentClear")
   const recent = JSON.parse(localStorage.getItem(RECENT_KEY) || "[]")
-
   if (!recent.length) {
     clearBtn.style.display = "none"
-    container.innerHTML = `
-      <div class="recent-empty">
-        <div class="recent-empty-icon">🎮</div>
-        <div class="recent-empty-text">No games played yet.<br>Jump in and start exploring!</div>
-      </div>`
+    container.innerHTML = `<div class="recent-empty">
+      <div class="recent-empty-icon">🎮</div>
+      <div class="recent-empty-text">No games played yet.<br>Jump in and start exploring!</div>
+    </div>`
     return
   }
-
   clearBtn.style.display = ""
   const now = Date.now()
   container.innerHTML = recent.map(g => {
     const url = gameURL(g)
     const age = now - (g.ts || 0)
-    const sub = age < 60000       ? "Just now"
-              : age < 3600000     ? Math.floor(age/60000) + "m ago"
-              : age < 86400000    ? Math.floor(age/3600000) + "h ago"
-              : Math.floor(age/86400000) + "d ago"
+    const sub = age < 60000 ? "Just now"
+      : age < 3600000 ? Math.floor(age/60000) + "m ago"
+      : age < 86400000 ? Math.floor(age/3600000) + "h ago"
+      : Math.floor(age/86400000) + "d ago"
     return `<a class="recent-row" href="${url}">
       <img class="recent-icon" src="${g.icon}" alt="${g.name}" onerror="this.style.opacity=.3">
       <div class="recent-info">
@@ -310,11 +399,24 @@ function renderGames(games) {
   const container = document.getElementById("games")
   container.innerHTML = ""
   games.forEach(game => {
+    const wrap = document.createElement("div")
+    wrap.className = "game-wrap"
+
     const a = document.createElement("a")
     a.className = "game"
     a.href = gameURL(game)
-    a.innerHTML = `<img src="${game.icon}"><div class="title">${game.name}</div>`
-    container.appendChild(a)
+    a.innerHTML = `<img src="${game.icon}" alt="${game.name}"><div class="title">${game.name}</div>`
+
+    // Report button
+    const reportBtn = document.createElement("button")
+    reportBtn.className = "report-card-btn"
+    reportBtn.title = "Report \"" + game.name + "\" as broken"
+    reportBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a1 1 0 011-1h14l-3.5 4L19 12H5"/></svg>`
+    reportBtn.addEventListener("click", (e) => reportGame(game.name, game.path, e))
+
+    wrap.appendChild(a)
+    wrap.appendChild(reportBtn)
+    container.appendChild(wrap)
   })
 }
 
@@ -346,7 +448,7 @@ for (let i = 0; i < 30; i++) {
   const s = document.createElement("div")
   s.className = "shape"
   s.style.left = Math.random() * 100 + "%"
-  s.style.top  = Math.random() * 100 + "%"
+  s.style.top = Math.random() * 100 + "%"
   s.style.animationDuration = (Math.random() * 20 + 10) + "s"
   bg.appendChild(s)
 }
