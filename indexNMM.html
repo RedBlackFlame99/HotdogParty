@@ -26,39 +26,6 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .games-nav-btn{background:linear-gradient(45deg,rgba(255,140,0,.15),rgba(255,200,0,.1));border-color:rgba(255,140,0,.35)!important;color:#ffb347;font-weight:700;}
 .games-nav-btn svg{opacity:1;color:#ff8c00;}
 .games-nav-btn:hover{background:linear-gradient(45deg,rgba(255,140,0,.28),rgba(255,200,0,.18))!important;border-color:#ff8c00!important;color:#ffd000!important;box-shadow:0 0 14px rgba(255,140,0,.3);}
-
-/* MARCH MADNESS NAV BUTTON */
-.mm-nav-btn{
-  display:flex;align-items:center;gap:7px;
-  padding:8px 15px;border-radius:10px;text-decoration:none;
-  font-weight:800;font-size:14px;cursor:pointer;
-  color:#fff;
-  background:linear-gradient(135deg,#c8410a 0%,#e85d10 45%,#f97316 100%);
-  border:2px solid #ff7c2e;
-  box-shadow:0 0 14px rgba(249,115,22,.5), 0 0 28px rgba(249,115,22,.2);
-  animation:mmNavPulse 2s ease-in-out infinite;
-  letter-spacing:.3px;
-  position:relative;
-  overflow:hidden;
-}
-.mm-nav-btn::before{
-  content:'';position:absolute;top:-50%;left:-60%;width:40%;height:200%;
-  background:rgba(255,255,255,.18);transform:skewX(-20deg);
-  animation:mmShine 2.5s ease-in-out infinite;
-}
-@keyframes mmShine{0%,100%{left:-60%}50%{left:130%}}
-@keyframes mmNavPulse{
-  0%,100%{box-shadow:0 0 14px rgba(249,115,22,.5), 0 0 28px rgba(249,115,22,.2);}
-  50%{box-shadow:0 0 22px rgba(249,115,22,.85), 0 0 44px rgba(249,115,22,.4), 0 0 8px rgba(255,200,0,.3);}
-}
-.mm-nav-btn:hover{
-  transform:scale(1.06);
-  background:linear-gradient(135deg,#e04c10,#ff6b1a,#ffab30);
-  box-shadow:0 0 30px rgba(249,115,22,.9), 0 0 60px rgba(249,115,22,.45);
-}
-.mm-ball{font-size:18px;animation:mmSpin 1.5s linear infinite;display:inline-block;}
-@keyframes mmSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-
 .discord-btn{display:flex;align-items:center;gap:8px;background:#5865F2;padding:8px 16px;border-radius:10px;color:white;text-decoration:none;font-weight:700;font-size:14px;border:1px solid rgba(255,255,255,.1);transition:.2s;box-shadow:0 2px 10px rgba(88,101,242,.35);}
 .discord-btn svg{width:22px;height:22px;}
 .discord-btn:hover{background:#ff8c00;box-shadow:0 0 16px rgba(255,140,0,.5);}
@@ -75,127 +42,12 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .discord-hero-btn svg{width:22px;height:22px;flex-shrink:0;}
 .discord-hero-btn:hover{background:#ff8c00;box-shadow:0 6px 26px rgba(255,140,0,.5);transform:scale(1.05);}
 
-/* ===== MARCH MADNESS BANNER ===== */
-.mm-banner{
-  position:relative;
-  margin:36px 28px 12px;
-  border-radius:22px;
-  overflow:hidden;
-  cursor:pointer;
-  min-height:200px;
-  display:flex;align-items:center;
-  background:linear-gradient(135deg,#0d0d0d 0%,#1a0800 30%,#2b0c00 60%,#0d0d0d 100%);
-  border:2px solid rgba(249,115,22,.4);
-  box-shadow:0 0 40px rgba(249,115,22,.25), 0 0 80px rgba(249,115,22,.1), inset 0 0 60px rgba(0,0,0,.6);
-  text-decoration:none;
-  animation:mmBorderPulse 2.5s ease-in-out infinite;
-  transition:.25s;
-}
-.mm-banner:hover{
-  transform:scale(1.012);
-  box-shadow:0 0 60px rgba(249,115,22,.5), 0 0 120px rgba(249,115,22,.2);
-  border-color:rgba(249,115,22,.9);
-}
-@keyframes mmBorderPulse{
-  0%,100%{box-shadow:0 0 40px rgba(249,115,22,.25), 0 0 80px rgba(249,115,22,.1), inset 0 0 60px rgba(0,0,0,.6);}
-  50%{box-shadow:0 0 60px rgba(249,115,22,.45), 0 0 120px rgba(249,115,22,.2), inset 0 0 60px rgba(0,0,0,.6);}
-}
-
-/* Basketball hoop silhouette right side */
-.mm-hoop{
-  position:absolute;right:60px;top:50%;transform:translateY(-50%);
-  opacity:.15;font-size:140px;line-height:1;pointer-events:none;
-  filter:drop-shadow(0 0 30px rgba(249,115,22,1));
-  animation:mmHoopGlow 2s ease-in-out infinite;
-}
-@keyframes mmHoopGlow{
-  0%,100%{opacity:.13;filter:drop-shadow(0 0 20px rgba(249,115,22,.8));}
-  50%{opacity:.22;filter:drop-shadow(0 0 50px rgba(249,115,22,1));}
-}
-
-/* Confetti particles */
-.mm-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
-.mm-p{position:absolute;width:6px;height:10px;border-radius:2px;opacity:0;animation:mmConfetti 3s linear infinite;}
-@keyframes mmConfetti{
-  0%{opacity:0;transform:translateY(-20px) rotate(0deg);}
-  10%{opacity:.9;}
-  90%{opacity:.5;}
-  100%{opacity:0;transform:translateY(220px) rotate(720deg);}
-}
-
-/* Bracket lines background decoration */
-.mm-bracket-bg{
-  position:absolute;top:0;left:0;width:100%;height:100%;
-  opacity:.06;pointer-events:none;
-}
-
-/* Main text content */
-.mm-content{position:relative;z-index:2;padding:32px 40px;}
-.mm-eyebrow{
-  font-size:11px;font-weight:900;letter-spacing:3px;text-transform:uppercase;
-  color:#f97316;margin-bottom:8px;
-  display:flex;align-items:center;gap:8px;
-}
-.mm-eyebrow::before,.mm-eyebrow::after{
-  content:'';display:inline-block;height:2px;width:24px;
-  background:linear-gradient(90deg,transparent,#f97316);
-}
-.mm-eyebrow::after{background:linear-gradient(90deg,#f97316,transparent);}
-.mm-title{
-  font-family:'Luckiest Guy';
-  font-size:clamp(40px,6vw,80px);
-  line-height:1;
-  margin:0 0 6px;
-  background:linear-gradient(135deg,#fff 0%,#ffe4c4 35%,#f97316 65%,#c8410a 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  filter:drop-shadow(0 2px 20px rgba(249,115,22,.6));
-  letter-spacing:2px;
-}
-.mm-sub{
-  font-size:17px;color:#ffb07a;font-weight:700;margin:8px 0 28px;
-  letter-spacing:.4px;
-}
-.mm-cta{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:14px 32px;border-radius:12px;
-  background:linear-gradient(135deg,#e85d10,#f97316,#ffab30);
-  color:#fff;font-weight:900;font-size:16px;letter-spacing:.5px;
-  border:none;cursor:pointer;text-decoration:none;
-  box-shadow:0 4px 24px rgba(249,115,22,.6), 0 0 40px rgba(249,115,22,.2);
-  animation:mmCtaPulse 1.8s ease-in-out infinite;
-  transition:.2s;
-}
-.mm-cta:hover{transform:scale(1.07);box-shadow:0 6px 36px rgba(249,115,22,.9);}
-@keyframes mmCtaPulse{
-  0%,100%{box-shadow:0 4px 24px rgba(249,115,22,.6), 0 0 40px rgba(249,115,22,.2);}
-  50%{box-shadow:0 4px 36px rgba(249,115,22,.9), 0 0 70px rgba(249,115,22,.4);}
-}
-.mm-cta-ball{font-size:22px;animation:mmSpin 1s linear infinite;display:inline-block;}
-
-/* Tournament bracket mini-graphic */
-.mm-bracket{
-  position:absolute;right:260px;top:50%;transform:translateY(-50%);
-  display:flex;gap:10px;align-items:center;
-  opacity:.35;pointer-events:none;
-}
-.mm-brk-col{display:flex;flex-direction:column;gap:8px;}
-.mm-brk-match{
-  width:50px;height:22px;border-radius:5px;
-  background:linear-gradient(90deg,rgba(249,115,22,.5),rgba(249,115,22,.2));
-  border:1px solid rgba(249,115,22,.4);
-}
-.mm-brk-line{width:16px;height:2px;background:rgba(249,115,22,.4);align-self:center;}
-.mm-brk-col2 .mm-brk-match{height:52px;}
-.mm-brk-col3 .mm-brk-match{height:114px;}
-.mm-trophy{position:absolute;right:170px;top:50%;transform:translateY(-50%);font-size:48px;opacity:.45;animation:mmTrophyBob 2s ease-in-out infinite;}
-@keyframes mmTrophyBob{0%,100%{transform:translateY(-50%) scale(1);}50%{transform:translateY(calc(-50% - 6px)) scale(1.08);}}
-
-/* STATS */
 .stats{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:52px 0 16px;}
 .stat-card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:18px;padding:28px 44px;text-align:center;min-width:130px;transition:.25s;}
 .stat-card:hover{border-color:#ff8c00;box-shadow:0 0 20px rgba(255,140,0,.2);transform:translateY(-4px);}
 .stat-num{font-family:'Luckiest Guy';font-size:52px;background:linear-gradient(45deg,#ff7b00,#ffae00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;}
 .stat-label{font-size:13px;color:#777;margin-top:8px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;}
+
 .section-title{font-family:'Luckiest Guy';font-size:34px;margin:54px 0 20px;background:linear-gradient(45deg,#ff7b00,#ffae00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;padding:0 40px;}
 
 /* BELT */
@@ -220,6 +72,7 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .featured-game .ftitle{position:absolute;bottom:0;width:100%;text-align:center;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.45) 50%,rgba(0,0,0,0) 100%);padding:32px 8px 10px;opacity:0;transition:.25s;font-weight:600;font-size:14px;box-sizing:border-box;color:white;}
 .featured-game:hover .ftitle{opacity:1;}
 .hot-badge{position:absolute;top:8px;right:8px;background:linear-gradient(45deg,#ff4500,#ff8c00);color:white;font-size:11px;font-weight:800;padding:3px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;}
+
 .view-all-btn{display:block;width:fit-content;margin:8px auto 20px;padding:12px 32px;border:2px solid #ff8c00;background:transparent;color:#ff8c00;font-weight:700;font-size:15px;border-radius:10px;cursor:pointer;transition:.2s;text-decoration:none;}
 .view-all-btn:hover{background:#ff8c00;color:#111;}
 
@@ -235,7 +88,7 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 <div class="bg" id="bg"></div>
 
 <div class="topbar">
-  <div class="top-center">Created by RedTheDev &amp; ControlMC</div>
+  <div class="top-center">Created by RedTheDev & ControlMC</div>
   <a class="top-left" href="index.html">
     <div class="logo-emoji">🌭</div>
     <div class="header-text">Hotdog Party</div>
@@ -245,13 +98,6 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="12" rx="4"/><path d="M8 11v4M6 13h4"/><circle cx="16" cy="12" r="1" fill="currentColor"/><circle cx="18" cy="14" r="1" fill="currentColor"/></svg>
       Games
     </a>
-
-    <!-- MARCH MADNESS NAV TAB -->
-    <a class="mm-nav-btn" href="marchmadness.html" target="_blank">
-      <span class="mm-ball">🏀</span>
-      MARCH MADNESS
-    </a>
-
     <a class="nav-btn" href="contact.html">
       <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
       Contact
@@ -278,44 +124,6 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
   </div>
 </div>
 
-<!-- ===== MARCH MADNESS BANNER ===== -->
-<a class="mm-banner" href="marchmadness.html" target="_blank" id="mmBanner">
-  <!-- Confetti particles injected by JS -->
-  <div class="mm-particles" id="mmParticles"></div>
-
-  <!-- Bracket silhouette -->
-  <div class="mm-bracket">
-    <div class="mm-brk-col">
-      <div class="mm-brk-match"></div>
-      <div class="mm-brk-match"></div>
-      <div class="mm-brk-match"></div>
-      <div class="mm-brk-match"></div>
-    </div>
-    <div class="mm-brk-line"></div>
-    <div class="mm-brk-col mm-brk-col2">
-      <div class="mm-brk-match"></div>
-      <div class="mm-brk-match"></div>
-    </div>
-    <div class="mm-brk-line"></div>
-    <div class="mm-brk-col mm-brk-col3">
-      <div class="mm-brk-match"></div>
-    </div>
-  </div>
-
-  <div class="mm-trophy">🏆</div>
-  <div class="mm-hoop">🏀</div>
-
-  <div class="mm-content">
-    <div class="mm-eyebrow">🔥 Live Now &nbsp;·&nbsp; 2026 Tournament</div>
-    <div class="mm-title">MARCH<br>MADNESS</div>
-    <div class="mm-sub">Fill your bracket. Crush the competition. Claim glory.</div>
-    <div class="mm-cta" onclick="event.preventDefault();window.open('marchmadness.html','_blank')">
-      <span class="mm-cta-ball">🏀</span>
-      CLICK HERE →
-    </div>
-  </div>
-</a>
-
 <div class="stats">
   <div class="stat-card"><div class="stat-num" id="stat-games">60+</div><div class="stat-label">Games</div></div>
   <div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">Free</div></div>
@@ -324,6 +132,7 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 
 <div class="section-title">🎮 Browse Games</div>
 <div class="belt-wrapper"><div class="belt-track" id="belt-track"></div></div>
+
 <div class="featured-grid" id="featured-games"></div>
 <a class="view-all-btn" href="games.html">View All Games →</a>
 
@@ -333,12 +142,15 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 
 <script>
 const FB_URL = "https://hotdog-party-61e77-default-rtdb.firebaseio.com/plays"
+
 function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5) }
+
 function gameURL(game) {
   return "game.html?path=" + encodeURIComponent(game.path) +
-    "&name=" + encodeURIComponent(game.name) +
-    "&icon=" + encodeURIComponent(game.icon)
+         "&name=" + encodeURIComponent(game.name) +
+         "&icon=" + encodeURIComponent(game.icon)
 }
+
 function renderBelt(games) {
   const track = document.getElementById("belt-track")
   const items = [...shuffle(games), ...shuffle(games)]
@@ -349,14 +161,15 @@ function renderBelt(games) {
     </a>`
   ).join("")
 }
+
 function renderFeatured(games) {
   const container = document.getElementById("featured-games")
   container.innerHTML = ""
   games.slice(0, 10).forEach((game, i) => {
     const badge = i === 0 ? '<div class="hot-badge">🥇 #1</div>'
-      : i === 1 ? '<div class="hot-badge">🥈 #2</div>'
-      : i === 2 ? '<div class="hot-badge">🥉 #3</div>'
-      : `<div class="hot-badge">#${i+1}</div>`
+                : i === 1 ? '<div class="hot-badge">🥈 #2</div>'
+                : i === 2 ? '<div class="hot-badge">🥉 #3</div>'
+                : `<div class="hot-badge">#${i+1}</div>`
     const a = document.createElement("a")
     a.className = "featured-game"
     a.href = gameURL(game)
@@ -364,12 +177,14 @@ function renderFeatured(games) {
     container.appendChild(a)
   })
 }
+
 async function loadGames() {
   try {
     const res = await fetch("games.json")
     const games = await res.json()
     document.getElementById("stat-games").textContent = games.length
     renderBelt(games)
+
     try {
       const lbRes = await fetch(FB_URL + ".json")
       const lbData = await lbRes.json()
@@ -391,6 +206,7 @@ async function loadGames() {
     console.error("Could not load games.json:", e)
   }
 }
+
 loadGames()
 
 // Background shapes
@@ -402,25 +218,6 @@ for (let i = 0; i < 30; i++) {
   shape.style.top = Math.random() * 100 + "%"
   shape.style.animationDuration = (Math.random() * 20 + 10) + "s"
   bg.appendChild(shape)
-}
-
-// March Madness confetti particles
-const COLORS = ['#f97316','#fb923c','#fbbf24','#fff','#c8410a','#fde68a','#ea580c'];
-const pContainer = document.getElementById("mmParticles");
-for (let i = 0; i < 28; i++) {
-  const p = document.createElement("div");
-  p.className = "mm-p";
-  p.style.cssText = `
-    left:${Math.random()*100}%;
-    top:${Math.random()*10 - 5}%;
-    background:${COLORS[Math.floor(Math.random()*COLORS.length)]};
-    animation-delay:${Math.random()*3}s;
-    animation-duration:${2.5 + Math.random()*2}s;
-    transform:rotate(${Math.random()*360}deg);
-    width:${4+Math.random()*6}px;
-    height:${8+Math.random()*8}px;
-  `;
-  pContainer.appendChild(p);
 }
 
 window.addEventListener("scroll", () => {
