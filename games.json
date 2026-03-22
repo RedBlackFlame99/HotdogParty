@@ -41,7 +41,7 @@
     },
     {
         "name": "Basket Random",
-        "path": "games/basket_random/basket_random.html",
+        "path": "games/basket_random/index.html",
         "icon": "games/basket_random/icon.png"
     },
     {
