@@ -42,8 +42,40 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .copy-btn{background:rgba(255,140,0,.1);border:1px solid rgba(255,140,0,.3);color:#ff8c00;font-size:13px;font-weight:700;padding:7px 16px;border-radius:8px;cursor:pointer;transition:.2s;flex-shrink:0;}
 .copy-btn:hover{background:rgba(255,140,0,.22);border-color:#ff8c00;}
 .copy-btn.copied{background:rgba(0,200,100,.12);border-color:rgba(0,200,100,.4);color:#00c864;}
-.recommend-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px;background:linear-gradient(45deg,#ff8c00,#ffd000);color:#111;font-weight:900;font-size:17px;border:none;border-radius:14px;cursor:pointer;text-decoration:none;transition:.2s;box-shadow:0 4px 20px rgba(255,140,0,.35);margin-top:8px;}
+.recommend-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px;background:linear-gradient(45deg,#ff8c00,#ffd000);color:#111;font-weight:900;font-size:17px;border:none;border-radius:14px;cursor:pointer;text-decoration:none;transition:.2s;box-shadow:0 4px 20px rgba(255,140,0,.35);margin-top:8px;box-sizing:border-box;}
 .recommend-btn:hover{transform:scale(1.03);box-shadow:0 6px 28px rgba(255,140,0,.55);}
+
+/* CHANGELOG BUTTON */
+.changelog-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px;background:transparent;color:#aaa;font-weight:800;font-size:16px;border:2px solid #2a2a2a;border-radius:14px;cursor:pointer;transition:.2s;box-sizing:border-box;margin-top:8px;}
+.changelog-btn:hover{border-color:#ff8c00;color:#ff8c00;background:rgba(255,140,0,.06);box-shadow:0 0 18px rgba(255,140,0,.12);}
+.changelog-btn svg{width:20px;height:20px;}
+
+/* CHANGELOG MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;opacity:0;pointer-events:none;transition:opacity .25s;}
+.modal-overlay.open{opacity:1;pointer-events:auto;}
+.modal{background:#161616;border:1px solid #2e2e2e;border-radius:22px;width:100%;max-width:520px;max-height:80vh;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(0,0,0,.7);transform:translateY(24px) scale(.97);transition:transform .25s,opacity .25s;overflow:hidden;}
+.modal-overlay.open .modal{transform:translateY(0) scale(1);}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:26px 30px 20px;border-bottom:1px solid #242424;flex-shrink:0;}
+.modal-title{font-family:'Luckiest Guy';font-size:28px;background:linear-gradient(45deg,#ff7b00,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;}
+.modal-close{background:rgba(255,255,255,.06);border:1px solid #333;color:#aaa;width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0;}
+.modal-close:hover{background:rgba(255,140,0,.15);border-color:#ff8c00;color:#ff8c00;}
+.modal-body{overflow-y:auto;padding:24px 30px;display:flex;flex-direction:column;gap:16px;}
+
+/* SCROLLBAR */
+.modal-body::-webkit-scrollbar{width:6px;}
+.modal-body::-webkit-scrollbar-track{background:transparent;}
+.modal-body::-webkit-scrollbar-thumb{background:#333;border-radius:3px;}
+.modal-body::-webkit-scrollbar-thumb:hover{background:#ff8c00;}
+
+/* LOG ENTRIES */
+.log-entry{background:#1e1e1e;border:1px solid #2a2a2a;border-radius:14px;padding:20px 22px;transition:.2s;}
+.log-entry:hover{border-color:rgba(255,140,0,.35);box-shadow:0 0 16px rgba(255,140,0,.08);}
+.log-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;flex-wrap:wrap;}
+.log-version{font-family:'Luckiest Guy';font-size:20px;background:linear-gradient(45deg,#ff7b00,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.5px;}
+.log-date{font-size:12px;font-weight:700;color:#555;letter-spacing:.8px;text-transform:uppercase;background:#252525;padding:4px 10px;border-radius:6px;white-space:nowrap;}
+.log-desc{font-size:14px;color:#999;line-height:1.65;}
+.log-loading{text-align:center;color:#555;font-size:15px;padding:30px 0;}
+.log-error{text-align:center;color:#ff5555;font-size:14px;padding:30px 0;}
 </style>
 </head>
 <body>
@@ -75,6 +107,7 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 <div class="contact-wrap">
   <h2>📬 Contact Us</h2>
   <p>Got questions, issues, or just want to say hey? Reach out below.</p>
+
   <div class="contact-card">
     <div class="contact-card-label">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -85,6 +118,7 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
       <button class="copy-btn" id="copyBtn" onclick="copyEmail()">Copy</button>
     </div>
   </div>
+
   <div class="contact-card">
     <div class="contact-card-label">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -93,6 +127,31 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSfYiXKpJ7o2cjKgrCvz6uNZ_lulE3e90rBCsKrtCXt4oQ1qoA/viewform?usp=publish-editor" target="_blank" class="recommend-btn">
       🎮 Recommendations
     </a>
+  </div>
+
+  <!-- CHANGELOG CARD -->
+  <div class="contact-card">
+    <div class="contact-card-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      Site updates
+    </div>
+    <button class="changelog-btn" onclick="openChangelog()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      📋 View Changelog
+    </button>
+  </div>
+</div>
+
+<!-- CHANGELOG MODAL -->
+<div class="modal-overlay" id="changelogOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="changelogModal">
+    <div class="modal-header">
+      <div class="modal-title">📋 Changelog</div>
+      <button class="modal-close" onclick="closeChangelog()">✕</button>
+    </div>
+    <div class="modal-body" id="changelogBody">
+      <div class="log-loading">Loading changelog...</div>
+    </div>
   </div>
 </div>
 
@@ -105,15 +164,78 @@ function copyEmail() {
   setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("copied") }, 2000)
 }
 
+// Background shapes
 const bg = document.getElementById("bg")
 for (let i = 0; i < 30; i++) {
   const s = document.createElement("div")
   s.className = "shape"
   s.style.left = Math.random() * 100 + "%"
-  s.style.top  = Math.random() * 100 + "%"
+  s.style.top = Math.random() * 100 + "%"
   s.style.animationDuration = (Math.random() * 20 + 10) + "s"
   bg.appendChild(s)
 }
+
+// Changelog
+let changelogLoaded = false
+
+async function openChangelog() {
+  document.getElementById("changelogOverlay").classList.add("open")
+  document.body.style.overflow = "hidden"
+
+  if (changelogLoaded) return
+  changelogLoaded = true
+
+  try {
+    const res = await fetch("logs.json")
+    if (!res.ok) throw new Error("HTTP " + res.status)
+    const logs = await res.json()
+    logs.sort((a, b) => b.id - a.id)
+    renderChangelog(logs)
+  } catch (err) {
+    document.getElementById("changelogBody").innerHTML =
+      `<div class="log-error">⚠️ Could not load changelog.<br><small>${err.message}</small></div>`
+  }
+}
+
+function renderChangelog(logs) {
+  if (!Array.isArray(logs) || logs.length === 0) {
+    document.getElementById("changelogBody").innerHTML =
+      `<div class="log-loading">No changelog entries found.</div>`
+    return
+  }
+
+  document.getElementById("changelogBody").innerHTML = logs.map(entry => `
+    <div class="log-entry">
+      <div class="log-top">
+        <span class="log-version">${escapeHtml(entry.version)}</span>
+        <span class="log-date">${escapeHtml(entry.date)}</span>
+      </div>
+      <div class="log-desc">${escapeHtml(entry.description)}</div>
+    </div>
+  `).join("")
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+}
+
+function closeChangelog() {
+  document.getElementById("changelogOverlay").classList.remove("open")
+  document.body.style.overflow = ""
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById("changelogOverlay")) closeChangelog()
+}
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeChangelog()
+})
 </script>
+
 </body>
 </html>

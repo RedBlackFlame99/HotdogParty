@@ -1,0 +1,21 @@
+[
+  {
+    "id": 3,
+    "version": "v1.2.0",
+    "date": "March 21, 2026",
+    "description": "Added changelog button to the Contact page. You can now see site updates directly from the contact section."
+  },
+  {
+    "id": 2,
+    "version": "v1.1.0",
+    "date": "March 10, 2026",
+    "description": "Revamped the Games page with a leaderboard-based featured grid powered by Firebase play counts."
+  },
+  {
+    "id": 1,
+    "version": "v1.0.0",
+    "date": "February 28, 2026",
+    "description": "Initial launch of Hotdog Party. 60+ games, Discord integration, and a fire orange theme."
+  }
+]
+
