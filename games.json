@@ -1012,7 +1012,7 @@
     {
         "name": "Clicker Heros",
         "path": "games/clickerheroes/index.html",
-        "icon": "games/clickerheroes/clicker-heros.jpg"
+        "icon": "games/clickerheroes/icon-512.png"
     }
 
 ]
