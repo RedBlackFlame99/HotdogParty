@@ -161,7 +161,7 @@
     },
     {
         "name": "Ragdoll Hit",
-        "path": "games/ragdoll/hit/clragdollhit.html",
+        "path": "games/ragdoll/hit/clragollhit.html",
         "icon": "games/ragdoll/hit/icon.png"
     },
     {
