@@ -1013,6 +1013,11 @@
         "name": "Clicker Heros",
         "path": "games/clickerheroes/index.html",
         "icon": "games/clickerheroes/icon-512.png"
+    },
+    {
+        "name": "Five Nights at Epstein's",
+        "path": "games/epstein/five.html",
+        "icon": "games/epstein/icon.png"
     }
 
 ]
