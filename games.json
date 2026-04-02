@@ -1013,5 +1013,10 @@
         "name": "Clicker Heros",
         "path": "games/clickerheroes/index.html",
         "icon": "games/clickerheroes/clicker-heroes.png"
+    },
+    {
+        "name": "Run 3",
+        "path": "games/run3/clrun3.html",
+        "icon": "games/run3/icon.png"
     }
 ]
