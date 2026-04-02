@@ -1068,5 +1068,35 @@
         "name": "Battle Karts",
         "path": "games/battle-karts/index.html",
         "icon": "games/battle-karts/icon.png"
+    },
+    {
+        "name": "Bounce Masters",
+        "path": "games/bounce-masters/index.html",
+        "icon": "games/bounce-masters/icon.png"
+    },
+    {
+        "name": "Bounce Back",
+        "path": "games/bounce-back/index.html",
+        "icon": "games/bounce-back/icon.png"
+    },
+    {
+        "name": "Bouncy Motors",
+        "path": "games/bouncy-motors/index.html",
+        "icon": "games/bouncy-motors/icon.png"
+    },
+    {
+        "name": "Brawl Simulator 3D",
+        "path": "games/brawl-simulator-3d/index.html",
+        "icon": "games/brawl-simulator-3d/icon.png"
+    },
+    {
+        "name": "Brotato",
+        "path": "games/brotato/index.html",
+        "icon": "games/brotato/icon.png"
+    },
+    {
+        "name": "Buster Jam",
+        "path": "games/buster-jam/index.html",
+        "icon": "games/buster-jam/icon.png"
     }
 ]
