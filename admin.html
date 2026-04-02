@@ -662,7 +662,9 @@ function applyLockUI(locked, reason) {
       ? "Reason: " + reason
       : "No new logins are possible";
 
+    // 🔥 Once locked, disable button so it can't be reversed
     lockBtn.disabled = true;
+
   } else {
     badge.textContent = "🔓 UNLOCKED";
     badge.className = "lock-status-badge unlocked";
@@ -672,6 +674,7 @@ function applyLockUI(locked, reason) {
     titleEl.textContent = "Panel is UNLOCKED";
     subEl.textContent = "Anyone with the correct password can log in";
 
+    // Allow locking only when currently unlocked
     lockBtn.disabled = false;
   }
 }
