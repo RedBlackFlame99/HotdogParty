@@ -1098,5 +1098,20 @@
         "name": "Buster Jam",
         "path": "games/buster-jam/index.html",
         "icon": "games/buster-jam/icon.png"
+    },
+    {
+        "name": "Cannon Balls 3D",
+        "path": "games/cannon-balls-3d/index.html",
+        "icon": "games/cannon-balls-3d/icon.png"
+    },
+    {
+        "name": "Car Drawing",
+        "path": "games/car-drawing/index.html",
+        "icon": "games/car-drawing/icon.png"
+    },
+    {
+        "name": "Circloo 2",
+        "path": "games/circloo2/index.html",
+        "icon": "games/circloo2/icon.png"
     }
 ]
