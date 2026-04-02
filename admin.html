@@ -7,443 +7,228 @@
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --bg: #0d0d0f;
-  --surface: #141418;
-  --surface2: #1c1c22;
-  --border: #2a2a35;
-  --border-hot: rgba(255,140,0,.45);
-  --orange: #ff8c00;
-  --orange-light: #ffb347;
-  --orange-glow: rgba(255,140,0,.25);
-  --green: #4ade80;
-  --green-dim: rgba(74,222,128,.15);
-  --red: #f87171;
-  --red-dim: rgba(248,113,113,.15);
-  --text: #e8e8f0;
-  --text-muted: #666;
-  --text-dim: #999;
-  --radius: 14px;
+  --bg: #0d0d0f; --surface: #141418; --surface2: #1c1c22;
+  --border: #2a2a35; --border-hot: rgba(255,140,0,.45);
+  --orange: #ff8c00; --orange-light: #ffb347; --orange-glow: rgba(255,140,0,.22);
+  --green: #4ade80; --green-dim: rgba(74,222,128,.13);
+  --red: #f87171; --red-dim: rgba(248,113,113,.13);
+  --text: #e8e8f0; --text-muted: #666; --text-dim: #999; --radius: 14px;
 }
-
-body {
-  font-family: "JetBrains Mono", monospace;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* ---- GRID BG ---- */
+body { font-family:"JetBrains Mono",monospace; background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden; }
 body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,140,0,.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,140,0,.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  pointer-events: none;
-  z-index: 0;
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image: linear-gradient(rgba(255,140,0,.03) 1px,transparent 1px),
+                    linear-gradient(90deg,rgba(255,140,0,.03) 1px,transparent 1px);
+  background-size:40px 40px;
 }
 
-/* ---- LOGIN SCREEN ---- */
-#loginScreen {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg);
+/* LOCK SCREEN */
+#lockScreen {
+  position:fixed; inset:0; z-index:10000; display:none;
+  align-items:center; justify-content:center; flex-direction:column;
+  gap:18px; text-align:center; padding:24px; background:var(--bg);
 }
+.lock-icon { font-size:72px; animation:lock-pulse 2s infinite; }
+@keyframes lock-pulse{0%,100%{transform:scale(1) rotate(-3deg)}50%{transform:scale(1.06) rotate(3deg)}}
+.lock-title { font-family:'Luckiest Guy'; font-size:32px; background:linear-gradient(45deg,#f87171,#fca5a5); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.lock-sub { font-size:13px; color:var(--text-muted); max-width:340px; line-height:1.6; }
+.lock-reason-box { background:rgba(248,113,113,.07); border:1px solid rgba(248,113,113,.25); border-radius:10px; padding:10px 18px; font-size:12px; color:#f87171; max-width:400px; width:100%; }
+.lock-hint { font-size:10px; color:#444; letter-spacing:.5px; }
 
-.login-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 44px 40px;
-  width: 100%;
-  max-width: 380px;
-  text-align: center;
-  box-shadow: 0 0 60px rgba(0,0,0,.6), 0 0 0 1px rgba(255,140,0,.06);
-  position: relative;
-  z-index: 1;
-}
+/* LOGIN SCREEN */
+#loginScreen { position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; background:var(--bg); }
+#loginLoading { display:flex; flex-direction:column; align-items:center; gap:12px; }
+.spinner { width:32px; height:32px; border:3px solid rgba(255,140,0,.15); border-top-color:#ff8c00; border-radius:50%; animation:spin .7s linear infinite; }
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner-label { font-size:11px; color:var(--text-muted); letter-spacing:.5px; }
+.login-card { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:44px 40px; width:100%; max-width:380px; text-align:center; box-shadow:0 0 60px rgba(0,0,0,.6),0 0 0 1px rgba(255,140,0,.06); position:relative; z-index:1; display:none; }
+.login-logo { font-size:48px; margin-bottom:8px; display:block; animation:pulse 2.5s infinite; }
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.login-title { font-family:'Luckiest Guy'; font-size:28px; background:linear-gradient(45deg,#ff7b00,#ffcc00); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:4px; }
+.login-sub { font-size:11px; color:var(--text-muted); margin-bottom:28px; letter-spacing:.5px; }
+.login-input { width:100%; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:12px 16px; font-family:"JetBrains Mono",monospace; font-size:16px; color:var(--text); outline:none; letter-spacing:4px; text-align:center; transition:border-color .2s,box-shadow .2s; margin-bottom:14px; }
+.login-input:focus { border-color:var(--orange); box-shadow:0 0 0 3px var(--orange-glow); }
+.login-btn { width:100%; background:linear-gradient(135deg,#ff7b00,#ffae00); border:none; border-radius:10px; padding:12px; font-family:'Luckiest Guy'; font-size:17px; color:#1a0a00; cursor:pointer; letter-spacing:1px; transition:opacity .2s,transform .15s,box-shadow .2s; box-shadow:0 4px 18px rgba(255,140,0,.35); }
+.login-btn:hover { opacity:.93; transform:translateY(-1px); box-shadow:0 6px 24px rgba(255,140,0,.5); }
+.login-btn:active { transform:translateY(0); }
+.login-error { margin-top:12px; font-size:12px; color:var(--red); opacity:0; transition:opacity .2s; }
+.login-error.show { opacity:1; }
+.login-attempts { margin-top:8px; font-size:10px; color:#555; }
 
-.login-logo {
-  font-size: 48px;
-  margin-bottom: 8px;
-  display: block;
-  animation: pulse 2.5s infinite;
-}
-@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.07)} }
+/* MAIN APP */
+#adminApp { position:relative; z-index:1; display:none; }
+.topbar { position:sticky; top:0; background:rgba(13,13,15,.96); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); padding:14px 28px; display:flex; align-items:center; justify-content:space-between; z-index:100; }
+.topbar-left { display:flex; align-items:center; gap:14px; }
+.topbar-logo { font-size:28px; }
+.topbar-title { font-family:'Luckiest Guy'; font-size:20px; background:linear-gradient(45deg,#ff7b00,#ffcc00); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.topbar-badge { font-size:10px; font-weight:700; background:var(--orange-glow); border:1px solid var(--border-hot); color:var(--orange-light); padding:3px 8px; border-radius:6px; letter-spacing:1px; }
+.lock-status-badge { font-size:10px; font-weight:700; padding:3px 10px; border-radius:6px; letter-spacing:.8px; cursor:pointer; transition:all .2s; }
+.lock-status-badge.unlocked { background:rgba(74,222,128,.13); border:1px solid rgba(74,222,128,.3); color:var(--green); }
+.lock-status-badge.locked   { background:var(--red-dim); border:1px solid rgba(248,113,113,.3); color:var(--red); }
+.topbar-right { display:flex; align-items:center; gap:10px; }
+.btn-sm { font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:700; padding:7px 14px; border-radius:8px; cursor:pointer; transition:all .18s; border:1px solid var(--border); background:var(--surface2); color:var(--text-dim); text-decoration:none; display:inline-flex; align-items:center; gap:6px; }
+.btn-sm:hover { border-color:var(--orange); color:var(--orange); }
+.btn-sm.danger { border-color:rgba(248,113,113,.3); color:var(--red); }
+.btn-sm.danger:hover { background:var(--red-dim); border-color:var(--red); }
 
-.login-title {
-  font-family: 'Luckiest Guy';
-  font-size: 28px;
-  background: linear-gradient(45deg, #ff7b00, #ffcc00);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 4px;
-}
-.login-sub {
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-bottom: 28px;
-  letter-spacing: .5px;
-}
+/* CONTENT */
+.content { max-width:900px; margin:0 auto; padding:32px 24px; display:flex; flex-direction:column; gap:24px; }
+.card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+.card-header { padding:16px 22px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; }
+.card-icon { font-size:18px; }
+.card-title { font-size:13px; font-weight:700; color:var(--text); letter-spacing:.5px; }
+.card-subtitle { font-size:11px; color:var(--text-muted); }
+.card-header-right { margin-left:auto; display:flex; gap:8px; align-items:center; }
+.card-body { padding:22px; }
 
-.login-input {
-  width: 100%;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 12px 16px;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 16px;
-  color: var(--text);
-  outline: none;
-  letter-spacing: 4px;
-  text-align: center;
-  transition: border-color .2s, box-shadow .2s;
-  margin-bottom: 14px;
-}
-.login-input:focus {
-  border-color: var(--orange);
-  box-shadow: 0 0 0 3px var(--orange-glow);
-}
+/* STATS */
+.stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.stat-card { background:var(--surface2); border:1px solid var(--border); border-radius:11px; padding:18px 20px; display:flex; flex-direction:column; gap:6px; }
+.stat-label { font-size:10px; color:var(--text-muted); letter-spacing:.8px; text-transform:uppercase; }
+.stat-value { font-size:28px; font-weight:700; font-family:'Luckiest Guy'; background:linear-gradient(45deg,#ff7b00,#ffcc00); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.stat-sub { font-size:10px; color:#555; }
 
-.login-btn {
-  width: 100%;
-  background: linear-gradient(135deg, #ff7b00, #ffae00);
-  border: none;
-  border-radius: 10px;
-  padding: 12px;
-  font-family: 'Luckiest Guy';
-  font-size: 17px;
-  color: #1a0a00;
-  cursor: pointer;
-  letter-spacing: 1px;
-  transition: opacity .2s, transform .15s, box-shadow .2s;
-  box-shadow: 0 4px 18px rgba(255,140,0,.35);
-}
-.login-btn:hover { opacity: .93; transform: translateY(-1px); box-shadow: 0 6px 24px rgba(255,140,0,.5); }
-.login-btn:active { transform: translateY(0); }
+/* FORMS */
+.form-row { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+.form-label { font-size:11px; font-weight:700; color:var(--text-muted); letter-spacing:.8px; text-transform:uppercase; }
+.form-input,.form-textarea { background:var(--surface2); border:1px solid var(--border); border-radius:9px; padding:11px 14px; font-family:"JetBrains Mono",monospace; font-size:13px; color:var(--text); outline:none; transition:border-color .18s,box-shadow .18s; width:100%; }
+.form-input:focus,.form-textarea:focus { border-color:var(--orange); box-shadow:0 0 0 3px var(--orange-glow); }
+.form-textarea { resize:vertical; min-height:80px; line-height:1.5; }
+.form-row-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.emoji-picker { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
+.emoji-opt { font-size:20px; padding:5px 8px; border-radius:7px; border:1px solid var(--border); background:var(--surface2); cursor:pointer; transition:all .15s; line-height:1; }
+.emoji-opt:hover,.emoji-opt.selected { border-color:var(--orange); background:var(--orange-glow); transform:scale(1.15); }
+.send-btn { width:100%; background:linear-gradient(135deg,#ff7b00,#ffae00); border:none; border-radius:10px; padding:13px; font-family:'Luckiest Guy'; font-size:16px; color:#1a0a00; cursor:pointer; letter-spacing:1px; transition:opacity .2s,transform .15s,box-shadow .2s; box-shadow:0 4px 18px rgba(255,140,0,.3); margin-top:6px; display:flex; align-items:center; justify-content:center; gap:8px; }
+.send-btn:hover { opacity:.92; transform:translateY(-1px); }
+.send-btn:disabled { opacity:.5; cursor:not-allowed; transform:none; }
 
-.login-error {
-  margin-top: 12px;
-  font-size: 12px;
-  color: var(--red);
-  opacity: 0;
-  transition: opacity .2s;
-}
-.login-error.show { opacity: 1; }
+/* TOAST PREVIEW */
+.toast-preview-wrap { background:#0d0d0f; border:1px solid var(--border); border-radius:11px; padding:20px 20px 12px; display:flex; align-items:flex-end; min-height:110px; position:relative; overflow:hidden; }
+.toast-preview-wrap::after { content:'↙ bottom-left corner'; position:absolute; bottom:8px; right:14px; font-size:9px; color:#444; }
+.toast-preview { display:flex; align-items:flex-start; background:#161618; border:1px solid rgba(255,140,0,.28); border-left:3px solid #ff8c00; border-radius:12px; overflow:hidden; min-width:260px; max-width:340px; }
+.tp-inner { display:flex; flex-direction:column; flex:1; min-width:0; padding:12px 10px 0 14px; }
+.tp-top { display:flex; align-items:flex-start; gap:9px; }
+.tp-emoji { font-size:20px; line-height:1; flex-shrink:0; margin-top:1px; }
+.tp-content { flex:1; min-width:0; }
+.tp-header { display:flex; align-items:center; gap:6px; margin-bottom:3px; }
+.tp-site { font-size:9px; font-weight:800; letter-spacing:1px; color:#ff8c00; background:rgba(255,140,0,.1); border:1px solid rgba(255,140,0,.2); border-radius:4px; padding:1px 5px; font-family:system-ui,sans-serif; text-transform:uppercase; }
+.tp-dot { width:6px; height:6px; border-radius:50%; background:#ff8c00; }
+.tp-title { font-size:12px; font-weight:700; color:#f0f0f0; margin-bottom:3px; font-family:system-ui,sans-serif; }
+.tp-msg { font-size:11px; color:#999; line-height:1.45; font-family:system-ui,sans-serif; padding-bottom:10px; }
+.tp-progress { height:3px; background:rgba(255,255,255,.06); }
+.tp-bar { height:100%; width:60%; background:linear-gradient(90deg,#ff7b00,#ffcc00); }
+.tp-close { background:none; border:none; color:#555; font-size:14px; cursor:pointer; padding:8px 10px 8px 4px; align-self:flex-start; margin-top:2px; }
 
-/* ---- MAIN ---- */
-#adminApp { position: relative; z-index: 1; }
+/* NOTIF LIST */
+.notif-list { display:flex; flex-direction:column; gap:10px; }
+.notif-item { display:flex; align-items:center; gap:14px; padding:14px 18px; background:var(--surface2); border:1px solid var(--border); border-radius:11px; }
+.notif-item.inactive { opacity:.5; }
+.notif-emoji { font-size:22px; flex-shrink:0; }
+.notif-info { flex:1; min-width:0; }
+.notif-name { font-size:13px; font-weight:700; color:var(--text); margin-bottom:3px; }
+.notif-body { font-size:11px; color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.notif-meta { font-size:10px; color:#555; margin-top:3px; }
+.notif-actions { display:flex; gap:6px; flex-shrink:0; }
+.notif-tag { font-size:10px; font-weight:700; padding:3px 8px; border-radius:5px; letter-spacing:.5px; flex-shrink:0; }
+.notif-tag.active  { background:rgba(74,222,128,.13); color:var(--green); border:1px solid rgba(74,222,128,.3); }
+.notif-tag.inactive { background:rgba(100,100,100,.15); color:#666; border:1px solid #333; }
 
-.topbar {
-  position: sticky;
-  top: 0;
-  background: rgba(13,13,15,.95);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 100;
-}
+/* LEADERBOARD EDITOR */
+.bulk-bar { display:flex; align-items:center; gap:10px; padding:12px 16px; background:rgba(248,113,113,.05); border:1px solid rgba(248,113,113,.18); border-radius:10px; margin-bottom:14px; }
+.bulk-label { font-size:11px; color:var(--text-muted); flex:1; }
+.bulk-reset-all { font-family:"JetBrains Mono",monospace; font-size:11px; font-weight:700; padding:7px 14px; border-radius:8px; cursor:pointer; transition:all .18s; border:1px solid rgba(248,113,113,.4); background:var(--red-dim); color:var(--red); }
+.bulk-reset-all:hover { background:rgba(248,113,113,.22); }
+.lb-search-wrap { margin-bottom:14px; }
+.lb-game-list { display:flex; flex-direction:column; gap:8px; }
+.lb-game-row { display:grid; grid-template-columns:38px 1fr 130px auto; align-items:center; gap:12px; padding:12px 16px; background:var(--surface2); border:1px solid var(--border); border-radius:11px; transition:border-color .18s; }
+.lb-game-row:hover { border-color:#3a3a45; }
+.lb-game-icon { width:38px; height:38px; border-radius:8px; object-fit:cover; }
+.lb-game-name { font-size:13px; font-weight:700; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.lb-game-count { font-size:11px; color:var(--text-muted); margin-top:2px; }
+.lb-count-input { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:8px 12px; font-family:"JetBrains Mono",monospace; font-size:13px; font-weight:700; color:var(--text); outline:none; width:100%; text-align:center; transition:border-color .18s,box-shadow .18s; }
+.lb-count-input:focus { border-color:var(--orange); box-shadow:0 0 0 2px var(--orange-glow); }
+.lb-count-input:disabled { opacity:.4; }
+.lb-actions { display:flex; gap:6px; flex-shrink:0; }
+.lb-save-btn { font-family:"JetBrains Mono",monospace; font-size:11px; font-weight:700; padding:7px 12px; border-radius:8px; cursor:pointer; transition:all .18s; border:1px solid rgba(74,222,128,.3); background:rgba(74,222,128,.13); color:var(--green); white-space:nowrap; }
+.lb-save-btn:hover { background:rgba(74,222,128,.22); border-color:var(--green); }
+.lb-save-btn:disabled { opacity:.4; cursor:not-allowed; }
+.lb-reset-btn { font-family:"JetBrains Mono",monospace; font-size:11px; font-weight:700; padding:7px 12px; border-radius:8px; cursor:pointer; transition:all .18s; border:1px solid rgba(248,113,113,.3); background:var(--red-dim); color:var(--red); white-space:nowrap; }
+.lb-reset-btn:hover { background:rgba(248,113,113,.22); border-color:var(--red); }
 
-.topbar-left { display: flex; align-items: center; gap: 14px; }
-.topbar-logo { font-size: 28px; }
-.topbar-title {
-  font-family: 'Luckiest Guy';
-  font-size: 20px;
-  background: linear-gradient(45deg, #ff7b00, #ffcc00);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.topbar-badge {
-  font-size: 10px;
-  font-weight: 700;
-  background: var(--orange-glow);
-  border: 1px solid var(--border-hot);
-  color: var(--orange-light);
-  padding: 3px 8px;
-  border-radius: 6px;
-  letter-spacing: 1px;
-}
+/* LOCK SECTION */
+.lock-panel { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; }
+.lock-action-card { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:20px; }
+.lock-action-title { font-size:12px; font-weight:700; color:var(--text); margin-bottom:6px; }
+.lock-action-desc  { font-size:11px; color:var(--text-muted); line-height:1.5; margin-bottom:14px; }
+.big-btn { width:100%; padding:11px; border-radius:9px; font-family:'Luckiest Guy'; font-size:14px; letter-spacing:.8px; cursor:pointer; transition:all .2s; border:none; }
+.big-btn.red   { background:linear-gradient(135deg,#ef4444,#f87171); color:white; box-shadow:0 4px 16px rgba(239,68,68,.25); }
+.big-btn.red:hover   { opacity:.9; transform:translateY(-1px); }
+.big-btn.green { background:linear-gradient(135deg,#22c55e,#4ade80); color:#0a1a0a; box-shadow:0 4px 16px rgba(34,197,94,.25); }
+.big-btn.green:hover { opacity:.9; transform:translateY(-1px); }
+.big-btn:disabled { opacity:.35; cursor:not-allowed; transform:none !important; }
+.lock-reason-input { width:100%; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:9px 12px; font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--text); outline:none; margin-bottom:10px; transition:border-color .18s; }
+.lock-reason-input:focus { border-color:var(--red); }
+.current-lock-status { display:flex; align-items:center; gap:10px; padding:13px 16px; border-radius:10px; border:1px solid; margin-bottom:4px; }
+.current-lock-status.locked-state   { background:rgba(248,113,113,.06); border-color:rgba(248,113,113,.22); }
+.current-lock-status.unlocked-state { background:rgba(74,222,128,.06);  border-color:rgba(74,222,128,.22);  }
+.cls-icon  { font-size:22px; }
+.cls-text  { flex:1; }
+.cls-title { font-size:12px; font-weight:700; margin-bottom:2px; }
+.cls-sub   { font-size:10px; color:var(--text-muted); }
+.locked-state   .cls-title { color:var(--red);   }
+.unlocked-state .cls-title { color:var(--green); }
+.lock-info-box { margin-top:14px; padding:12px 16px; background:rgba(255,140,0,.04); border:1px solid rgba(255,140,0,.1); border-radius:9px; font-size:10px; color:#666; line-height:1.7; }
 
-.topbar-right { display: flex; align-items: center; gap: 10px; }
-.btn-sm {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 7px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all .18s;
-  border: 1px solid var(--border);
-  background: var(--surface2);
-  color: var(--text-dim);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.btn-sm:hover { border-color: var(--orange); color: var(--orange); }
-.btn-sm.danger { border-color: rgba(248,113,113,.3); color: var(--red); }
-.btn-sm.danger:hover { background: var(--red-dim); border-color: var(--red); }
+/* MISC */
+.empty-state { text-align:center; padding:40px 20px; color:var(--text-muted); font-size:12px; }
+.empty-state .es-icon { font-size:36px; margin-bottom:10px; display:block; }
+.loading { color:var(--text-muted); font-size:12px; text-align:center; padding:20px; }
 
-/* ---- CONTENT ---- */
-.content { max-width: 860px; margin: 0 auto; padding: 32px 24px; display: flex; flex-direction: column; gap: 24px; }
-
-/* ---- CARD ---- */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-.card-header {
-  padding: 16px 22px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.card-icon { font-size: 18px; }
-.card-title { font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: .5px; }
-.card-subtitle { font-size: 11px; color: var(--text-muted); margin-left: auto; }
-.card-body { padding: 22px; }
-
-/* ---- COMPOSE FORM ---- */
-.form-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-.form-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: .8px; text-transform: uppercase; }
-
-.form-input, .form-textarea {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  padding: 11px 14px;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 13px;
-  color: var(--text);
-  outline: none;
-  transition: border-color .18s, box-shadow .18s;
-  width: 100%;
-}
-.form-input:focus, .form-textarea:focus {
-  border-color: var(--orange);
-  box-shadow: 0 0 0 3px var(--orange-glow);
-}
-.form-textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
-
-.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-
-.emoji-picker { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-.emoji-opt {
-  font-size: 20px;
-  padding: 5px 8px;
-  border-radius: 7px;
-  border: 1px solid var(--border);
-  background: var(--surface2);
-  cursor: pointer;
-  transition: all .15s;
-  line-height: 1;
-}
-.emoji-opt:hover, .emoji-opt.selected { border-color: var(--orange); background: var(--orange-glow); transform: scale(1.15); }
-
-.send-btn {
-  width: 100%;
-  background: linear-gradient(135deg, #ff7b00, #ffae00);
-  border: none;
-  border-radius: 10px;
-  padding: 13px;
-  font-family: 'Luckiest Guy';
-  font-size: 16px;
-  color: #1a0a00;
-  cursor: pointer;
-  letter-spacing: 1px;
-  transition: opacity .2s, transform .15s, box-shadow .2s;
-  box-shadow: 0 4px 18px rgba(255,140,0,.3);
-  margin-top: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-.send-btn:hover { opacity: .92; transform: translateY(-1px); box-shadow: 0 6px 24px rgba(255,140,0,.45); }
-.send-btn:active { transform: translateY(0); }
-.send-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
-
-/* ---- TOAST PREVIEW (mirrors notifications.js styles) ---- */
-.toast-preview-wrap {
-  background: #0d0d0f;
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  padding: 20px 20px 12px 20px;
-  display: flex;
-  align-items: flex-end;
-  min-height: 110px;
-  position: relative;
-  overflow: hidden;
-}
-.toast-preview-wrap::after {
-  content: '↙ bottom-left corner';
-  position: absolute;
-  bottom: 8px;
-  right: 14px;
-  font-size: 9px;
-  color: #444;
-  letter-spacing: .5px;
-}
-.toast-preview {
-  display: flex;
-  align-items: flex-start;
-  gap: 0;
-  background: #161618;
-  border: 1px solid rgba(255,140,0,.28);
-  border-left: 3px solid #ff8c00;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0,0,0,.5);
-  min-width: 260px;
-  max-width: 340px;
-}
-.tp-inner {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 0;
-  padding: 12px 10px 0 14px;
-}
-.tp-top { display: flex; align-items: flex-start; gap: 9px; }
-.tp-emoji { font-size: 20px; line-height: 1; flex-shrink: 0; margin-top: 1px; }
-.tp-content { flex: 1; min-width: 0; }
-.tp-header { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
-.tp-site {
-  font-size: 9px; font-weight: 800; letter-spacing: 1px;
-  color: #ff8c00; background: rgba(255,140,0,.1);
-  border: 1px solid rgba(255,140,0,.2); border-radius: 4px; padding: 1px 5px;
-  font-family: system-ui, sans-serif; text-transform: uppercase;
-}
-.tp-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #ff8c00; box-shadow: 0 0 4px rgba(255,140,0,.7);
-}
-.tp-title { font-size: 12px; font-weight: 700; color: #f0f0f0; margin-bottom: 3px; font-family: system-ui, sans-serif; }
-.tp-msg { font-size: 11px; color: #999; line-height: 1.45; font-family: system-ui, sans-serif; padding-bottom: 10px; }
-.tp-progress { height: 3px; background: rgba(255,255,255,.06); }
-.tp-bar { height: 100%; width: 60%; background: linear-gradient(90deg, #ff7b00, #ffcc00); border-radius: 0; }
-.tp-close {
-  background: none; border: none; color: #555; font-size: 14px;
-  cursor: pointer; padding: 8px 10px 8px 4px; align-self: flex-start; margin-top: 2px;
-}
-
-/* old preview-banner — keep for fallback but hide */
-.preview-banner { display: none; }
-
-/* ---- NOTIFICATIONS LIST ---- */
-.notif-list { display: flex; flex-direction: column; gap: 10px; }
-.notif-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 18px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  transition: border-color .18s;
-}
-.notif-item:hover { border-color: #3a3a45; }
-.notif-item.inactive { opacity: .5; }
-.notif-emoji { font-size: 22px; flex-shrink: 0; }
-.notif-info { flex: 1; min-width: 0; }
-.notif-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
-.notif-body { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.notif-meta { font-size: 10px; color: #555; margin-top: 3px; }
-.notif-actions { display: flex; gap: 6px; flex-shrink: 0; }
-.notif-tag {
-  font-size: 10px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 5px;
-  letter-spacing: .5px;
-  flex-shrink: 0;
-}
-.notif-tag.active { background: var(--green-dim); color: var(--green); border: 1px solid rgba(74,222,128,.3); }
-.notif-tag.inactive { background: rgba(100,100,100,.15); color: #666; border: 1px solid #333; }
-
-.empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 12px; }
-.empty-state .es-icon { font-size: 36px; margin-bottom: 10px; display: block; }
-
-/* ---- STATS ROW ---- */
-.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-.stat-card {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  padding: 18px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.stat-label { font-size: 10px; color: var(--text-muted); letter-spacing: .8px; text-transform: uppercase; }
-.stat-value { font-size: 28px; font-weight: 700; color: var(--text); font-family: 'Luckiest Guy'; background: linear-gradient(45deg, #ff7b00, #ffcc00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.stat-sub { font-size: 10px; color: #555; }
-
-/* ---- TOAST ---- */
-.toast {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px 20px;
-  font-size: 13px;
-  font-weight: 700;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity .25s, transform .25s;
-  pointer-events: none;
-  z-index: 9999;
-  box-shadow: 0 4px 20px rgba(0,0,0,.5);
-}
-.toast.show { opacity: 1; transform: translateY(0); }
-.toast.success { border-color: rgba(74,222,128,.4); color: var(--green); }
-.toast.error { border-color: rgba(248,113,113,.4); color: var(--red); }
-
-/* ---- LOADING ---- */
-.loading { color: var(--text-muted); font-size: 12px; text-align: center; padding: 20px; }
+/* TOAST */
+.toast { position:fixed; bottom:28px; right:28px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px 20px; font-size:13px; font-weight:700; opacity:0; transform:translateY(12px); transition:opacity .25s,transform .25s; pointer-events:none; z-index:9999; box-shadow:0 4px 20px rgba(0,0,0,.5); }
+.toast.show { opacity:1; transform:translateY(0); }
+.toast.success { border-color:rgba(74,222,128,.4); color:var(--green); }
+.toast.error   { border-color:rgba(248,113,113,.4); color:var(--red);   }
+.toast.info    { border-color:rgba(255,140,0,.4);   color:var(--orange-light); }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- LOCK SCREEN -->
+<div id="lockScreen">
+  <span class="lock-icon">🔒</span>
+  <div class="lock-title">Admin Locked</div>
+  <div class="lock-sub">The admin panel has been locked by the site owner. Login is disabled until unlocked directly from Firebase.</div>
+  <div class="lock-reason-box" id="lockReasonBox" style="display:none"></div>
+  <div class="lock-hint">To unlock: set <code style="color:#ff8c00">admin_lock → locked = false</code> in Firebase</div>
+</div>
+
+<!-- LOGIN SCREEN -->
 <div id="loginScreen">
-  <div class="login-card">
+  <div id="loginLoading">
+    <div class="spinner"></div>
+    <div class="spinner-label">Verifying access...</div>
+  </div>
+  <div class="login-card" id="loginCard">
     <span class="login-logo">🌭</span>
     <div class="login-title">Admin Panel</div>
     <div class="login-sub">HOTDOG PARTY // RESTRICTED ACCESS</div>
     <input class="login-input" type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password">
     <button class="login-btn" onclick="doLogin()">ENTER</button>
     <div class="login-error" id="loginError">Incorrect password</div>
+    <div class="login-attempts" id="loginAttempts"></div>
   </div>
 </div>
 
-<!-- ADMIN APP (hidden until login) -->
-<div id="adminApp" style="display:none;">
-
+<!-- ADMIN APP -->
+<div id="adminApp">
   <div class="topbar">
     <div class="topbar-left">
       <span class="topbar-logo">🌭</span>
       <span class="topbar-title">Hotdog Party</span>
       <span class="topbar-badge">ADMIN</span>
+      <span class="lock-status-badge unlocked" id="topbarLockBadge" onclick="scrollToLock()" title="Click to manage lock">🔓 UNLOCKED</span>
     </div>
     <div class="topbar-right">
       <a class="btn-sm" href="index.html" target="_blank">↗ View Site</a>
@@ -458,17 +243,17 @@ body::before {
       <div class="stat-card">
         <div class="stat-label">Active Notifications</div>
         <div class="stat-value" id="statActive">–</div>
-        <div class="stat-sub">currently showing on site</div>
+        <div class="stat-sub">showing on site now</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Total Sent</div>
         <div class="stat-value" id="statTotal">–</div>
-        <div class="stat-sub">all time</div>
+        <div class="stat-sub">all-time notifications</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Last Sent</div>
-        <div class="stat-value" id="statLast" style="font-size:16px;margin-top:4px;">–</div>
-        <div class="stat-sub">most recent notification</div>
+        <div class="stat-label">Games Tracked</div>
+        <div class="stat-value" id="statGames">–</div>
+        <div class="stat-sub">games with play data</div>
       </div>
     </div>
 
@@ -477,7 +262,7 @@ body::before {
       <div class="card-header">
         <span class="card-icon">📝</span>
         <span class="card-title">COMPOSE NOTIFICATION</span>
-        <span class="card-subtitle">appears as banner on all pages</span>
+        <span class="card-subtitle" style="margin-left:auto;">bottom-left toast on all pages</span>
       </div>
       <div class="card-body">
         <div class="form-row-2">
@@ -494,20 +279,15 @@ body::before {
           <label class="form-label">Message</label>
           <textarea class="form-textarea" id="nMsg" placeholder="Write your announcement here..." oninput="updatePreview()"></textarea>
         </div>
-
-        <!-- Live Preview -->
         <div class="form-row">
-          <label class="form-label">Preview — appears bottom-left on site</label>
+          <label class="form-label">Preview — bottom-left toast</label>
           <div class="toast-preview-wrap">
             <div class="toast-preview">
               <div class="tp-inner">
                 <div class="tp-top">
                   <span class="tp-emoji" id="prevIcon">📢</span>
                   <div class="tp-content">
-                    <div class="tp-header">
-                      <span class="tp-site">Hotdog Party</span>
-                      <span class="tp-dot"></span>
-                    </div>
+                    <div class="tp-header"><span class="tp-site">Hotdog Party</span><span class="tp-dot"></span></div>
                     <div class="tp-title" id="prevTitle">Your Title</div>
                     <div class="tp-msg" id="prevMsg">Your message will appear here...</div>
                   </div>
@@ -518,7 +298,6 @@ body::before {
             </div>
           </div>
         </div>
-
         <button class="send-btn" id="sendBtn" onclick="sendNotification()">
           <span>📣</span> SEND NOTIFICATION
         </button>
@@ -530,224 +309,410 @@ body::before {
       <div class="card-header">
         <span class="card-icon">🔔</span>
         <span class="card-title">ALL NOTIFICATIONS</span>
-        <button class="btn-sm" onclick="loadNotifications()" style="margin-left:auto;">↺ Refresh</button>
+        <div class="card-header-right">
+          <button class="btn-sm" onclick="loadNotifications()">↺ Refresh</button>
+        </div>
       </div>
       <div class="card-body" style="padding:14px 16px;">
         <div id="notifList" class="loading">Loading...</div>
       </div>
     </div>
 
+    <!-- LEADERBOARD EDITOR -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🏆</span>
+        <span class="card-title">LEADERBOARD EDITOR</span>
+        <div class="card-header-right">
+          <button class="btn-sm" onclick="loadLeaderboard()">↺ Refresh</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="bulk-bar">
+          <span class="bulk-label">⚠️ Bulk action — affects all games at once</span>
+          <button class="bulk-reset-all" onclick="resetAllScores()">🗑 Reset ALL to 0</button>
+        </div>
+        <div class="lb-search-wrap">
+          <input class="form-input" id="lbSearch" placeholder="🔍  Filter games..." oninput="renderLeaderboard()">
+        </div>
+        <div id="lbList" class="loading">Loading...</div>
+      </div>
+    </div>
+
+    <!-- ADMIN LOCK -->
+    <div class="card" id="lockCard">
+      <div class="card-header">
+        <span class="card-icon">🔐</span>
+        <span class="card-title">ADMIN PANEL LOCK</span>
+        <span class="card-subtitle" style="margin-left:auto;">Firebase-controlled · overrides the password entirely</span>
+      </div>
+      <div class="card-body">
+
+        <div class="current-lock-status unlocked-state" id="lockStatusBox">
+          <span class="cls-icon" id="lockStatusIcon">🔓</span>
+          <div class="cls-text">
+            <div class="cls-title" id="lockStatusTitle">Panel is UNLOCKED</div>
+            <div class="cls-sub" id="lockStatusSub">Anyone with the correct password can log in</div>
+          </div>
+          <div class="spinner" id="lockSpinner" style="display:none;width:18px;height:18px;border-width:2px;flex-shrink:0;"></div>
+        </div>
+
+        <div class="lock-panel">
+          <div class="lock-action-card">
+            <div class="lock-action-title">🔒 Lock the Panel</div>
+            <div class="lock-action-desc">Immediately blocks all logins — no password will work. Only setting <code style="color:#ff8c00">locked = false</code> in Firebase (or using Unlock below) will re-enable access.</div>
+            <input class="lock-reason-input" id="lockReasonInput" placeholder="Reason (optional, e.g. Maintenance)">
+            <button class="big-btn red" id="lockBtn" onclick="setLock(true)">🔒 LOCK ADMIN PANEL</button>
+          </div>
+          <div class="lock-action-card">
+            <div class="lock-action-title">🔓 Unlock the Panel</div>
+            <div class="lock-action-desc">Re-enables login with the password. This is the same action as setting <code style="color:#4ade80">locked = false</code> in Firebase — done here for convenience.</div>
+            <div style="height:45px;"></div>
+            <button class="big-btn green" id="unlockBtn" onclick="setLock(false)" disabled>🔓 UNLOCK ADMIN PANEL</button>
+          </div>
+        </div>
+
+        <div class="lock-info-box">
+          💡 <strong style="color:#888;">How it works:</strong> Every time someone opens this page, it reads
+          <code style="color:#ff8c00">admin_lock → locked</code> from Firebase <em>before</em> showing the login form.
+          If <code style="color:#ff8c00">locked = true</code>, the password field never appears — it's replaced by a
+          blocked screen. Even knowing the correct password is useless while locked.
+          You can also toggle this directly in the Firebase Realtime Database console.
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 <script src="notifications.js"></script>
 
 <script>
-// ============================================================
+// ══════════════════════════════════════════════════════════
 //  CONFIG
-// ============================================================
-const ADMIN_PASS = "hotdogadmin2025";   // ← Change this to your own password!
-const FB_NOTIF   = "https://hotdog-party-61e77-default-rtdb.firebaseio.com/notifications";
-const EMOJIS     = ["📢","🎉","🚀","⚡","🔥","🎮","🌭","🛠️","⚠️","💡","🏆","✅","❌","🆕"];
-// ============================================================
+// ══════════════════════════════════════════════════════════
+const ADMIN_PASS   = "hotdogadmin2025"; // ← Change before pushing!
+const FB_BASE      = "https://hotdog-party-61e77-default-rtdb.firebaseio.com";
+const FB_NOTIF     = FB_BASE + "/notifications";
+const FB_PLAYS     = FB_BASE + "/plays";
+const FB_LOCK      = FB_BASE + "/admin_lock";
+const EMOJIS       = ["📢","🎉","🚀","⚡","🔥","🎮","🌭","🛠️","⚠️","💡","🏆","✅","❌","🆕"];
+const MAX_ATTEMPTS = 5;
+// ══════════════════════════════════════════════════════════
 
 let selectedEmoji = "📢";
 let allNotifs     = {};
+let allPlays      = {};
+let loginAttempts = 0;
+let isLocked      = false;
 
-// ---- LOGIN ----
+/* ─── BOOT: Check Firebase lock BEFORE showing anything ─── */
+window.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const res  = await fetch(FB_LOCK + ".json");
+    const data = await res.json();
+    if (data && data.locked === true) {
+      const rb = document.getElementById("lockReasonBox");
+      if (data.reason) { rb.textContent = "Reason: " + data.reason; rb.style.display = "block"; }
+      document.getElementById("loginScreen").style.display = "none";
+      document.getElementById("lockScreen").style.display  = "flex";
+      return; // stop — no login possible
+    }
+  } catch { /* network error — fail open */ }
+
+  // Lock check passed — show login form
+  document.getElementById("loginLoading").style.display = "none";
+  document.getElementById("loginCard").style.display    = "block";
+  document.getElementById("loginPass").focus();
+});
+
+/* ─── LOGIN ─────────────────────────────────────────────── */
 function doLogin() {
-  const val = document.getElementById("loginPass").value;
-  if (val === ADMIN_PASS) {
-    document.getElementById("loginScreen").style.display  = "none";
-    document.getElementById("adminApp").style.display     = "block";
+  if (loginAttempts >= MAX_ATTEMPTS) {
+    showAdminToast("🚫 Too many attempts.", "error"); return;
+  }
+  if (document.getElementById("loginPass").value === ADMIN_PASS) {
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("adminApp").style.display    = "block";
     initAdmin();
   } else {
+    loginAttempts++;
+    const rem = MAX_ATTEMPTS - loginAttempts;
     const err = document.getElementById("loginError");
     err.classList.add("show");
     setTimeout(() => err.classList.remove("show"), 2500);
     document.getElementById("loginPass").value = "";
+    document.getElementById("loginAttempts").textContent =
+      rem > 0 ? rem + " attempt" + (rem !== 1 ? "s" : "") + " remaining" : "Locked out. Refresh the page.";
   }
 }
-
-document.getElementById("loginPass").addEventListener("keydown", e => {
-  if (e.key === "Enter") doLogin();
-});
+document.getElementById("loginPass").addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
 
 function doLogout() {
-  document.getElementById("loginScreen").style.display = "flex";
   document.getElementById("adminApp").style.display    = "none";
+  document.getElementById("loginScreen").style.display = "flex";
+  document.getElementById("loginLoading").style.display = "none";
+  document.getElementById("loginCard").style.display    = "block";
   document.getElementById("loginPass").value = "";
+  loginAttempts = 0;
+  document.getElementById("loginAttempts").textContent = "";
 }
 
-// ---- INIT ----
+/* ─── INIT ──────────────────────────────────────────────── */
 function initAdmin() {
-  buildEmojiPicker();
-  loadNotifications();
-  updatePreview();
+  buildEmojiPicker(); updatePreview();
+  loadNotifications(); loadLeaderboard(); loadLockStatus();
 }
 
-// ---- EMOJI PICKER ----
+/* ─── EMOJI ─────────────────────────────────────────────── */
 function buildEmojiPicker() {
-  const picker = document.getElementById("emojiPicker");
-  picker.innerHTML = EMOJIS.map(e =>
-    `<span class="emoji-opt${e === selectedEmoji ? " selected" : ""}" onclick="selectEmoji('${e}')" title="${e}">${e}</span>`
+  document.getElementById("emojiPicker").innerHTML = EMOJIS.map(e =>
+    `<span class="emoji-opt${e===selectedEmoji?" selected":""}" onclick="selectEmoji('${e}')">${e}</span>`
   ).join("");
 }
-
-function selectEmoji(e) {
-  selectedEmoji = e;
-  buildEmojiPicker();
-  updatePreview();
-}
-
-// ---- PREVIEW ----
+function selectEmoji(e) { selectedEmoji = e; buildEmojiPicker(); updatePreview(); }
 function updatePreview() {
   document.getElementById("prevIcon").textContent  = selectedEmoji;
   document.getElementById("prevTitle").textContent = document.getElementById("nTitle").value || "Your Title";
   document.getElementById("prevMsg").textContent   = document.getElementById("nMsg").value   || "Your message will appear here...";
 }
 
-// ---- SEND ----
+/* ─── SEND NOTIFICATION ─────────────────────────────────── */
 async function sendNotification() {
   const title = document.getElementById("nTitle").value.trim();
   const msg   = document.getElementById("nMsg").value.trim();
-  if (!title) { showToast("⚠️ Title is required", "error"); return; }
-  if (!msg)   { showToast("⚠️ Message is required", "error"); return; }
-
+  if (!title) { showAdminToast("⚠️ Title is required", "error"); return; }
+  if (!msg)   { showAdminToast("⚠️ Message is required", "error"); return; }
   const btn = document.getElementById("sendBtn");
-  btn.disabled = true;
-  btn.textContent = "Sending...";
-
-  const notif = {
-    title,
-    message: msg,
-    emoji: selectedEmoji,
-    active: true,
-    ts: Date.now(),
-    created: new Date().toLocaleString()
-  };
-
+  btn.disabled = true; btn.innerHTML = "Sending...";
   try {
     const res  = await fetch(FB_NOTIF + ".json", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(notif)
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ title, message:msg, emoji:selectedEmoji, active:true, ts:Date.now(), created:new Date().toLocaleString() })
     });
     const data = await res.json();
-    if (data && data.name) {
-      showToast("✅ Notification sent!", "success");
-      document.getElementById("nTitle").value = "";
-      document.getElementById("nMsg").value   = "";
-      updatePreview();
-      await loadNotifications();
-    } else {
-      throw new Error("No ID returned");
-    }
-  } catch (e) {
-    showToast("❌ Failed to send. Check Firebase.", "error");
-  }
-
-  btn.disabled = false;
-  btn.innerHTML = "<span>📣</span> SEND NOTIFICATION";
+    if (!data?.name) throw new Error();
+    showAdminToast("✅ Notification sent!", "success");
+    document.getElementById("nTitle").value = "";
+    document.getElementById("nMsg").value   = "";
+    updatePreview(); await loadNotifications();
+  } catch { showAdminToast("❌ Failed to send.", "error"); }
+  btn.disabled = false; btn.innerHTML = "<span>📣</span> SEND NOTIFICATION";
 }
 
-// ---- LOAD NOTIFICATIONS ----
+/* ─── NOTIFICATIONS ─────────────────────────────────────── */
 async function loadNotifications() {
-  const list = document.getElementById("notifList");
-  list.innerHTML = '<div class="loading">Loading...</div>';
+  document.getElementById("notifList").innerHTML = '<div class="loading">Loading...</div>';
   try {
-    const res  = await fetch(FB_NOTIF + ".json");
-    allNotifs  = (await res.json()) || {};
-    renderList();
-    updateStats();
-  } catch {
-    list.innerHTML = '<div class="loading">Failed to load. Check connection.</div>';
-  }
+    const res = await fetch(FB_NOTIF + ".json");
+    allNotifs = (await res.json()) || {};
+    renderNotifList(); updateStats();
+  } catch { document.getElementById("notifList").innerHTML = '<div class="loading">Failed to load.</div>'; }
 }
 
-function renderList() {
-  const list    = document.getElementById("notifList");
-  const entries = Object.entries(allNotifs).reverse();
-
-  if (entries.length === 0) {
-    list.innerHTML = `<div class="empty-state"><span class="es-icon">🔕</span>No notifications yet.<br>Compose one above!</div>`;
+function renderNotifList() {
+  const entries = Object.entries(allNotifs).sort((a,b)=>(b[1].ts||0)-(a[1].ts||0));
+  if (!entries.length) {
+    document.getElementById("notifList").innerHTML = `<div class="empty-state"><span class="es-icon">🔕</span>No notifications yet.</div>`;
     return;
   }
-
-  list.innerHTML = `<div class="notif-list">${entries.map(([id, n]) => `
-    <div class="notif-item${n.active ? "" : " inactive"}" id="item-${id}">
-      <span class="notif-emoji">${n.emoji || "📢"}</span>
+  document.getElementById("notifList").innerHTML = `<div class="notif-list">${entries.map(([id,n]) => `
+    <div class="notif-item${n.active?"":" inactive"}">
+      <span class="notif-emoji">${n.emoji||"📢"}</span>
       <div class="notif-info">
         <div class="notif-name">${esc(n.title)}</div>
         <div class="notif-body">${esc(n.message)}</div>
-        <div class="notif-meta">${n.created || "Unknown date"}</div>
+        <div class="notif-meta">${n.created||""}</div>
       </div>
-      <span class="notif-tag ${n.active ? "active" : "inactive"}">${n.active ? "ACTIVE" : "OFF"}</span>
+      <span class="notif-tag ${n.active?"active":"inactive"}">${n.active?"ACTIVE":"OFF"}</span>
       <div class="notif-actions">
-        <button class="btn-sm" onclick="toggleNotif('${id}', ${!n.active})" title="${n.active ? "Deactivate" : "Activate"}">
-          ${n.active ? "⏸" : "▶"}
-        </button>
-        <button class="btn-sm danger" onclick="deleteNotif('${id}')" title="Delete">🗑</button>
+        <button class="btn-sm" onclick="toggleNotif('${id}',${!n.active})">${n.active?"⏸":"▶"}</button>
+        <button class="btn-sm danger" onclick="deleteNotif('${id}')">🗑</button>
       </div>
-    </div>
-  `).join("")}</div>`;
+    </div>`).join("")}</div>`;
 }
 
 function updateStats() {
-  const entries = Object.entries(allNotifs);
-  const active  = entries.filter(([, n]) => n.active).length;
-  document.getElementById("statActive").textContent = active;
-  document.getElementById("statTotal").textContent  = entries.length;
-
-  if (entries.length > 0) {
-    const latest = entries.sort((a, b) => (b[1].ts || 0) - (a[1].ts || 0))[0];
-    document.getElementById("statLast").textContent = latest[1].emoji + " " + latest[1].title.slice(0, 16) + (latest[1].title.length > 16 ? "…" : "");
-  }
+  const e = Object.entries(allNotifs);
+  document.getElementById("statActive").textContent = e.filter(([,n])=>n.active).length;
+  document.getElementById("statTotal").textContent  = e.length;
 }
 
-// ---- TOGGLE ----
-async function toggleNotif(id, newActive) {
+async function toggleNotif(id, val) {
   try {
-    await fetch(`${FB_NOTIF}/${id}/active.json`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newActive)
-    });
-    allNotifs[id].active = newActive;
-    renderList();
-    updateStats();
-    showToast(newActive ? "✅ Notification activated" : "⏸ Notification deactivated", "success");
-  } catch {
-    showToast("❌ Failed to update", "error");
-  }
+    await fetch(`${FB_NOTIF}/${id}/active.json`, { method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(val) });
+    allNotifs[id].active = val; renderNotifList(); updateStats();
+    showAdminToast(val?"✅ Activated":"⏸ Deactivated","success");
+  } catch { showAdminToast("❌ Failed","error"); }
 }
 
-// ---- DELETE ----
 async function deleteNotif(id) {
-  if (!confirm("Delete this notification? This cannot be undone.")) return;
+  if (!confirm("Delete this notification?")) return;
   try {
-    await fetch(`${FB_NOTIF}/${id}.json`, { method: "DELETE" });
-    delete allNotifs[id];
-    renderList();
-    updateStats();
-    showToast("🗑 Notification deleted", "success");
-  } catch {
-    showToast("❌ Failed to delete", "error");
+    await fetch(`${FB_NOTIF}/${id}.json`, { method:"DELETE" });
+    delete allNotifs[id]; renderNotifList(); updateStats();
+    showAdminToast("🗑 Deleted","success");
+  } catch { showAdminToast("❌ Failed","error"); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LEADERBOARD EDITOR
+═══════════════════════════════════════════════════════════ */
+async function loadLeaderboard() {
+  document.getElementById("lbList").innerHTML = '<div class="loading">Loading play data...</div>';
+  try {
+    const res = await fetch(FB_PLAYS + ".json");
+    allPlays  = (await res.json()) || {};
+    document.getElementById("statGames").textContent = Object.keys(allPlays).length;
+    renderLeaderboard();
+  } catch { document.getElementById("lbList").innerHTML = '<div class="loading">Failed to load.</div>'; }
+}
+
+function renderLeaderboard() {
+  const q = (document.getElementById("lbSearch").value || "").toLowerCase();
+  const entries = Object.entries(allPlays)
+    .filter(([,g]) => !q || (g.name||"").toLowerCase().includes(q))
+    .sort((a,b) => (b[1].count||0) - (a[1].count||0));
+
+  if (!entries.length) {
+    document.getElementById("lbList").innerHTML = `<div class="empty-state"><span class="es-icon">🏆</span>No matching games.</div>`;
+    return;
+  }
+  document.getElementById("lbList").innerHTML = `<div class="lb-game-list">${entries.map(([key,g]) => `
+    <div class="lb-game-row">
+      <img class="lb-game-icon" src="${esc(g.icon||"")}" alt="" onerror="this.style.visibility='hidden'">
+      <div>
+        <div class="lb-game-name">${esc(g.name||key)}</div>
+        <div class="lb-game-count">${g.count||0} plays currently</div>
+      </div>
+      <input class="lb-count-input" id="lb-${key}" type="number" min="0" value="${g.count||0}">
+      <div class="lb-actions">
+        <button class="lb-save-btn"  onclick="saveScore('${key}')">✓ Set</button>
+        <button class="lb-reset-btn" onclick="resetScore('${key}')">✕ Zero</button>
+      </div>
+    </div>`).join("")}</div>`;
+}
+
+async function saveScore(key) {
+  const input    = document.getElementById("lb-" + key);
+  const newCount = parseInt(input.value, 10);
+  if (isNaN(newCount) || newCount < 0) { showAdminToast("⚠️ Enter a valid number", "error"); return; }
+  input.disabled = true;
+  try {
+    await fetch(`${FB_PLAYS}/${key}/count.json`, { method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(newCount) });
+    allPlays[key].count = newCount;
+    showAdminToast(`✅ ${esc(allPlays[key].name||key)} → ${newCount} plays`, "success");
+    renderLeaderboard();
+  } catch { showAdminToast("❌ Failed to save","error"); input.disabled = false; }
+}
+
+async function resetScore(key) {
+  const name = allPlays[key]?.name || key;
+  if (!confirm(`Reset "${name}" to 0 plays?`)) return;
+  const input = document.getElementById("lb-" + key);
+  input.disabled = true;
+  try {
+    await fetch(`${FB_PLAYS}/${key}/count.json`, { method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(0) });
+    allPlays[key].count = 0;
+    showAdminToast(`🗑 ${esc(name)} reset to 0`, "success");
+    renderLeaderboard();
+  } catch { showAdminToast("❌ Failed to reset","error"); input.disabled = false; }
+}
+
+async function resetAllScores() {
+  const count = Object.keys(allPlays).length;
+  if (!confirm(`Reset ALL ${count} games to 0?\nThis cannot be undone.`)) return;
+  if (!confirm("Second confirmation: wipe every play count?")) return;
+  showAdminToast("⏳ Resetting all...", "info");
+  let failed = 0;
+  await Promise.all(Object.keys(allPlays).map(async key => {
+    try {
+      await fetch(`${FB_PLAYS}/${key}/count.json`, { method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(0) });
+      allPlays[key].count = 0;
+    } catch { failed++; }
+  }));
+  showAdminToast(failed ? `⚠️ Done with ${failed} errors` : "✅ All scores reset to 0", failed ? "error" : "success");
+  renderLeaderboard();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FIREBASE LOCK
+═══════════════════════════════════════════════════════════ */
+async function loadLockStatus() {
+  try {
+    const res  = await fetch(FB_LOCK + ".json");
+    const data = (await res.json()) || {};
+    applyLockUI(data.locked === true, data.reason || "");
+  } catch {}
+}
+
+function applyLockUI(locked, reason) {
+  isLocked = locked;
+  const badge     = document.getElementById("topbarLockBadge");
+  const box       = document.getElementById("lockStatusBox");
+  const icon      = document.getElementById("lockStatusIcon");
+  const titleEl   = document.getElementById("lockStatusTitle");
+  const subEl     = document.getElementById("lockStatusSub");
+  const lockBtn   = document.getElementById("lockBtn");
+  const unlockBtn = document.getElementById("unlockBtn");
+
+  if (locked) {
+    badge.textContent = "🔒 LOCKED"; badge.className = "lock-status-badge locked";
+    box.className  = "current-lock-status locked-state";
+    icon.textContent   = "🔒";
+    titleEl.textContent = "Panel is LOCKED";
+    subEl.textContent   = reason ? "Reason: " + reason : "No new logins are possible";
+    lockBtn.disabled = true; unlockBtn.disabled = false;
+  } else {
+    badge.textContent = "🔓 UNLOCKED"; badge.className = "lock-status-badge unlocked";
+    box.className  = "current-lock-status unlocked-state";
+    icon.textContent   = "🔓";
+    titleEl.textContent = "Panel is UNLOCKED";
+    subEl.textContent   = "Anyone with the correct password can log in";
+    lockBtn.disabled = false; unlockBtn.disabled = true;
   }
 }
 
-// ---- TOAST ----
-function showToast(msg, type) {
-  const t = document.getElementById("toast");
-  t.textContent = msg;
-  t.className   = "toast " + type + " show";
-  clearTimeout(t._t);
-  t._t = setTimeout(() => { t.className = "toast " + type; }, 3000);
+async function setLock(shouldLock) {
+  const reason = document.getElementById("lockReasonInput").value.trim();
+  if (shouldLock && !confirm(
+    "LOCK the admin panel?\n\nThis blocks ALL logins immediately.\n\nReason: " + (reason || "(none)")
+  )) return;
+  if (!shouldLock && !confirm("UNLOCK the admin panel? This allows anyone with the password to log in.")) return;
+
+  const spinner = document.getElementById("lockSpinner");
+  spinner.style.display = "block";
+  document.getElementById("lockBtn").disabled   = true;
+  document.getElementById("unlockBtn").disabled = true;
+
+  try {
+    await fetch(FB_LOCK + ".json", {
+      method:"PUT", headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ locked:shouldLock, reason, updated:new Date().toISOString() })
+    });
+    applyLockUI(shouldLock, reason);
+    showAdminToast(shouldLock ? "🔒 Panel locked!" : "🔓 Panel unlocked!", shouldLock ? "error" : "success");
+    if (shouldLock) document.getElementById("lockReasonInput").value = "";
+  } catch {
+    showAdminToast("❌ Failed to update lock.", "error");
+    applyLockUI(isLocked, reason);
+  }
+  spinner.style.display = "none";
 }
 
-// ---- UTIL ----
+function scrollToLock() {
+  document.getElementById("lockCard").scrollIntoView({ behavior:"smooth", block:"start" });
+}
+
+/* ─── ADMIN TOAST ───────────────────────────────────────── */
+function showAdminToast(msg, type) {
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.className = "toast " + type + " show";
+  clearTimeout(t._t); t._t = setTimeout(() => { t.className = "toast " + type; }, 3200);
+}
+
+/* ─── UTIL ──────────────────────────────────────────────── */
 function esc(str) {
   return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 }
