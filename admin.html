@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hotdog Party – Admin</title>
+<link rel="icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0d0d0f;
+  --surface: #141418;
+  --surface2: #1c1c22;
+  --border: #2a2a35;
+  --border-hot: rgba(255,140,0,.45);
+  --orange: #ff8c00;
+  --orange-light: #ffb347;
+  --orange-glow: rgba(255,140,0,.25);
+  --green: #4ade80;
+  --green-dim: rgba(74,222,128,.15);
+  --red: #f87171;
+  --red-dim: rgba(248,113,113,.15);
+  --text: #e8e8f0;
+  --text-muted: #666;
+  --text-dim: #999;
+  --radius: 14px;
+}
+
+body {
+  font-family: "JetBrains Mono", monospace;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ---- GRID BG ---- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,140,0,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,140,0,.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- LOGIN SCREEN ---- */
+#loginScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+}
+
+.login-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 44px 40px;
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(0,0,0,.6), 0 0 0 1px rgba(255,140,0,.06);
+  position: relative;
+  z-index: 1;
+}
+
+.login-logo {
+  font-size: 48px;
+  margin-bottom: 8px;
+  display: block;
+  animation: pulse 2.5s infinite;
+}
+@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.07)} }
+
+.login-title {
+  font-family: 'Luckiest Guy';
+  font-size: 28px;
+  background: linear-gradient(45deg, #ff7b00, #ffcc00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 4px;
+}
+.login-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  letter-spacing: .5px;
+}
+
+.login-input {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 16px;
+  color: var(--text);
+  outline: none;
+  letter-spacing: 4px;
+  text-align: center;
+  transition: border-color .2s, box-shadow .2s;
+  margin-bottom: 14px;
+}
+.login-input:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px var(--orange-glow);
+}
+
+.login-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #ff7b00, #ffae00);
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-family: 'Luckiest Guy';
+  font-size: 17px;
+  color: #1a0a00;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: opacity .2s, transform .15s, box-shadow .2s;
+  box-shadow: 0 4px 18px rgba(255,140,0,.35);
+}
+.login-btn:hover { opacity: .93; transform: translateY(-1px); box-shadow: 0 6px 24px rgba(255,140,0,.5); }
+.login-btn:active { transform: translateY(0); }
+
+.login-error {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--red);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.login-error.show { opacity: 1; }
+
+/* ---- MAIN ---- */
+#adminApp { position: relative; z-index: 1; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  background: rgba(13,13,15,.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+}
+
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-logo { font-size: 28px; }
+.topbar-title {
+  font-family: 'Luckiest Guy';
+  font-size: 20px;
+  background: linear-gradient(45deg, #ff7b00, #ffcc00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.topbar-badge {
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--orange-glow);
+  border: 1px solid var(--border-hot);
+  color: var(--orange-light);
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 1px;
+}
+
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.btn-sm {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all .18s;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--text-dim);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-sm:hover { border-color: var(--orange); color: var(--orange); }
+.btn-sm.danger { border-color: rgba(248,113,113,.3); color: var(--red); }
+.btn-sm.danger:hover { background: var(--red-dim); border-color: var(--red); }
+
+/* ---- CONTENT ---- */
+.content { max-width: 860px; margin: 0 auto; padding: 32px 24px; display: flex; flex-direction: column; gap: 24px; }
+
+/* ---- CARD ---- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.card-header {
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card-icon { font-size: 18px; }
+.card-title { font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: .5px; }
+.card-subtitle { font-size: 11px; color: var(--text-muted); margin-left: auto; }
+.card-body { padding: 22px; }
+
+/* ---- COMPOSE FORM ---- */
+.form-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.form-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: .8px; text-transform: uppercase; }
+
+.form-input, .form-textarea {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 11px 14px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  color: var(--text);
+  outline: none;
+  transition: border-color .18s, box-shadow .18s;
+  width: 100%;
+}
+.form-input:focus, .form-textarea:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px var(--orange-glow);
+}
+.form-textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+
+.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+.emoji-picker { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.emoji-opt {
+  font-size: 20px;
+  padding: 5px 8px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  cursor: pointer;
+  transition: all .15s;
+  line-height: 1;
+}
+.emoji-opt:hover, .emoji-opt.selected { border-color: var(--orange); background: var(--orange-glow); transform: scale(1.15); }
+
+.send-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #ff7b00, #ffae00);
+  border: none;
+  border-radius: 10px;
+  padding: 13px;
+  font-family: 'Luckiest Guy';
+  font-size: 16px;
+  color: #1a0a00;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: opacity .2s, transform .15s, box-shadow .2s;
+  box-shadow: 0 4px 18px rgba(255,140,0,.3);
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.send-btn:hover { opacity: .92; transform: translateY(-1px); box-shadow: 0 6px 24px rgba(255,140,0,.45); }
+.send-btn:active { transform: translateY(0); }
+.send-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+/* ---- TOAST PREVIEW (mirrors notifications.js styles) ---- */
+.toast-preview-wrap {
+  background: #0d0d0f;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 20px 20px 12px 20px;
+  display: flex;
+  align-items: flex-end;
+  min-height: 110px;
+  position: relative;
+  overflow: hidden;
+}
+.toast-preview-wrap::after {
+  content: '↙ bottom-left corner';
+  position: absolute;
+  bottom: 8px;
+  right: 14px;
+  font-size: 9px;
+  color: #444;
+  letter-spacing: .5px;
+}
+.toast-preview {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  background: #161618;
+  border: 1px solid rgba(255,140,0,.28);
+  border-left: 3px solid #ff8c00;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,.5);
+  min-width: 260px;
+  max-width: 340px;
+}
+.tp-inner {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  padding: 12px 10px 0 14px;
+}
+.tp-top { display: flex; align-items: flex-start; gap: 9px; }
+.tp-emoji { font-size: 20px; line-height: 1; flex-shrink: 0; margin-top: 1px; }
+.tp-content { flex: 1; min-width: 0; }
+.tp-header { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
+.tp-site {
+  font-size: 9px; font-weight: 800; letter-spacing: 1px;
+  color: #ff8c00; background: rgba(255,140,0,.1);
+  border: 1px solid rgba(255,140,0,.2); border-radius: 4px; padding: 1px 5px;
+  font-family: system-ui, sans-serif; text-transform: uppercase;
+}
+.tp-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #ff8c00; box-shadow: 0 0 4px rgba(255,140,0,.7);
+}
+.tp-title { font-size: 12px; font-weight: 700; color: #f0f0f0; margin-bottom: 3px; font-family: system-ui, sans-serif; }
+.tp-msg { font-size: 11px; color: #999; line-height: 1.45; font-family: system-ui, sans-serif; padding-bottom: 10px; }
+.tp-progress { height: 3px; background: rgba(255,255,255,.06); }
+.tp-bar { height: 100%; width: 60%; background: linear-gradient(90deg, #ff7b00, #ffcc00); border-radius: 0; }
+.tp-close {
+  background: none; border: none; color: #555; font-size: 14px;
+  cursor: pointer; padding: 8px 10px 8px 4px; align-self: flex-start; margin-top: 2px;
+}
+
+/* old preview-banner — keep for fallback but hide */
+.preview-banner { display: none; }
+
+/* ---- NOTIFICATIONS LIST ---- */
+.notif-list { display: flex; flex-direction: column; gap: 10px; }
+.notif-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  transition: border-color .18s;
+}
+.notif-item:hover { border-color: #3a3a45; }
+.notif-item.inactive { opacity: .5; }
+.notif-emoji { font-size: 22px; flex-shrink: 0; }
+.notif-info { flex: 1; min-width: 0; }
+.notif-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.notif-body { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.notif-meta { font-size: 10px; color: #555; margin-top: 3px; }
+.notif-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.notif-tag {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 5px;
+  letter-spacing: .5px;
+  flex-shrink: 0;
+}
+.notif-tag.active { background: var(--green-dim); color: var(--green); border: 1px solid rgba(74,222,128,.3); }
+.notif-tag.inactive { background: rgba(100,100,100,.15); color: #666; border: 1px solid #333; }
+
+.empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 12px; }
+.empty-state .es-icon { font-size: 36px; margin-bottom: 10px; display: block; }
+
+/* ---- STATS ROW ---- */
+.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.stat-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.stat-label { font-size: 10px; color: var(--text-muted); letter-spacing: .8px; text-transform: uppercase; }
+.stat-value { font-size: 28px; font-weight: 700; color: var(--text); font-family: 'Luckiest Guy'; background: linear-gradient(45deg, #ff7b00, #ffcc00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.stat-sub { font-size: 10px; color: #555; }
+
+/* ---- TOAST ---- */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .25s, transform .25s;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 4px 20px rgba(0,0,0,.5);
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast.success { border-color: rgba(74,222,128,.4); color: var(--green); }
+.toast.error { border-color: rgba(248,113,113,.4); color: var(--red); }
+
+/* ---- LOADING ---- */
+.loading { color: var(--text-muted); font-size: 12px; text-align: center; padding: 20px; }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-card">
+    <span class="login-logo">🌭</span>
+    <div class="login-title">Admin Panel</div>
+    <div class="login-sub">HOTDOG PARTY // RESTRICTED ACCESS</div>
+    <input class="login-input" type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password">
+    <button class="login-btn" onclick="doLogin()">ENTER</button>
+    <div class="login-error" id="loginError">Incorrect password</div>
+  </div>
+</div>
+
+<!-- ADMIN APP (hidden until login) -->
+<div id="adminApp" style="display:none;">
+
+  <div class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-logo">🌭</span>
+      <span class="topbar-title">Hotdog Party</span>
+      <span class="topbar-badge">ADMIN</span>
+    </div>
+    <div class="topbar-right">
+      <a class="btn-sm" href="index.html" target="_blank">↗ View Site</a>
+      <button class="btn-sm danger" onclick="doLogout()">✕ Logout</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Active Notifications</div>
+        <div class="stat-value" id="statActive">–</div>
+        <div class="stat-sub">currently showing on site</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Sent</div>
+        <div class="stat-value" id="statTotal">–</div>
+        <div class="stat-sub">all time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Last Sent</div>
+        <div class="stat-value" id="statLast" style="font-size:16px;margin-top:4px;">–</div>
+        <div class="stat-sub">most recent notification</div>
+      </div>
+    </div>
+
+    <!-- COMPOSE -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">📝</span>
+        <span class="card-title">COMPOSE NOTIFICATION</span>
+        <span class="card-subtitle">appears as banner on all pages</span>
+      </div>
+      <div class="card-body">
+        <div class="form-row-2">
+          <div class="form-row">
+            <label class="form-label">Title</label>
+            <input class="form-input" id="nTitle" placeholder="e.g. New Game Added!" oninput="updatePreview()">
+          </div>
+          <div class="form-row">
+            <label class="form-label">Emoji Icon</label>
+            <div class="emoji-picker" id="emojiPicker"></div>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" id="nMsg" placeholder="Write your announcement here..." oninput="updatePreview()"></textarea>
+        </div>
+
+        <!-- Live Preview -->
+        <div class="form-row">
+          <label class="form-label">Preview — appears bottom-left on site</label>
+          <div class="toast-preview-wrap">
+            <div class="toast-preview">
+              <div class="tp-inner">
+                <div class="tp-top">
+                  <span class="tp-emoji" id="prevIcon">📢</span>
+                  <div class="tp-content">
+                    <div class="tp-header">
+                      <span class="tp-site">Hotdog Party</span>
+                      <span class="tp-dot"></span>
+                    </div>
+                    <div class="tp-title" id="prevTitle">Your Title</div>
+                    <div class="tp-msg" id="prevMsg">Your message will appear here...</div>
+                  </div>
+                </div>
+                <div class="tp-progress"><div class="tp-bar"></div></div>
+              </div>
+              <button class="tp-close">✕</button>
+            </div>
+          </div>
+        </div>
+
+        <button class="send-btn" id="sendBtn" onclick="sendNotification()">
+          <span>📣</span> SEND NOTIFICATION
+        </button>
+      </div>
+    </div>
+
+    <!-- NOTIFICATIONS LIST -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🔔</span>
+        <span class="card-title">ALL NOTIFICATIONS</span>
+        <button class="btn-sm" onclick="loadNotifications()" style="margin-left:auto;">↺ Refresh</button>
+      </div>
+      <div class="card-body" style="padding:14px 16px;">
+        <div id="notifList" class="loading">Loading...</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+<script src="notifications.js"></script>
+
+<script>
+// ============================================================
+//  CONFIG
+// ============================================================
+const ADMIN_PASS = "hotdogadmin2025";   // ← Change this to your own password!
+const FB_NOTIF   = "https://hotdog-party-61e77-default-rtdb.firebaseio.com/notifications";
+const EMOJIS     = ["📢","🎉","🚀","⚡","🔥","🎮","🌭","🛠️","⚠️","💡","🏆","✅","❌","🆕"];
+// ============================================================
+
+let selectedEmoji = "📢";
+let allNotifs     = {};
+
+// ---- LOGIN ----
+function doLogin() {
+  const val = document.getElementById("loginPass").value;
+  if (val === ADMIN_PASS) {
+    document.getElementById("loginScreen").style.display  = "none";
+    document.getElementById("adminApp").style.display     = "block";
+    initAdmin();
+  } else {
+    const err = document.getElementById("loginError");
+    err.classList.add("show");
+    setTimeout(() => err.classList.remove("show"), 2500);
+    document.getElementById("loginPass").value = "";
+  }
+}
+
+document.getElementById("loginPass").addEventListener("keydown", e => {
+  if (e.key === "Enter") doLogin();
+});
+
+function doLogout() {
+  document.getElementById("loginScreen").style.display = "flex";
+  document.getElementById("adminApp").style.display    = "none";
+  document.getElementById("loginPass").value = "";
+}
+
+// ---- INIT ----
+function initAdmin() {
+  buildEmojiPicker();
+  loadNotifications();
+  updatePreview();
+}
+
+// ---- EMOJI PICKER ----
+function buildEmojiPicker() {
+  const picker = document.getElementById("emojiPicker");
+  picker.innerHTML = EMOJIS.map(e =>
+    `<span class="emoji-opt${e === selectedEmoji ? " selected" : ""}" onclick="selectEmoji('${e}')" title="${e}">${e}</span>`
+  ).join("");
+}
+
+function selectEmoji(e) {
+  selectedEmoji = e;
+  buildEmojiPicker();
+  updatePreview();
+}
+
+// ---- PREVIEW ----
+function updatePreview() {
+  document.getElementById("prevIcon").textContent  = selectedEmoji;
+  document.getElementById("prevTitle").textContent = document.getElementById("nTitle").value || "Your Title";
+  document.getElementById("prevMsg").textContent   = document.getElementById("nMsg").value   || "Your message will appear here...";
+}
+
+// ---- SEND ----
+async function sendNotification() {
+  const title = document.getElementById("nTitle").value.trim();
+  const msg   = document.getElementById("nMsg").value.trim();
+  if (!title) { showToast("⚠️ Title is required", "error"); return; }
+  if (!msg)   { showToast("⚠️ Message is required", "error"); return; }
+
+  const btn = document.getElementById("sendBtn");
+  btn.disabled = true;
+  btn.textContent = "Sending...";
+
+  const notif = {
+    title,
+    message: msg,
+    emoji: selectedEmoji,
+    active: true,
+    ts: Date.now(),
+    created: new Date().toLocaleString()
+  };
+
+  try {
+    const res  = await fetch(FB_NOTIF + ".json", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(notif)
+    });
+    const data = await res.json();
+    if (data && data.name) {
+      showToast("✅ Notification sent!", "success");
+      document.getElementById("nTitle").value = "";
+      document.getElementById("nMsg").value   = "";
+      updatePreview();
+      await loadNotifications();
+    } else {
+      throw new Error("No ID returned");
+    }
+  } catch (e) {
+    showToast("❌ Failed to send. Check Firebase.", "error");
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = "<span>📣</span> SEND NOTIFICATION";
+}
+
+// ---- LOAD NOTIFICATIONS ----
+async function loadNotifications() {
+  const list = document.getElementById("notifList");
+  list.innerHTML = '<div class="loading">Loading...</div>';
+  try {
+    const res  = await fetch(FB_NOTIF + ".json");
+    allNotifs  = (await res.json()) || {};
+    renderList();
+    updateStats();
+  } catch {
+    list.innerHTML = '<div class="loading">Failed to load. Check connection.</div>';
+  }
+}
+
+function renderList() {
+  const list    = document.getElementById("notifList");
+  const entries = Object.entries(allNotifs).reverse();
+
+  if (entries.length === 0) {
+    list.innerHTML = `<div class="empty-state"><span class="es-icon">🔕</span>No notifications yet.<br>Compose one above!</div>`;
+    return;
+  }
+
+  list.innerHTML = `<div class="notif-list">${entries.map(([id, n]) => `
+    <div class="notif-item${n.active ? "" : " inactive"}" id="item-${id}">
+      <span class="notif-emoji">${n.emoji || "📢"}</span>
+      <div class="notif-info">
+        <div class="notif-name">${esc(n.title)}</div>
+        <div class="notif-body">${esc(n.message)}</div>
+        <div class="notif-meta">${n.created || "Unknown date"}</div>
+      </div>
+      <span class="notif-tag ${n.active ? "active" : "inactive"}">${n.active ? "ACTIVE" : "OFF"}</span>
+      <div class="notif-actions">
+        <button class="btn-sm" onclick="toggleNotif('${id}', ${!n.active})" title="${n.active ? "Deactivate" : "Activate"}">
+          ${n.active ? "⏸" : "▶"}
+        </button>
+        <button class="btn-sm danger" onclick="deleteNotif('${id}')" title="Delete">🗑</button>
+      </div>
+    </div>
+  `).join("")}</div>`;
+}
+
+function updateStats() {
+  const entries = Object.entries(allNotifs);
+  const active  = entries.filter(([, n]) => n.active).length;
+  document.getElementById("statActive").textContent = active;
+  document.getElementById("statTotal").textContent  = entries.length;
+
+  if (entries.length > 0) {
+    const latest = entries.sort((a, b) => (b[1].ts || 0) - (a[1].ts || 0))[0];
+    document.getElementById("statLast").textContent = latest[1].emoji + " " + latest[1].title.slice(0, 16) + (latest[1].title.length > 16 ? "…" : "");
+  }
+}
+
+// ---- TOGGLE ----
+async function toggleNotif(id, newActive) {
+  try {
+    await fetch(`${FB_NOTIF}/${id}/active.json`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newActive)
+    });
+    allNotifs[id].active = newActive;
+    renderList();
+    updateStats();
+    showToast(newActive ? "✅ Notification activated" : "⏸ Notification deactivated", "success");
+  } catch {
+    showToast("❌ Failed to update", "error");
+  }
+}
+
+// ---- DELETE ----
+async function deleteNotif(id) {
+  if (!confirm("Delete this notification? This cannot be undone.")) return;
+  try {
+    await fetch(`${FB_NOTIF}/${id}.json`, { method: "DELETE" });
+    delete allNotifs[id];
+    renderList();
+    updateStats();
+    showToast("🗑 Notification deleted", "success");
+  } catch {
+    showToast("❌ Failed to delete", "error");
+  }
+}
+
+// ---- TOAST ----
+function showToast(msg, type) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className   = "toast " + type + " show";
+  clearTimeout(t._t);
+  t._t = setTimeout(() => { t.className = "toast " + type; }, 3000);
+}
+
+// ---- UTIL ----
+function esc(str) {
+  return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+</script>
+</body>
+</html>

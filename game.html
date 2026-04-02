@@ -11,6 +11,7 @@ body{font-family:"Segoe UI",system-ui,sans-serif;background:#121212;color:white;
 .bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;overflow:hidden;}
 .shape{position:absolute;width:60px;height:60px;background:linear-gradient(45deg,#ff7b00,#ffae00);opacity:.18;border-radius:14px;animation:float 18s linear infinite;}
 @keyframes float{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-70px) rotate(180deg)}100%{transform:translateY(0) rotate(360deg)}}
+
 /* TOPBAR */
 .topbar{position:fixed;top:0;left:0;width:100%;background:rgba(18,18,18,.97);backdrop-filter:blur(12px);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 24px rgba(0,0,0,.7);z-index:1000;border-bottom:1px solid rgba(255,140,0,.12);}
 .top-center{position:absolute;left:50%;transform:translateX(-50%);font-size:13px;font-weight:600;color:#555;pointer-events:none;letter-spacing:.5px;}
@@ -29,6 +30,7 @@ body{font-family:"Segoe UI",system-ui,sans-serif;background:#121212;color:white;
 .discord-btn{display:flex;align-items:center;gap:8px;background:#5865F2;padding:8px 16px;border-radius:10px;color:white;text-decoration:none;font-weight:700;font-size:14px;border:1px solid rgba(255,255,255,.1);transition:.2s;box-shadow:0 2px 10px rgba(88,101,242,.35);}
 .discord-btn svg{width:22px;height:22px;}
 .discord-btn:hover{background:#ff8c00;box-shadow:0 0 16px rgba(255,140,0,.5);}
+
 /* PAGE */
 .page-wrap{
   padding: 90px 24px 32px;
@@ -38,6 +40,7 @@ body{font-family:"Segoe UI",system-ui,sans-serif;background:#121212;color:white;
   gap:24px;
   min-height:100vh;
 }
+
 /* PLAYER */
 .player-main{
   flex:0 1 900px;
@@ -57,7 +60,8 @@ body{font-family:"Segoe UI",system-ui,sans-serif;background:#121212;color:white;
 .toolbar-btn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:9px;border:1px solid #2e2e2e;background:#1e1e1e;cursor:pointer;transition:.18s;flex-shrink:0;color:#bbb;}
 .toolbar-btn:hover{background:#2a2a2a;border-color:#ff8c00;color:#ff8c00;box-shadow:0 0 10px rgba(255,140,0,.25);}
 .toolbar-btn svg{width:17px;height:17px;pointer-events:none;}
-/* Report toolbar button — slightly red tinted */
+
+/* Report toolbar button */
 .toolbar-btn.report-btn{border-color:rgba(255,80,80,.25);color:#ff8080;}
 .toolbar-btn.report-btn:hover{background:rgba(200,40,40,.2);border-color:#ff4444;color:#ff6060;box-shadow:0 0 10px rgba(255,50,50,.3);}
 .toolbar-btn.report-btn.reported{border-color:rgba(80,200,80,.3);color:#5ec45e;background:rgba(40,120,40,.15);}
@@ -67,6 +71,58 @@ body{font-family:"Segoe UI",system-ui,sans-serif;background:#121212;color:white;
 .back-btn svg{width:16px;height:16px;}
 .player-iframe-wrap{flex:1;position:relative;min-height:520px;}
 .player-iframe-wrap iframe{width:100%;height:100%;border:none;position:absolute;inset:0;}
+
+/* ---- PLAY TIMER PILL ---- */
+#playTimerPill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: rgba(255,140,0,.10);
+  border: 1px solid rgba(255,140,0,.3);
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffb347;
+  flex-shrink: 0;
+  transition: all .4s ease;
+  white-space: nowrap;
+}
+#playTimerPill.counted {
+  background: rgba(80,200,80,.12);
+  border-color: rgba(80,200,80,.35);
+  color: #6ddb6d;
+}
+#playTimerPill .timer-ring {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+#playTimerPill .timer-ring svg {
+  width: 22px;
+  height: 22px;
+  transform: rotate(-90deg);
+}
+#playTimerPill .timer-ring .track {
+  fill: none;
+  stroke: rgba(255,255,255,.08);
+  stroke-width: 3;
+}
+#playTimerPill .timer-ring .fill {
+  fill: none;
+  stroke: #ff8c00;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 56.5;
+  stroke-dashoffset: 56.5;
+  transition: stroke-dashoffset .9s linear, stroke .4s;
+}
+#playTimerPill.counted .timer-ring .fill {
+  stroke: #5ec45e;
+  stroke-dashoffset: 0;
+}
+
 /* SIDEBAR */
 .player-sidebar{flex:0 0 240px;display:flex;flex-direction:column;gap:10px;position:sticky;top:104px;}
 .sidebar-title{font-family:'Luckiest Guy';font-size:16px;background:linear-gradient(45deg,#ff7b00,#ffae00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;margin:0 0 4px;}
@@ -74,12 +130,13 @@ body{font-family:"Segoe UI",system-ui,sans-serif;background:#121212;color:white;
 .sidebar-game:hover{border-color:#ff8c00;box-shadow:0 0 14px rgba(255,140,0,.2);transform:translateX(3px);}
 .sidebar-game img{width:52px;height:52px;border-radius:8px;object-fit:cover;flex-shrink:0;}
 .sidebar-game-name{font-size:13px;font-weight:700;color:#ddd;line-height:1.3;}
+
 /* not-found */
 .not-found{padding:80px 20px;text-align:center;color:#555;font-size:18px;}
 .not-found a{color:#ff8c00;text-decoration:none;font-weight:700;}
 .not-found a:hover{text-decoration:underline;}
 
-/* Report toast */
+/* Report/general toast */
 .report-toast{
   position:fixed;
   bottom:28px;
@@ -102,6 +159,8 @@ body{font-family:"Segoe UI",system-ui,sans-serif;background:#121212;color:white;
 .report-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 .report-toast.success{border-color:rgba(80,200,80,.4);color:#6ddb6d;}
 .report-toast.error{border-color:rgba(255,80,80,.4);color:#ff7070;}
+
+/* Notifications handled by notifications.js */
 </style>
 </head>
 <body>
@@ -110,6 +169,7 @@ body{font-family:"Segoe UI",system-ui,sans-serif;background:#121212;color:white;
 
 <!-- Report Toast -->
 <div class="report-toast" id="reportToast"></div>
+
 
 <div class="topbar">
   <div class="top-center">Created by RedTheDev & ControlMC</div>
@@ -143,15 +203,23 @@ body{font-family:"Segoe UI",system-ui,sans-serif;background:#121212;color:white;
       <img class="player-game-icon" id="playerIcon" src="" alt="">
       <div class="player-game-title" id="playerTitle">Loading...</div>
 
+      <!-- 10-second play timer pill -->
+      <div id="playTimerPill">
+        <div class="timer-ring">
+          <svg viewBox="0 0 22 22">
+            <circle class="track" cx="11" cy="11" r="9"/>
+            <circle class="fill" id="timerArc" cx="11" cy="11" r="9"/>
+          </svg>
+        </div>
+        <span id="timerLabel">Play for 10s</span>
+      </div>
+
       <button class="toolbar-btn" title="Refresh" onclick="refreshGame()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
       </button>
-
-      <!-- Report button — next to fullscreen -->
       <button class="toolbar-btn report-btn" id="reportToolbarBtn" title="Report this game as broken" onclick="reportCurrentGame()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a1 1 0 011-1h14l-3.5 4L19 12H5"/></svg>
       </button>
-
       <button class="toolbar-btn" title="Fullscreen" onclick="fullscreenGame()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
       </button>
@@ -168,38 +236,35 @@ body{font-family:"Segoe UI",system-ui,sans-serif;background:#121212;color:white;
 </div>
 
 <script>
-// ====== REPLACE THIS WITH YOUR DISCORD WEBHOOK URL ======
+// ====== CONFIG ======
 const DISCORD_WEBHOOK_URL = "https://discordapp.com/api/webhooks/1483646977874071582/79ofgNKX7G7v3VMZdp7FWR4tX9u95EXILarCZTlvh1vDBalJId3EyhFvImNyJqrbML6B";
-// ========================================================
+const FB_URL    = "https://hotdog-party-61e77-default-rtdb.firebaseio.com/plays";
+const FB_ACTIVE = "https://hotdog-party-61e77-default-rtdb.firebaseio.com/active";
+const LB_LOCAL  = "hotdog_lb";
+const PLAY_THRESHOLD_MS = 10000; // 10 seconds required
 
-const FB_URL = "https://hotdog-party-61e77-default-rtdb.firebaseio.com/plays"
-const FB_ACTIVE = "https://hotdog-party-61e77-default-rtdb.firebaseio.com/active"
-const LB_LOCAL = "hotdog_lb"
-const sessionId = Math.random().toString(36).slice(2)
+const sessionId = Math.random().toString(36).slice(2);
 
-// ---- PARSE URL PARAMS ----
-const params = new URLSearchParams(location.search)
-const currentPath = params.get("path") || ""
-const currentName = params.get("name") || "Game"
-const currentIcon = params.get("icon") || ""
+// ---- URL PARAMS ----
+const params      = new URLSearchParams(location.search);
+const currentPath = params.get("path") || "";
+const currentName = params.get("name") || "Game";
+const currentIcon = params.get("icon") || "";
 
 function gameURL(game) {
   return "game.html?path=" + encodeURIComponent(game.path) +
-    "&name=" + encodeURIComponent(game.name) +
-    "&icon=" + encodeURIComponent(game.icon)
+         "&name=" + encodeURIComponent(game.name) +
+         "&icon=" + encodeURIComponent(game.icon);
 }
 
-// ---- REPORT FUNCTION ----
+// ---- REPORT ----
 async function reportCurrentGame() {
-  const btn = document.getElementById("reportToolbarBtn")
-
-  // Already reported this session
-  const reported = JSON.parse(sessionStorage.getItem("hotdog_reported") || "[]")
+  const btn = document.getElementById("reportToolbarBtn");
+  const reported = JSON.parse(sessionStorage.getItem("hotdog_reported") || "[]");
   if (reported.includes(currentPath)) {
-    showToast("⚠️ You already reported this game.", "error")
-    return
+    showToast("⚠️ You already reported this game.", "error");
+    return;
   }
-
   try {
     await fetch(DISCORD_WEBHOOK_URL, {
       method: "POST",
@@ -217,58 +282,82 @@ async function reportCurrentGame() {
           timestamp: new Date().toISOString()
         }]
       })
-    })
-    reported.push(currentPath)
-    sessionStorage.setItem("hotdog_reported", JSON.stringify(reported))
-    btn.classList.add("reported")
-    btn.title = "Already reported"
-    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`
-    showToast("✅ Reported \"" + currentName + "\" as broken!", "success")
+    });
+    reported.push(currentPath);
+    sessionStorage.setItem("hotdog_reported", JSON.stringify(reported));
+    btn.classList.add("reported");
+    btn.title = "Already reported";
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+    showToast("✅ Reported \"" + currentName + "\" as broken!", "success");
   } catch {
-    showToast("❌ Failed to send report. Try again.", "error")
+    showToast("❌ Failed to send report. Try again.", "error");
   }
 }
 
 function showToast(msg, type) {
-  const toast = document.getElementById("reportToast")
-  toast.textContent = msg
-  toast.className = "report-toast " + type + " show"
-  clearTimeout(toast._t)
-  toast._t = setTimeout(() => { toast.className = "report-toast " + type }, 2800)
+  const toast = document.getElementById("reportToast");
+  toast.textContent = msg;
+  toast.className = "report-toast " + type + " show";
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => { toast.className = "report-toast " + type; }, 2800);
 }
 
-// ---- INIT PLAYER ----
-function initPlayer() {
-  if (!currentPath) {
-    document.querySelector(".player-main").innerHTML =
-      '<div class="not-found">No game selected. <a href="games.html">Browse games →</a></div>'
-    return
-  }
-  document.title = currentName + " – Hotdog Party"
-  document.getElementById("playerIcon").src = currentIcon
-  document.getElementById("playerTitle").textContent = currentName
-  document.getElementById("gameFrame").src = currentPath
-  incrementPlayCount()
-  pingActive()
-  setInterval(pingActive, 90000)
+// ---- PLAY TIMER (10 seconds) ----
+const CIRCUMFERENCE = 2 * Math.PI * 9; // r=9 → ~56.55
+let playTimerInterval = null;
+let playRegistered    = false;
+let elapsed           = 0;
+
+function startPlayTimer() {
+  const arc   = document.getElementById("timerArc");
+  const label = document.getElementById("timerLabel");
+  const pill  = document.getElementById("playTimerPill");
+
+  arc.style.strokeDasharray  = CIRCUMFERENCE;
+  arc.style.strokeDashoffset = CIRCUMFERENCE;
+
+  playTimerInterval = setInterval(() => {
+    elapsed += 200;
+    const progress = Math.min(elapsed / PLAY_THRESHOLD_MS, 1);
+    const offset   = CIRCUMFERENCE * (1 - progress);
+    arc.style.strokeDashoffset = offset;
+
+    const remaining = Math.ceil((PLAY_THRESHOLD_MS - elapsed) / 1000);
+    if (remaining > 0) {
+      label.textContent = "Play for " + remaining + "s";
+    }
+
+    if (elapsed >= PLAY_THRESHOLD_MS && !playRegistered) {
+      clearInterval(playTimerInterval);
+      playRegistered = true;
+      pill.classList.add("counted");
+      arc.style.stroke = "#5ec45e";
+      label.textContent = "▶ Play counted!";
+      incrementPlayCount();
+      setTimeout(() => {
+        pill.style.opacity = "0";
+        pill.style.pointerEvents = "none";
+      }, 3000);
+    }
+  }, 200);
 }
 
 // ---- FIREBASE: play count ----
 async function incrementPlayCount() {
-  const key = currentName.replace(/[.#$\[\]\/ ]/g, "_")
+  const key = currentName.replace(/[.#$\[\]\/ ]/g, "_");
   try {
-    const r = await fetch(FB_URL + "/" + key + ".json")
-    const cur = await r.json()
-    const prev = cur && cur.count ? cur.count : 0
+    const r   = await fetch(FB_URL + "/" + key + ".json");
+    const cur = await r.json();
+    const prev = cur && cur.count ? cur.count : 0;
     await fetch(FB_URL + "/" + key + ".json", {
       method: "PUT",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({count:prev+1, name:currentName, icon:currentIcon, path:currentPath})
-    })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ count: prev + 1, name: currentName, icon: currentIcon, path: currentPath })
+    });
   } catch {
-    const local = JSON.parse(localStorage.getItem(LB_LOCAL) || "{}")
-    local[key] = {count:((local[key]||{}).count||0)+1, name:currentName, icon:currentIcon, path:currentPath}
-    localStorage.setItem(LB_LOCAL, JSON.stringify(local))
+    const local = JSON.parse(localStorage.getItem(LB_LOCAL) || "{}");
+    local[key] = { count: ((local[key] || {}).count || 0) + 1, name: currentName, icon: currentIcon, path: currentPath };
+    localStorage.setItem(LB_LOCAL, JSON.stringify(local));
   }
 }
 
@@ -276,57 +365,93 @@ async function incrementPlayCount() {
 async function pingActive() {
   try {
     await fetch(FB_ACTIVE + "/" + sessionId + ".json", {
-      method:"PUT",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({game:currentName, icon:currentIcon, path:currentPath, ts:Date.now()})
-    })
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ game: currentName, icon: currentIcon, path: currentPath, ts: Date.now() })
+    });
   } catch {}
+}
+
+// ---- NOTIFICATIONS: handled by notifications.js ----
+
+
+// ---- INIT ----
+function initPlayer() {
+  if (!currentPath) {
+    document.querySelector(".player-main").innerHTML =
+      '<div class="not-found">No game selected. <a href="games.html">Browse games →</a></div>';
+    return;
+  }
+  document.title = currentName + " – Hotdog Party";
+  document.getElementById("playerIcon").src         = currentIcon;
+  document.getElementById("playerTitle").textContent = currentName;
+  document.getElementById("gameFrame").src           = currentPath;
+
+  // Start 10-second timer — play is NOT counted until user has been on the page for 10s
+  startPlayTimer();
+
+  pingActive();
+  setInterval(pingActive, 90000);
 }
 
 // ---- TOOLBAR ----
 function refreshGame() {
-  const f = document.getElementById("gameFrame")
-  f.src = f.src
+  const f = document.getElementById("gameFrame");
+  // Reset timer on refresh
+  clearInterval(playTimerInterval);
+  elapsed = playRegistered = false;
+  elapsed = 0;
+  const pill  = document.getElementById("playTimerPill");
+  const arc   = document.getElementById("timerArc");
+  const label = document.getElementById("timerLabel");
+  pill.classList.remove("counted");
+  pill.style.opacity       = "1";
+  pill.style.pointerEvents = "auto";
+  arc.style.strokeDashoffset = CIRCUMFERENCE;
+  arc.style.stroke = "#ff8c00";
+  label.textContent = "Play for 10s";
+  f.src = f.src;
+  startPlayTimer();
 }
 
 function fullscreenGame() {
-  const f = document.getElementById("gameFrame")
-  if (f.requestFullscreen) f.requestFullscreen()
-  else if (f.webkitRequestFullscreen) f.webkitRequestFullscreen()
-  else if (f.mozRequestFullScreen) f.mozRequestFullScreen()
+  const f = document.getElementById("gameFrame");
+  if (f.requestFullscreen) f.requestFullscreen();
+  else if (f.webkitRequestFullscreen) f.webkitRequestFullscreen();
+  else if (f.mozRequestFullScreen) f.mozRequestFullScreen();
 }
 
 // ---- SIDEBAR ----
-function shuffle(arr) { return [...arr].sort(()=>Math.random()-.5) }
+function shuffle(arr) { return [...arr].sort(() => Math.random() - .5); }
 
 async function loadSidebar() {
   try {
-    const res = await fetch("games.json")
-    const games = await res.json()
-    const others = shuffle(games.filter(g => g.path !== currentPath)).slice(0, 5)
-    const container = document.getElementById("playerSidebarGames")
-    container.innerHTML = others.map(g =>
+    const res   = await fetch("games.json");
+    const games = await res.json();
+    const others = shuffle(games.filter(g => g.path !== currentPath)).slice(0, 5);
+    document.getElementById("playerSidebarGames").innerHTML = others.map(g =>
       `<a class="sidebar-game" href="${gameURL(g)}">
         <img src="${g.icon}" alt="${g.name}">
         <div class="sidebar-game-name">${g.name}</div>
       </a>`
-    ).join("")
+    ).join("");
   } catch {}
 }
 
 // ---- BG SHAPES ----
-const bg = document.getElementById("bg")
+const bg = document.getElementById("bg");
 for (let i = 0; i < 30; i++) {
-  const s = document.createElement("div")
-  s.className = "shape"
-  s.style.left = Math.random() * 100 + "%"
-  s.style.top = Math.random() * 100 + "%"
-  s.style.animationDuration = (Math.random() * 20 + 10) + "s"
-  bg.appendChild(s)
+  const s = document.createElement("div");
+  s.className = "shape";
+  s.style.left = Math.random() * 100 + "%";
+  s.style.top  = Math.random() * 100 + "%";
+  s.style.animationDuration = (Math.random() * 20 + 10) + "s";
+  bg.appendChild(s);
 }
 
-initPlayer()
-loadSidebar()
+initPlayer();
+loadSidebar();
 </script>
+<script src="notifications.js"></script>
 </body>
 </html>
