@@ -995,11 +995,6 @@
         "icon": "games/papery-planes/icon.png"
     },
     {
-        "name": "Poxel.io",
-        "path": "games/poxel/poxel.html",
-        "icon": "games/poxel/icon.png"
-    },
-    {
         "name": "Breaklock",
         "path": "games/breaklock/index.html",
         "icon": "games/breaklock/assets/icons/ios-180x180.png"
@@ -1018,5 +1013,60 @@
         "name": "Run 3",
         "path": "games/run3/clrun3.html",
         "icon": "games/run3/icon.png"
+    },
+    {
+        "name": "Bloons Tower Defense 4",
+        "path": "games/btd4/btd4.html",
+        "icon": "games/btd4/icon.png"
+    },
+    {
+        "name": "Pokemon Emerald",
+        "path": "games/pokemon/emerald/index.html",
+        "icon": "games/pokemon/emerald/icon.png"
+    },
+    {
+        "name": "1v1 Tennis",
+        "path": "games/1v1tennis/index.html",
+        "icon": "games/1v1tennis/icon.png"
+    },
+    {
+        "name": "Airline Tycoon Idle",
+        "path": "games/airline_tycoon_idle/index.html",
+        "icon": "games/airline_tycoon_idle/icon.png"
+    },
+    {
+        "name": "Aquapark.io",
+        "path": "games/aquapark-io/index.html",
+        "icon": "games/aquapark-io/icon.png"
+    },
+    {
+        "name": "Bacon May Die",
+        "path": "games/bacon-may-die/index.html",
+        "icon": "games/bacon-may-die/icon.png"
+    },
+    {
+        "name": "Bad Bodyguards",
+        "path": "games/bad-bodyguards/index.html",
+        "icon": "games/bad-bodyguards/icon.png"
+    },
+    {
+        "name": "Ballistic",
+        "path": "games/ballistic/index.html",
+        "icon": "games/ballistic/icon.png"
+    },
+    {
+        "name": "Bank Robbery",
+        "path": "games/bank-robbery/index.html",
+        "icon": "games/bank-robbery/icon.png"
+    },
+    {
+        "name": "Bank Robbery 2",
+        "path": "games/bank-robbery/index2.html",
+        "icon": "games/bank-robbery/icon2.png"
+    },
+    {
+        "name": "Battle Karts",
+        "path": "games/battle-karts/index.html",
+        "icon": "games/battle-karts/icon.png"
     }
 ]
