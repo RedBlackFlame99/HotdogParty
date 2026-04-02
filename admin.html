@@ -643,28 +643,36 @@ async function loadLockStatus() {
 
 function applyLockUI(locked, reason) {
   isLocked = locked;
-  const badge     = document.getElementById("topbarLockBadge");
-  const box       = document.getElementById("lockStatusBox");
-  const icon      = document.getElementById("lockStatusIcon");
-  const titleEl   = document.getElementById("lockStatusTitle");
-  const subEl     = document.getElementById("lockStatusSub");
-  const lockBtn   = document.getElementById("lockBtn");
-  const unlockBtn = document.getElementById("unlockBtn");
+
+  const badge   = document.getElementById("topbarLockBadge");
+  const box     = document.getElementById("lockStatusBox");
+  const icon    = document.getElementById("lockStatusIcon");
+  const titleEl = document.getElementById("lockStatusTitle");
+  const subEl   = document.getElementById("lockStatusSub");
+  const lockBtn = document.getElementById("lockBtn");
 
   if (locked) {
-    badge.textContent = "🔒 LOCKED"; badge.className = "lock-status-badge locked";
-    box.className  = "current-lock-status locked-state";
-    icon.textContent   = "🔒";
+    badge.textContent = "🔒 LOCKED";
+    badge.className = "lock-status-badge locked";
+
+    box.className = "current-lock-status locked-state";
+    icon.textContent = "🔒";
     titleEl.textContent = "Panel is LOCKED";
-    subEl.textContent   = reason ? "Reason: " + reason : "No new logins are possible";
-    lockBtn.disabled = true; unlockBtn.disabled = false;
+    subEl.textContent = reason
+      ? "Reason: " + reason
+      : "No new logins are possible";
+
+    lockBtn.disabled = true;
   } else {
-    badge.textContent = "🔓 UNLOCKED"; badge.className = "lock-status-badge unlocked";
-    box.className  = "current-lock-status unlocked-state";
-    icon.textContent   = "🔓";
+    badge.textContent = "🔓 UNLOCKED";
+    badge.className = "lock-status-badge unlocked";
+
+    box.className = "current-lock-status unlocked-state";
+    icon.textContent = "🔓";
     titleEl.textContent = "Panel is UNLOCKED";
-    subEl.textContent   = "Anyone with the correct password can log in";
-    lockBtn.disabled = false; unlockBtn.disabled = true;
+    subEl.textContent = "Anyone with the correct password can log in";
+
+    lockBtn.disabled = false;
   }
 }
 
