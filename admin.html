@@ -662,8 +662,7 @@ function applyLockUI(locked, reason) {
       ? "Reason: " + reason
       : "No new logins are possible";
 
-    // 🔥 Once locked, disable button so it can't be reversed
-    lockBtn.disabled = true;
+    lockBtn.disabled = true; // 🔥 permanent once locked
 
   } else {
     badge.textContent = "🔓 UNLOCKED";
@@ -674,35 +673,45 @@ function applyLockUI(locked, reason) {
     titleEl.textContent = "Panel is UNLOCKED";
     subEl.textContent = "Anyone with the correct password can log in";
 
-    // Allow locking only when currently unlocked
     lockBtn.disabled = false;
   }
 }
 
 async function setLock(shouldLock) {
   const reason = document.getElementById("lockReasonInput").value.trim();
-  if (shouldLock && !confirm(
+
+  if (!confirm(
     "LOCK the admin panel?\n\nThis blocks ALL logins immediately.\n\nReason: " + (reason || "(none)")
   )) return;
-  if (!shouldLock && !confirm("UNLOCK the admin panel? This allows anyone with the password to log in.")) return;
 
   const spinner = document.getElementById("lockSpinner");
+  const lockBtn = document.getElementById("lockBtn");
+
   spinner.style.display = "block";
-  document.getElementById("lockBtn").disabled   = true;
-  document.getElementById("unlockBtn").disabled = true;
+  lockBtn.disabled = true;
 
   try {
     await fetch(FB_LOCK + ".json", {
-      method:"PUT", headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({ locked:shouldLock, reason, updated:new Date().toISOString() })
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        locked: true,
+        reason,
+        updated: new Date().toISOString()
+      })
     });
-    applyLockUI(shouldLock, reason);
-    showAdminToast(shouldLock ? "🔒 Panel locked!" : "🔓 Panel unlocked!", shouldLock ? "error" : "success");
-    if (shouldLock) document.getElementById("lockReasonInput").value = "";
-  } catch {
-    showAdminToast("❌ Failed to update lock.", "error");
+
+    applyLockUI(true, reason);
+    showAdminToast("🔒 Panel locked!", "error");
+
+    document.getElementById("lockReasonInput").value = "";
+
+  } catch (e) {
+    console.error(e);
+    showAdminToast("❌ Failed to lock.", "error");
     applyLockUI(isLocked, reason);
   }
+
   spinner.style.display = "none";
 }
 
