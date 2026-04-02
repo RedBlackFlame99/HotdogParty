@@ -157,7 +157,7 @@ body::before {
 .lb-reset-btn:hover { background:rgba(248,113,113,.22); border-color:var(--red); }
 
 /* LOCK SECTION */
-.lock-panel { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; }
+.lock-panel { display:grid; grid-template-columns:1fr; gap:14px; margin-top:16px; }
 .lock-action-card { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:20px; }
 .lock-action-title { font-size:12px; font-weight:700; color:var(--text); margin-bottom:6px; }
 .lock-action-desc  { font-size:11px; color:var(--text-muted); line-height:1.5; margin-bottom:14px; }
@@ -363,12 +363,6 @@ body::before {
             <div class="lock-action-desc">Immediately blocks all logins — no password will work. Only setting <code style="color:#ff8c00">locked = false</code> in Firebase (or using Unlock below) will re-enable access.</div>
             <input class="lock-reason-input" id="lockReasonInput" placeholder="Reason (optional, e.g. Maintenance)">
             <button class="big-btn red" id="lockBtn" onclick="setLock(true)">🔒 LOCK ADMIN PANEL</button>
-          </div>
-          <div class="lock-action-card">
-            <div class="lock-action-title">🔓 Unlock the Panel</div>
-            <div class="lock-action-desc">Re-enables login with the password. This is the same action as setting <code style="color:#4ade80">locked = false</code> in Firebase — done here for convenience.</div>
-            <div style="height:45px;"></div>
-            <button class="big-btn green" id="unlockBtn" onclick="setLock(false)" disabled>🔓 UNLOCK ADMIN PANEL</button>
           </div>
         </div>
 
