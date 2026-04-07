@@ -75,11 +75,6 @@
         "icon": "games/doge_miner/icon.png"
     },
     {
-        "name": "Bitlife",
-        "path": "games/bitlife/bitlife.html",
-        "icon": "games/bitlife/icon.png"
-    },
-    {
         "name": "Escape Road",
         "path": "games/escape_road/escaperoad.html",
         "icon": "games/escape_road/icon.png"
