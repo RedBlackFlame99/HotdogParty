@@ -235,26 +235,6 @@
         "icon": "games/eggy_car/icon.png"
     },
     {
-        "name": "FNAF",
-        "path": "games/fnaf/fnaf1.html",
-        "icon": "games/fnaf/icon1.png"
-    },
-    {
-        "name": "FNAF 2",
-        "path": "games/fnaf/fnaf2.html",
-        "icon": "games/fnaf/icon2.png"
-    },
-    {
-        "name": "FNAF 3",
-        "path": "games/fnaf/fnaf3.html",
-        "icon": "games/fnaf/icon3.png"
-    },
-    {
-        "name": "FNAF 4",
-        "path": "games/fnaf/fnaf4.html",
-        "icon": "games/fnaf/icon4.png"
-    },
-    {
         "name": "Final Earth 2",
         "path": "games/final_earth/clfinalearth2.html",
         "icon": "games/final_earth/icon.png"
@@ -418,11 +398,6 @@
         "name": "Going Balls",
         "path": "games/going_balls/clgoingballs.html",
         "icon": "games/going_balls/icon.png"
-    },
-    {
-        "name": "Granny",
-        "path": "games/granny/granny.html",
-        "icon": "games/granny/icon.png"
     },
     {
         "name": "Subway Surfers",
