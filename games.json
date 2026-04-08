@@ -37,12 +37,14 @@
     {
         "name": "Level Devil",
         "path": "games/level_devil/clleveldevil.html",
-        "icon": "games/level_devil/icon.png"
+        "icon": "games/level_devil/icon.png",
+        "tags": ["multiplayer"]
     },
     {
         "name": "Basket Random",
         "path": "games/basket_random/index.html",
-        "icon": "games/basket_random/icon.png"
+        "icon": "games/basket_random/icon.png",
+        "tags": ["multiplayer"]
     },
     {
         "name": "Drive Mad",
@@ -62,7 +64,8 @@
     {
         "name": "Slope 2 Player",
         "path": "games/slope/slope2p.html",
-        "icon": "games/slope/icon2.png"
+        "icon": "games/slope/icon2.png",
+        "tags": ["multiplayer"]
     },
     {
         "name": "Slope 3",
@@ -92,7 +95,8 @@
     {
         "name": "Getaway Shootout",
         "path": "games/getaway_shootout/clgetawayshootout.html",
-        "icon": "games/getaway_shootout/logo.png"
+        "icon": "games/getaway_shootout/logo.png",
+        "tags": ["multiplayer"]
     },
     {
         "name": "Geo Subzero",
@@ -247,17 +251,20 @@
     {
         "name": "Gun Mayhem",
         "path": "games/gun_mayhem/clgunmayhem.html",
-        "icon": "games/gun_mayhem/icon1.png"
+        "icon": "games/gun_mayhem/icon1.png",
+        "tags": ["multiplayer"]
     },
     {
         "name": "Gun Mayhem 2",
         "path": "games/gun_mayhem/clgunmayhem2goof.html",
-        "icon": "games/gun_mayhem/icon2.png"
+        "icon": "games/gun_mayhem/icon2.png",
+        "tags": ["multiplayer"]
     },
     {
         "name": "Gun Mayhem Redux",
         "path": "games/gun_mayhem/redux/index.html",
-        "icon": "games/gun_mayhem/redux/icon.png"
+        "icon": "games/gun_mayhem/redux/icon.png",
+        "tags": ["multiplayer"]
     },
     {
         "name": "Pixel Shooter",
@@ -282,7 +289,8 @@
     {
         "name": "Retro Ping Pong",
         "path": "games/retro_ping_pong/game.html",
-        "icon": "games/retro_ping_pong/icon.png"
+        "icon": "games/retro_ping_pong/icon.png",
+        "tags": ["multiplayer"]
     },
     {
         "name": "Eaglercraft",
@@ -292,7 +300,8 @@
     {
         "name": "2D Rocket League",
         "path": "games/rocket_league/clrocketleague.html",
-        "icon": "games/rocket_league/e.png"
+        "icon": "games/rocket_league/e.png",
+        "tags": ["multiplayer"]
     },
     {
         "name": "Rocket Soccer Derby",
@@ -302,12 +311,14 @@
     {
         "name": "Rooftop Snipers",
         "path": "games/rooftop_snipers/clrooftopsnipers.html",
-        "icon": "games/rooftop_snipers/icon1.png"
+        "icon": "games/rooftop_snipers/icon1.png",
+        "tags": ["multiplayer"]
     },
     {
         "name": "Rooftop Snipers 2",
         "path": "games/rooftop_snipers/clrooftopsnipers2.html",
-        "icon": "games/rooftop_snipers/icon2.png"
+        "icon": "games/rooftop_snipers/icon2.png",
+        "tags": ["multiplayer"]
     },
     {
         "name": "99 Nights in the Forest",
@@ -387,7 +398,8 @@
     {
         "name": "Stickman Clash",
         "path": "games/stickmanclash/clash.html",
-        "icon": "games/stickmanclash/icon.png"
+        "icon": "games/stickmanclash/icon.png",
+        "tags": ["multiplayer"]
     },
     {
         "name": "Going Balls",
