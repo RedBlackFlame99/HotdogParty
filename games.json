@@ -1025,16 +1025,6 @@
         "icon": "games/ballistic/icon.png"
     },
     {
-        "name": "Bank Robbery",
-        "path": "games/bank-robbery/index.html",
-        "icon": "games/bank-robbery/icon.png"
-    },
-    {
-        "name": "Bank Robbery 2",
-        "path": "games/bank-robbery/index2.html",
-        "icon": "games/bank-robbery/icon2.png"
-    },
-    {
         "name": "Battle Karts",
         "path": "games/battle-karts/index.html",
         "icon": "games/battle-karts/icon.png"
@@ -1083,5 +1073,35 @@
         "name": "Circloo 2",
         "path": "games/circloo2/index.html",
         "icon": "games/circloo2/icon.png"
+    },
+    {
+        "name": "Learn To Fly",
+        "path": "games/learn-to-fly/index1.html",
+        "icon": "games/learn-to-fly/icon1.png"
+    },
+    {
+        "name": "Learn To Fly 2",
+        "path": "games/learn-to-fly/index2.html",
+        "icon": "games/learn-to-fly/icon2.png"
+    },
+    {
+        "name": "Learn To Fly 3",
+        "path": "games/learn-to-fly/index3.html",
+        "icon": "games/learn-to-fly/icon3.png"
+    },
+    {
+        "name": "BTD6 (Scratch Edition)",
+        "path": "games/btd6/index.html",
+        "icon": "games/btd6/icon.png"
+    },
+    {
+        "name": "TAG",
+        "path": "games/tag/index.html",
+        "icon": "games/tag/icon.png"
+    },
+    {
+        "name": "Survivor.io",
+        "path": "games/survivor-io/index.html",
+        "icon": "games/survivor-io/icon.png"
     }
 ]
