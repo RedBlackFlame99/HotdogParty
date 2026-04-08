@@ -1097,7 +1097,8 @@
     {
         "name": "TAG",
         "path": "games/tag/index.html",
-        "icon": "games/tag/icon.png"
+        "icon": "games/tag/icon.png",
+        "tags": ["multiplayer"]
     },
     {
         "name": "Survivor.io",
