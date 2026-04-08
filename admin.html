@@ -2,733 +2,469 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Hotdog Party – Admin</title>
+<title>Admin – Hotdog Party</title>
 <link rel="icon" href="favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg: #0d0d0f; --surface: #141418; --surface2: #1c1c22;
-  --border: #2a2a35; --border-hot: rgba(255,140,0,.45);
-  --orange: #ff8c00; --orange-light: #ffb347; --orange-glow: rgba(255,140,0,.22);
-  --green: #4ade80; --green-dim: rgba(74,222,128,.13);
-  --red: #f87171; --red-dim: rgba(248,113,113,.13);
-  --text: #e8e8f0; --text-muted: #666; --text-dim: #999; --radius: 14px;
-}
-body { font-family:"JetBrains Mono",monospace; background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden; }
-body::before {
-  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
-  background-image: linear-gradient(rgba(255,140,0,.03) 1px,transparent 1px),
-                    linear-gradient(90deg,rgba(255,140,0,.03) 1px,transparent 1px);
-  background-size:40px 40px;
-}
+*{box-sizing:border-box;}
+body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:#0e0e0e;color:#e0e0e0;min-height:100vh;}
 
-/* LOCK SCREEN */
-#lockScreen {
-  position:fixed; inset:0; z-index:10000; display:none;
-  align-items:center; justify-content:center; flex-direction:column;
-  gap:18px; text-align:center; padding:24px; background:var(--bg);
-}
-.lock-icon { font-size:72px; animation:lock-pulse 2s infinite; }
-@keyframes lock-pulse{0%,100%{transform:scale(1) rotate(-3deg)}50%{transform:scale(1.06) rotate(3deg)}}
-.lock-title { font-family:'Luckiest Guy'; font-size:32px; background:linear-gradient(45deg,#f87171,#fca5a5); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-.lock-sub { font-size:13px; color:var(--text-muted); max-width:340px; line-height:1.6; }
-.lock-reason-box { background:rgba(248,113,113,.07); border:1px solid rgba(248,113,113,.25); border-radius:10px; padding:10px 18px; font-size:12px; color:#f87171; max-width:400px; width:100%; }
-.lock-hint { font-size:10px; color:#444; letter-spacing:.5px; }
+/* ── LOGIN SCREEN ── */
+.login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+.login-card{background:#161616;border:1px solid #2a2a2a;border-radius:20px;padding:44px 48px;width:100%;max-width:420px;text-align:center;}
+.login-title{font-family:'Luckiest Guy';font-size:38px;background:linear-gradient(45deg,#ff7b00,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;margin-bottom:6px;}
+.login-sub{color:#555;font-size:14px;margin-bottom:32px;}
+.login-input{width:100%;padding:12px 16px;background:#1e1e1e;border:2px solid #2a2a2a;border-radius:10px;color:#fff;font-size:15px;outline:none;transition:.2s;margin-bottom:14px;}
+.login-input:focus{border-color:#ff8c00;box-shadow:0 0 10px rgba(255,140,0,.3);}
+.login-btn{width:100%;padding:13px;background:linear-gradient(45deg,#ff8c00,#ffd000);color:#111;font-weight:900;font-size:16px;border:none;border-radius:10px;cursor:pointer;transition:.2s;}
+.login-btn:hover{transform:scale(1.03);box-shadow:0 4px 20px rgba(255,140,0,.5);}
+.login-err{color:#ff5555;font-size:13px;margin-top:10px;display:none;}
 
-/* LOGIN SCREEN */
-#loginScreen { position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; background:var(--bg); }
-#loginLoading { display:flex; flex-direction:column; align-items:center; gap:12px; }
-.spinner { width:32px; height:32px; border:3px solid rgba(255,140,0,.15); border-top-color:#ff8c00; border-radius:50%; animation:spin .7s linear infinite; }
-@keyframes spin{to{transform:rotate(360deg)}}
-.spinner-label { font-size:11px; color:var(--text-muted); letter-spacing:.5px; }
-.login-card { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:44px 40px; width:100%; max-width:380px; text-align:center; box-shadow:0 0 60px rgba(0,0,0,.6),0 0 0 1px rgba(255,140,0,.06); position:relative; z-index:1; display:none; }
-.login-logo { font-size:48px; margin-bottom:8px; display:block; animation:pulse 2.5s infinite; }
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
-.login-title { font-family:'Luckiest Guy'; font-size:28px; background:linear-gradient(45deg,#ff7b00,#ffcc00); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:4px; }
-.login-sub { font-size:11px; color:var(--text-muted); margin-bottom:28px; letter-spacing:.5px; }
-.login-input { width:100%; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:12px 16px; font-family:"JetBrains Mono",monospace; font-size:16px; color:var(--text); outline:none; letter-spacing:4px; text-align:center; transition:border-color .2s,box-shadow .2s; margin-bottom:14px; }
-.login-input:focus { border-color:var(--orange); box-shadow:0 0 0 3px var(--orange-glow); }
-.login-btn { width:100%; background:linear-gradient(135deg,#ff7b00,#ffae00); border:none; border-radius:10px; padding:12px; font-family:'Luckiest Guy'; font-size:17px; color:#1a0a00; cursor:pointer; letter-spacing:1px; transition:opacity .2s,transform .15s,box-shadow .2s; box-shadow:0 4px 18px rgba(255,140,0,.35); }
-.login-btn:hover { opacity:.93; transform:translateY(-1px); box-shadow:0 6px 24px rgba(255,140,0,.5); }
-.login-btn:active { transform:translateY(0); }
-.login-error { margin-top:12px; font-size:12px; color:var(--red); opacity:0; transition:opacity .2s; }
-.login-error.show { opacity:1; }
-.login-attempts { margin-top:8px; font-size:10px; color:#555; }
+/* ── ADMIN LAYOUT ── */
+.admin-wrap{display:none;flex-direction:column;min-height:100vh;}
+.admin-header{background:#111;border-bottom:1px solid rgba(255,140,0,.18);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.admin-logo{font-family:'Luckiest Guy';font-size:26px;background:linear-gradient(45deg,#ff7b00,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.admin-badge{background:rgba(255,140,0,.15);border:1px solid rgba(255,140,0,.35);color:#ffb347;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.8px;margin-left:10px;}
+.logout-btn{background:rgba(255,80,80,.1);border:1px solid rgba(255,80,80,.3);color:#ff7070;padding:8px 18px;border-radius:9px;font-weight:700;font-size:13px;cursor:pointer;transition:.2s;}
+.logout-btn:hover{background:rgba(255,80,80,.2);border-color:#ff5555;}
 
-/* MAIN APP */
-#adminApp { position:relative; z-index:1; display:none; }
-.topbar { position:sticky; top:0; background:rgba(13,13,15,.96); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); padding:14px 28px; display:flex; align-items:center; justify-content:space-between; z-index:100; }
-.topbar-left { display:flex; align-items:center; gap:14px; }
-.topbar-logo { font-size:28px; }
-.topbar-title { font-family:'Luckiest Guy'; font-size:20px; background:linear-gradient(45deg,#ff7b00,#ffcc00); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-.topbar-badge { font-size:10px; font-weight:700; background:var(--orange-glow); border:1px solid var(--border-hot); color:var(--orange-light); padding:3px 8px; border-radius:6px; letter-spacing:1px; }
-.lock-status-badge { font-size:10px; font-weight:700; padding:3px 10px; border-radius:6px; letter-spacing:.8px; cursor:pointer; transition:all .2s; }
-.lock-status-badge.unlocked { background:rgba(74,222,128,.13); border:1px solid rgba(74,222,128,.3); color:var(--green); }
-.lock-status-badge.locked   { background:var(--red-dim); border:1px solid rgba(248,113,113,.3); color:var(--red); }
-.topbar-right { display:flex; align-items:center; gap:10px; }
-.btn-sm { font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:700; padding:7px 14px; border-radius:8px; cursor:pointer; transition:all .18s; border:1px solid var(--border); background:var(--surface2); color:var(--text-dim); text-decoration:none; display:inline-flex; align-items:center; gap:6px; }
-.btn-sm:hover { border-color:var(--orange); color:var(--orange); }
-.btn-sm.danger { border-color:rgba(248,113,113,.3); color:var(--red); }
-.btn-sm.danger:hover { background:var(--red-dim); border-color:var(--red); }
+.admin-body{display:flex;flex:1;gap:0;}
+.admin-sidebar{width:220px;background:#111;border-right:1px solid #1e1e1e;padding:24px 0;flex-shrink:0;position:sticky;top:61px;align-self:flex-start;height:calc(100vh - 61px);overflow-y:auto;}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:11px 20px;cursor:pointer;font-size:14px;font-weight:600;color:#666;transition:.2s;border-left:3px solid transparent;}
+.sidebar-item:hover{color:#ddd;background:rgba(255,255,255,.04);}
+.sidebar-item.active{color:#ff8c00;border-left-color:#ff8c00;background:rgba(255,140,0,.07);}
+.sidebar-item svg{width:18px;height:18px;flex-shrink:0;}
 
-/* CONTENT */
-.content { max-width:900px; margin:0 auto; padding:32px 24px; display:flex; flex-direction:column; gap:24px; }
-.card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
-.card-header { padding:16px 22px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; }
-.card-icon { font-size:18px; }
-.card-title { font-size:13px; font-weight:700; color:var(--text); letter-spacing:.5px; }
-.card-subtitle { font-size:11px; color:var(--text-muted); }
-.card-header-right { margin-left:auto; display:flex; gap:8px; align-items:center; }
-.card-body { padding:22px; }
+.admin-content{flex:1;padding:32px;max-width:1100px;}
 
-/* STATS */
-.stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
-.stat-card { background:var(--surface2); border:1px solid var(--border); border-radius:11px; padding:18px 20px; display:flex; flex-direction:column; gap:6px; }
-.stat-label { font-size:10px; color:var(--text-muted); letter-spacing:.8px; text-transform:uppercase; }
-.stat-value { font-size:28px; font-weight:700; font-family:'Luckiest Guy'; background:linear-gradient(45deg,#ff7b00,#ffcc00); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-.stat-sub { font-size:10px; color:#555; }
+/* ── SECTIONS ── */
+.section{display:none;}
+.section.active{display:block;}
+.section-title{font-family:'Luckiest Guy';font-size:30px;background:linear-gradient(45deg,#ff7b00,#ffae00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;letter-spacing:1px;}
+.section-sub{color:#555;font-size:13px;margin-bottom:28px;}
 
-/* FORMS */
-.form-row { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
-.form-label { font-size:11px; font-weight:700; color:var(--text-muted); letter-spacing:.8px; text-transform:uppercase; }
-.form-input,.form-textarea { background:var(--surface2); border:1px solid var(--border); border-radius:9px; padding:11px 14px; font-family:"JetBrains Mono",monospace; font-size:13px; color:var(--text); outline:none; transition:border-color .18s,box-shadow .18s; width:100%; }
-.form-input:focus,.form-textarea:focus { border-color:var(--orange); box-shadow:0 0 0 3px var(--orange-glow); }
-.form-textarea { resize:vertical; min-height:80px; line-height:1.5; }
-.form-row-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-.emoji-picker { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
-.emoji-opt { font-size:20px; padding:5px 8px; border-radius:7px; border:1px solid var(--border); background:var(--surface2); cursor:pointer; transition:all .15s; line-height:1; }
-.emoji-opt:hover,.emoji-opt.selected { border-color:var(--orange); background:var(--orange-glow); transform:scale(1.15); }
-.send-btn { width:100%; background:linear-gradient(135deg,#ff7b00,#ffae00); border:none; border-radius:10px; padding:13px; font-family:'Luckiest Guy'; font-size:16px; color:#1a0a00; cursor:pointer; letter-spacing:1px; transition:opacity .2s,transform .15s,box-shadow .2s; box-shadow:0 4px 18px rgba(255,140,0,.3); margin-top:6px; display:flex; align-items:center; justify-content:center; gap:8px; }
-.send-btn:hover { opacity:.92; transform:translateY(-1px); }
-.send-btn:disabled { opacity:.5; cursor:not-allowed; transform:none; }
+/* ── CARDS ── */
+.card{background:#161616;border:1px solid #222;border-radius:16px;padding:24px;margin-bottom:20px;}
+.card-title{font-size:14px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
 
-/* TOAST PREVIEW */
-.toast-preview-wrap { background:#0d0d0f; border:1px solid var(--border); border-radius:11px; padding:20px 20px 12px; display:flex; align-items:flex-end; min-height:110px; position:relative; overflow:hidden; }
-.toast-preview-wrap::after { content:'↙ bottom-left corner'; position:absolute; bottom:8px; right:14px; font-size:9px; color:#444; }
-.toast-preview { display:flex; align-items:flex-start; background:#161618; border:1px solid rgba(255,140,0,.28); border-left:3px solid #ff8c00; border-radius:12px; overflow:hidden; min-width:260px; max-width:340px; }
-.tp-inner { display:flex; flex-direction:column; flex:1; min-width:0; padding:12px 10px 0 14px; }
-.tp-top { display:flex; align-items:flex-start; gap:9px; }
-.tp-emoji { font-size:20px; line-height:1; flex-shrink:0; margin-top:1px; }
-.tp-content { flex:1; min-width:0; }
-.tp-header { display:flex; align-items:center; gap:6px; margin-bottom:3px; }
-.tp-site { font-size:9px; font-weight:800; letter-spacing:1px; color:#ff8c00; background:rgba(255,140,0,.1); border:1px solid rgba(255,140,0,.2); border-radius:4px; padding:1px 5px; font-family:system-ui,sans-serif; text-transform:uppercase; }
-.tp-dot { width:6px; height:6px; border-radius:50%; background:#ff8c00; }
-.tp-title { font-size:12px; font-weight:700; color:#f0f0f0; margin-bottom:3px; font-family:system-ui,sans-serif; }
-.tp-msg { font-size:11px; color:#999; line-height:1.45; font-family:system-ui,sans-serif; padding-bottom:10px; }
-.tp-progress { height:3px; background:rgba(255,255,255,.06); }
-.tp-bar { height:100%; width:60%; background:linear-gradient(90deg,#ff7b00,#ffcc00); }
-.tp-close { background:none; border:none; color:#555; font-size:14px; cursor:pointer; padding:8px 10px 8px 4px; align-self:flex-start; margin-top:2px; }
+/* ── FORM ELEMENTS ── */
+input[type=text],input[type=number],select,textarea{background:#1e1e1e;border:2px solid #2a2a2a;border-radius:9px;color:#fff;font-size:14px;padding:9px 13px;outline:none;transition:.2s;width:100%;}
+input[type=text]:focus,input[type=number]:focus,select:focus,textarea:focus{border-color:#ff8c00;box-shadow:0 0 8px rgba(255,140,0,.25);}
+textarea{resize:vertical;min-height:80px;font-family:inherit;}
+select option{background:#1e1e1e;}
+label{font-size:13px;font-weight:600;color:#888;display:block;margin-bottom:6px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.form-group{margin-bottom:14px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:9px;font-weight:700;font-size:14px;cursor:pointer;transition:.2s;border:1px solid transparent;}
+.btn-primary{background:linear-gradient(45deg,#ff8c00,#ffd000);color:#111;border:none;}
+.btn-primary:hover{transform:scale(1.03);box-shadow:0 4px 16px rgba(255,140,0,.4);}
+.btn-danger{background:rgba(200,40,40,.1);border-color:rgba(200,40,40,.35);color:#ff7070;}
+.btn-danger:hover{background:rgba(200,40,40,.2);border-color:#ff4444;}
+.btn-ghost{background:transparent;border-color:#333;color:#888;}
+.btn-ghost:hover{border-color:#ff8c00;color:#ff8c00;}
 
-/* NOTIF LIST */
-.notif-list { display:flex; flex-direction:column; gap:10px; }
-.notif-item { display:flex; align-items:center; gap:14px; padding:14px 18px; background:var(--surface2); border:1px solid var(--border); border-radius:11px; }
-.notif-item.inactive { opacity:.5; }
-.notif-emoji { font-size:22px; flex-shrink:0; }
-.notif-info { flex:1; min-width:0; }
-.notif-name { font-size:13px; font-weight:700; color:var(--text); margin-bottom:3px; }
-.notif-body { font-size:11px; color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.notif-meta { font-size:10px; color:#555; margin-top:3px; }
-.notif-actions { display:flex; gap:6px; flex-shrink:0; }
-.notif-tag { font-size:10px; font-weight:700; padding:3px 8px; border-radius:5px; letter-spacing:.5px; flex-shrink:0; }
-.notif-tag.active  { background:rgba(74,222,128,.13); color:var(--green); border:1px solid rgba(74,222,128,.3); }
-.notif-tag.inactive { background:rgba(100,100,100,.15); color:#666; border:1px solid #333; }
+/* ── TOGGLE SWITCH ── */
+.toggle-wrap{display:flex;align-items:center;gap:10px;}
+.toggle{position:relative;width:44px;height:24px;flex-shrink:0;}
+.toggle input{opacity:0;width:0;height:0;position:absolute;}
+.toggle-slider{position:absolute;inset:0;background:#2a2a2a;border-radius:12px;cursor:pointer;transition:.25s;}
+.toggle-slider::before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:#777;border-radius:50%;transition:.25s;}
+.toggle input:checked+.toggle-slider{background:linear-gradient(45deg,#ff8c00,#ffd000);}
+.toggle input:checked+.toggle-slider::before{transform:translateX(20px);background:#111;}
+.toggle-label{font-size:13px;font-weight:600;color:#aaa;}
 
-/* LEADERBOARD EDITOR */
-.bulk-bar { display:flex; align-items:center; gap:10px; padding:12px 16px; background:rgba(248,113,113,.05); border:1px solid rgba(248,113,113,.18); border-radius:10px; margin-bottom:14px; }
-.bulk-label { font-size:11px; color:var(--text-muted); flex:1; }
-.bulk-reset-all { font-family:"JetBrains Mono",monospace; font-size:11px; font-weight:700; padding:7px 14px; border-radius:8px; cursor:pointer; transition:all .18s; border:1px solid rgba(248,113,113,.4); background:var(--red-dim); color:var(--red); }
-.bulk-reset-all:hover { background:rgba(248,113,113,.22); }
-.lb-search-wrap { margin-bottom:14px; }
-.lb-game-list { display:flex; flex-direction:column; gap:8px; }
-.lb-game-row { display:grid; grid-template-columns:38px 1fr 130px auto; align-items:center; gap:12px; padding:12px 16px; background:var(--surface2); border:1px solid var(--border); border-radius:11px; transition:border-color .18s; }
-.lb-game-row:hover { border-color:#3a3a45; }
-.lb-game-icon { width:38px; height:38px; border-radius:8px; object-fit:cover; }
-.lb-game-name { font-size:13px; font-weight:700; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.lb-game-count { font-size:11px; color:var(--text-muted); margin-top:2px; }
-.lb-count-input { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:8px 12px; font-family:"JetBrains Mono",monospace; font-size:13px; font-weight:700; color:var(--text); outline:none; width:100%; text-align:center; transition:border-color .18s,box-shadow .18s; }
-.lb-count-input:focus { border-color:var(--orange); box-shadow:0 0 0 2px var(--orange-glow); }
-.lb-count-input:disabled { opacity:.4; }
-.lb-actions { display:flex; gap:6px; flex-shrink:0; }
-.lb-save-btn { font-family:"JetBrains Mono",monospace; font-size:11px; font-weight:700; padding:7px 12px; border-radius:8px; cursor:pointer; transition:all .18s; border:1px solid rgba(74,222,128,.3); background:rgba(74,222,128,.13); color:var(--green); white-space:nowrap; }
-.lb-save-btn:hover { background:rgba(74,222,128,.22); border-color:var(--green); }
-.lb-save-btn:disabled { opacity:.4; cursor:not-allowed; }
-.lb-reset-btn { font-family:"JetBrains Mono",monospace; font-size:11px; font-weight:700; padding:7px 12px; border-radius:8px; cursor:pointer; transition:all .18s; border:1px solid rgba(248,113,113,.3); background:var(--red-dim); color:var(--red); white-space:nowrap; }
-.lb-reset-btn:hover { background:rgba(248,113,113,.22); border-color:var(--red); }
+/* ── NOTIFICATION LIST ── */
+.notif-list{display:flex;flex-direction:column;gap:10px;}
+.notif-item{background:#1a1a1a;border:1px solid #282828;border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:14px;}
+.notif-item.inactive{opacity:.5;}
+.notif-icon-col{font-size:22px;flex-shrink:0;width:34px;text-align:center;}
+.notif-info{flex:1;min-width:0;}
+.notif-msg{font-size:14px;font-weight:600;color:#ddd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.notif-meta{font-size:11px;color:#555;margin-top:3px;}
+.notif-type-pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px;margin-right:6px;}
+.pill-info{background:rgba(88,101,242,.2);color:#7b89ff;}
+.pill-success{background:rgba(0,180,90,.2);color:#3fd68a;}
+.pill-warning{background:rgba(255,140,0,.2);color:#ffa940;}
+.pill-error{background:rgba(200,40,40,.2);color:#ff7070;}
+.notif-actions{display:flex;gap:6px;flex-shrink:0;}
 
-/* LOCK SECTION */
-.lock-panel { display:grid; grid-template-columns:1fr; gap:14px; margin-top:16px; }
-.lock-action-card { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:20px; }
-.lock-action-title { font-size:12px; font-weight:700; color:var(--text); margin-bottom:6px; }
-.lock-action-desc  { font-size:11px; color:var(--text-muted); line-height:1.5; margin-bottom:14px; }
-.big-btn { width:100%; padding:11px; border-radius:9px; font-family:'Luckiest Guy'; font-size:14px; letter-spacing:.8px; cursor:pointer; transition:all .2s; border:none; }
-.big-btn.red   { background:linear-gradient(135deg,#ef4444,#f87171); color:white; box-shadow:0 4px 16px rgba(239,68,68,.25); }
-.big-btn.red:hover   { opacity:.9; transform:translateY(-1px); }
-.big-btn.green { background:linear-gradient(135deg,#22c55e,#4ade80); color:#0a1a0a; box-shadow:0 4px 16px rgba(34,197,94,.25); }
-.big-btn.green:hover { opacity:.9; transform:translateY(-1px); }
-.big-btn:disabled { opacity:.35; cursor:not-allowed; transform:none !important; }
-.lock-reason-input { width:100%; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:9px 12px; font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--text); outline:none; margin-bottom:10px; transition:border-color .18s; }
-.lock-reason-input:focus { border-color:var(--red); }
-.current-lock-status { display:flex; align-items:center; gap:10px; padding:13px 16px; border-radius:10px; border:1px solid; margin-bottom:4px; }
-.current-lock-status.locked-state   { background:rgba(248,113,113,.06); border-color:rgba(248,113,113,.22); }
-.current-lock-status.unlocked-state { background:rgba(74,222,128,.06);  border-color:rgba(74,222,128,.22);  }
-.cls-icon  { font-size:22px; }
-.cls-text  { flex:1; }
-.cls-title { font-size:12px; font-weight:700; margin-bottom:2px; }
-.cls-sub   { font-size:10px; color:var(--text-muted); }
-.locked-state   .cls-title { color:var(--red);   }
-.unlocked-state .cls-title { color:var(--green); }
-.lock-info-box { margin-top:14px; padding:12px 16px; background:rgba(255,140,0,.04); border:1px solid rgba(255,140,0,.1); border-radius:9px; font-size:10px; color:#666; line-height:1.7; }
+/* ── GAME TOGGLE LIST ── */
+.game-search{margin-bottom:14px;}
+.games-toggle-list{display:flex;flex-direction:column;gap:8px;max-height:520px;overflow-y:auto;padding-right:4px;}
+.games-toggle-list::-webkit-scrollbar{width:5px;}
+.games-toggle-list::-webkit-scrollbar-track{background:transparent;}
+.games-toggle-list::-webkit-scrollbar-thumb{background:#333;border-radius:3px;}
+.games-toggle-list::-webkit-scrollbar-thumb:hover{background:#ff8c00;}
+.game-row{background:#1a1a1a;border:1px solid #252525;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:12px;transition:.15s;}
+.game-row.disabled-game{opacity:.45;}
+.game-row img{width:40px;height:40px;border-radius:7px;object-fit:cover;flex-shrink:0;border:1px solid #2a2a2a;}
+.game-row-name{flex:1;font-size:13px;font-weight:700;color:#ddd;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.disabled-badge{background:rgba(200,40,40,.15);border:1px solid rgba(200,40,40,.3);color:#ff7070;font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;flex-shrink:0;text-transform:uppercase;letter-spacing:.4px;}
 
-/* MISC */
-.empty-state { text-align:center; padding:40px 20px; color:var(--text-muted); font-size:12px; }
-.empty-state .es-icon { font-size:36px; margin-bottom:10px; display:block; }
-.loading { color:var(--text-muted); font-size:12px; text-align:center; padding:20px; }
+/* ── STATS ── */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;}
+.stat-box{background:#1a1a1a;border:1px solid #252525;border-radius:14px;padding:20px;text-align:center;}
+.stat-n{font-family:'Luckiest Guy';font-size:40px;background:linear-gradient(45deg,#ff7b00,#ffae00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;}
+.stat-lbl{font-size:12px;color:#555;margin-top:6px;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
 
-/* TOAST */
-.toast { position:fixed; bottom:28px; right:28px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px 20px; font-size:13px; font-weight:700; opacity:0; transform:translateY(12px); transition:opacity .25s,transform .25s; pointer-events:none; z-index:9999; box-shadow:0 4px 20px rgba(0,0,0,.5); }
-.toast.show { opacity:1; transform:translateY(0); }
-.toast.success { border-color:rgba(74,222,128,.4); color:var(--green); }
-.toast.error   { border-color:rgba(248,113,113,.4); color:var(--red);   }
-.toast.info    { border-color:rgba(255,140,0,.4);   color:var(--orange-light); }
+/* ── TOAST ── */
+.admin-toast{position:fixed;bottom:28px;right:28px;background:#1e1e1e;border:1px solid #333;border-radius:12px;padding:11px 20px;font-size:13px;font-weight:600;color:#ddd;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;transform:translateY(10px);z-index:9999;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.5);}
+.admin-toast.show{opacity:1;transform:translateY(0);}
+.admin-toast.ok{border-color:rgba(0,200,100,.4);color:#3fd68a;}
+.admin-toast.err{border-color:rgba(255,80,80,.4);color:#ff7070;}
 </style>
 </head>
 <body>
 
-<!-- LOCK SCREEN -->
-<div id="lockScreen">
-  <span class="lock-icon">🔒</span>
-  <div class="lock-title">Admin Locked</div>
-  <div class="lock-sub">The admin panel has been locked by the site owner. Login is disabled until unlocked directly from Firebase.</div>
-  <div class="lock-reason-box" id="lockReasonBox" style="display:none"></div>
-  <div class="lock-hint">To unlock: set <code style="color:#ff8c00">admin_lock → locked = false</code> in Firebase</div>
-</div>
-
-<!-- LOGIN SCREEN -->
-<div id="loginScreen">
-  <div id="loginLoading">
-    <div class="spinner"></div>
-    <div class="spinner-label">Verifying access...</div>
-  </div>
-  <div class="login-card" id="loginCard">
-    <span class="login-logo">🌭</span>
-    <div class="login-title">Admin Panel</div>
-    <div class="login-sub">HOTDOG PARTY // RESTRICTED ACCESS</div>
-    <input class="login-input" type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password">
-    <button class="login-btn" onclick="doLogin()">ENTER</button>
-    <div class="login-error" id="loginError">Incorrect password</div>
-    <div class="login-attempts" id="loginAttempts"></div>
+<!-- ══ LOGIN ══ -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-title">🌭 Admin</div>
+    <div class="login-sub">Hotdog Party Control Panel</div>
+    <input class="login-input" id="pwInput" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">Log In</button>
+    <div class="login-err" id="loginErr">Incorrect password.</div>
   </div>
 </div>
 
-<!-- ADMIN APP -->
-<div id="adminApp">
-  <div class="topbar">
-    <div class="topbar-left">
-      <span class="topbar-logo">🌭</span>
-      <span class="topbar-title">Hotdog Party</span>
-      <span class="topbar-badge">ADMIN</span>
-      <span class="lock-status-badge unlocked" id="topbarLockBadge" onclick="scrollToLock()" title="Click to manage lock">🔓 UNLOCKED</span>
+<!-- ══ ADMIN PANEL ══ -->
+<div class="admin-wrap" id="adminWrap">
+
+  <div class="admin-header">
+    <div style="display:flex;align-items:center;gap:0">
+      <a href="index.html" class="admin-logo">🌭 Hotdog Party</a>
+      <span class="admin-badge">Admin</span>
     </div>
-    <div class="topbar-right">
-      <a class="btn-sm" href="index.html" target="_blank">↗ View Site</a>
-      <button class="btn-sm danger" onclick="doLogout()">✕ Logout</button>
-    </div>
+    <button class="logout-btn" onclick="doLogout()">Log Out</button>
   </div>
 
-  <div class="content">
-
-    <!-- STATS -->
-    <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-label">Active Notifications</div>
-        <div class="stat-value" id="statActive">–</div>
-        <div class="stat-sub">showing on site now</div>
+  <div class="admin-body">
+    <!-- Sidebar -->
+    <div class="admin-sidebar">
+      <div class="sidebar-item active" data-section="games" onclick="showSection('games',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="12" rx="4"/><path d="M8 11v4M6 13h4"/><circle cx="16" cy="12" r="1" fill="currentColor"/><circle cx="18" cy="14" r="1" fill="currentColor"/></svg>
+        Games
       </div>
-      <div class="stat-card">
-        <div class="stat-label">Total Sent</div>
-        <div class="stat-value" id="statTotal">–</div>
-        <div class="stat-sub">all-time notifications</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Games Tracked</div>
-        <div class="stat-value" id="statGames">–</div>
-        <div class="stat-sub">games with play data</div>
+      <div class="sidebar-item" data-section="notifs" onclick="showSection('notifs',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Notifications
       </div>
     </div>
 
-    <!-- COMPOSE -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">📝</span>
-        <span class="card-title">COMPOSE NOTIFICATION</span>
-        <span class="card-subtitle" style="margin-left:auto;">bottom-left toast on all pages</span>
+    <!-- Content -->
+    <div class="admin-content">
+
+      <!-- ══ GAMES ══ -->
+      <div class="section active" id="section-games">
+        <div class="section-title">🎮 Game Manager</div>
+        <div class="section-sub">Toggle games on or off. Disabled games are hidden from players on the Games page.</div>
+
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            Search & Toggle
+          </div>
+          <input class="game-search" type="text" id="gameSearch" placeholder="Search games..." oninput="filterGameRows()">
+          <div id="gameLoadingMsg" style="color:#555;font-size:13px;padding:20px 0">Loading games...</div>
+          <div class="games-toggle-list" id="gamesToggleList"></div>
+        </div>
       </div>
-      <div class="card-body">
-        <div class="form-row-2">
+
+      <!-- ══ NOTIFICATIONS ══ -->
+      <div class="section" id="section-notifs">
+        <div class="section-title">🔔 Notifications</div>
+        <div class="section-sub">Push site-wide notifications that appear on every page. Dismissed notifications won't reappear for the same user.</div>
+
+        <!-- CREATE FORM -->
+        <div class="card">
+          <div class="card-title">✏️ Create Notification</div>
           <div class="form-row">
-            <label class="form-label">Title</label>
-            <input class="form-input" id="nTitle" placeholder="e.g. New Game Added!" oninput="updatePreview()">
-          </div>
-          <div class="form-row">
-            <label class="form-label">Emoji Icon</label>
-            <div class="emoji-picker" id="emojiPicker"></div>
-          </div>
-        </div>
-        <div class="form-row">
-          <label class="form-label">Message</label>
-          <textarea class="form-textarea" id="nMsg" placeholder="Write your announcement here..." oninput="updatePreview()"></textarea>
-        </div>
-        <div class="form-row">
-          <label class="form-label">Preview — bottom-left toast</label>
-          <div class="toast-preview-wrap">
-            <div class="toast-preview">
-              <div class="tp-inner">
-                <div class="tp-top">
-                  <span class="tp-emoji" id="prevIcon">📢</span>
-                  <div class="tp-content">
-                    <div class="tp-header"><span class="tp-site">Hotdog Party</span><span class="tp-dot"></span></div>
-                    <div class="tp-title" id="prevTitle">Your Title</div>
-                    <div class="tp-msg" id="prevMsg">Your message will appear here...</div>
-                  </div>
-                </div>
-                <div class="tp-progress"><div class="tp-bar"></div></div>
-              </div>
-              <button class="tp-close">✕</button>
+            <div class="form-group">
+              <label>Icon (emoji)</label>
+              <input type="text" id="notifIcon" value="🔔" maxlength="4">
+            </div>
+            <div class="form-group">
+              <label>Type</label>
+              <select id="notifType">
+                <option value="info">Info (blue)</option>
+                <option value="success">Success (green)</option>
+                <option value="warning">Warning (orange)</option>
+                <option value="error">Error (red)</option>
+              </select>
             </div>
           </div>
-        </div>
-        <button class="send-btn" id="sendBtn" onclick="sendNotification()">
-          <span>📣</span> SEND NOTIFICATION
-        </button>
-      </div>
-    </div>
-
-    <!-- NOTIFICATIONS LIST -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🔔</span>
-        <span class="card-title">ALL NOTIFICATIONS</span>
-        <div class="card-header-right">
-          <button class="btn-sm" onclick="loadNotifications()">↺ Refresh</button>
-        </div>
-      </div>
-      <div class="card-body" style="padding:14px 16px;">
-        <div id="notifList" class="loading">Loading...</div>
-      </div>
-    </div>
-
-    <!-- LEADERBOARD EDITOR -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🏆</span>
-        <span class="card-title">LEADERBOARD EDITOR</span>
-        <div class="card-header-right">
-          <button class="btn-sm" onclick="loadLeaderboard()">↺ Refresh</button>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="bulk-bar">
-          <span class="bulk-label">⚠️ Bulk action — affects all games at once</span>
-          <button class="bulk-reset-all" onclick="resetAllScores()">🗑 Reset ALL to 0</button>
-        </div>
-        <div class="lb-search-wrap">
-          <input class="form-input" id="lbSearch" placeholder="🔍  Filter games..." oninput="renderLeaderboard()">
-        </div>
-        <div id="lbList" class="loading">Loading...</div>
-      </div>
-    </div>
-
-    <!-- ADMIN LOCK -->
-    <div class="card" id="lockCard">
-      <div class="card-header">
-        <span class="card-icon">🔐</span>
-        <span class="card-title">ADMIN PANEL LOCK</span>
-        <span class="card-subtitle" style="margin-left:auto;">Firebase-controlled · overrides the password entirely</span>
-      </div>
-      <div class="card-body">
-
-        <div class="current-lock-status unlocked-state" id="lockStatusBox">
-          <span class="cls-icon" id="lockStatusIcon">🔓</span>
-          <div class="cls-text">
-            <div class="cls-title" id="lockStatusTitle">Panel is UNLOCKED</div>
-            <div class="cls-sub" id="lockStatusSub">Anyone with the correct password can log in</div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea id="notifMsg" placeholder="Enter notification message..."></textarea>
           </div>
-          <div class="spinner" id="lockSpinner" style="display:none;width:18px;height:18px;border-width:2px;flex-shrink:0;"></div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Auto-dismiss after (seconds, 0 = never)</label>
+              <input type="number" id="notifDuration" value="0" min="0">
+            </div>
+            <div class="form-group" style="display:flex;align-items:flex-end;">
+              <div class="toggle-wrap" style="margin-bottom:2px">
+                <label class="toggle"><input type="checkbox" id="notifActive" checked><span class="toggle-slider"></span></label>
+                <span class="toggle-label">Active immediately</span>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="createNotif()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Push Notification
+          </button>
         </div>
 
-        <div class="lock-panel">
-          <div class="lock-action-card">
-            <div class="lock-action-title">🔒 Lock the Panel</div>
-            <div class="lock-action-desc">Immediately blocks all logins — no password will work. Only setting <code style="color:#ff8c00">locked = false</code> in Firebase (or using Unlock below) will re-enable access.</div>
-            <input class="lock-reason-input" id="lockReasonInput" placeholder="Reason (optional, e.g. Maintenance)">
-            <button class="big-btn red" id="lockBtn" onclick="setLock(true)">🔒 LOCK ADMIN PANEL</button>
+        <!-- LIST -->
+        <div class="card">
+          <div class="card-title">📋 Existing Notifications</div>
+          <div id="notifListWrap">
+            <div style="color:#555;font-size:13px">Loading...</div>
           </div>
         </div>
-
-        <div class="lock-info-box">
-          💡 <strong style="color:#888;">How it works:</strong> Every time someone opens this page, it reads
-          <code style="color:#ff8c00">admin_lock → locked</code> from Firebase <em>before</em> showing the login form.
-          If <code style="color:#ff8c00">locked = true</code>, the password field never appears — it's replaced by a
-          blocked screen. Even knowing the correct password is useless while locked.
-          You can also toggle this directly in the Firebase Realtime Database console.
-        </div>
       </div>
-    </div>
 
-  </div>
-</div>
+    </div><!-- /admin-content -->
+  </div><!-- /admin-body -->
+</div><!-- /admin-wrap -->
 
-<div class="toast" id="toast"></div>
-<script src="notifications.js"></script>
+<div class="admin-toast" id="adminToast"></div>
 
 <script>
-// ══════════════════════════════════════════════════════════
-//  CONFIG
-// ══════════════════════════════════════════════════════════
-const ADMIN_PASS   = "3Y|~0DLjK66N:U1!W4.GwIDvfo11`e*a"; // ← Change before pushing!
-const FB_BASE      = "https://hotdog-party-61e77-default-rtdb.firebaseio.com";
-const FB_NOTIF     = FB_BASE + "/notifications";
-const FB_PLAYS     = FB_BASE + "/plays";
-const FB_LOCK      = FB_BASE + "/admin_lock";
-const EMOJIS       = ["📢","🎉","🚀","⚡","🔥","🎮","🌭","🛠️","⚠️","💡","🏆","✅","❌","🆕"];
-const MAX_ATTEMPTS = 5;
-// ══════════════════════════════════════════════════════════
+/* ══ CONFIG ══ */
+// Change this to your desired admin password.
+const ADMIN_PASSWORD = "hotdog2025";
+const FB = "https://hotdog-party-61e77-default-rtdb.firebaseio.com";
 
-let selectedEmoji = "📢";
-let allNotifs     = {};
-let allPlays      = {};
-let loginAttempts = 0;
-let isLocked      = false;
-
-/* ─── BOOT: Check Firebase lock BEFORE showing anything ─── */
-window.addEventListener("DOMContentLoaded", async () => {
-  try {
-    const res  = await fetch(FB_LOCK + ".json");
-    const data = await res.json();
-    if (data && data.locked === true) {
-      const rb = document.getElementById("lockReasonBox");
-      if (data.reason) { rb.textContent = "Reason: " + data.reason; rb.style.display = "block"; }
-      document.getElementById("loginScreen").style.display = "none";
-      document.getElementById("lockScreen").style.display  = "flex";
-      return; // stop — no login possible
-    }
-  } catch { /* network error — fail open */ }
-
-  // Lock check passed — show login form
-  document.getElementById("loginLoading").style.display = "none";
-  document.getElementById("loginCard").style.display    = "block";
-  document.getElementById("loginPass").focus();
-});
-
-/* ─── LOGIN ─────────────────────────────────────────────── */
+/* ══ AUTH ══ */
 function doLogin() {
-  if (loginAttempts >= MAX_ATTEMPTS) {
-    showAdminToast("🚫 Too many attempts.", "error"); return;
-  }
-  if (document.getElementById("loginPass").value === ADMIN_PASS) {
+  const pw = document.getElementById("pwInput").value;
+  if (pw === ADMIN_PASSWORD) {
+    sessionStorage.setItem("hp_admin", "1");
     document.getElementById("loginScreen").style.display = "none";
-    document.getElementById("adminApp").style.display    = "block";
+    document.getElementById("adminWrap").style.display = "flex";
     initAdmin();
   } else {
-    loginAttempts++;
-    const rem = MAX_ATTEMPTS - loginAttempts;
-    const err = document.getElementById("loginError");
-    err.classList.add("show");
-    setTimeout(() => err.classList.remove("show"), 2500);
-    document.getElementById("loginPass").value = "";
-    document.getElementById("loginAttempts").textContent =
-      rem > 0 ? rem + " attempt" + (rem !== 1 ? "s" : "") + " remaining" : "Locked out. Refresh the page.";
+    const err = document.getElementById("loginErr");
+    err.style.display = "block";
+    setTimeout(() => err.style.display = "none", 2500);
   }
 }
-document.getElementById("loginPass").addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
-
 function doLogout() {
-  document.getElementById("adminApp").style.display    = "none";
-  document.getElementById("loginScreen").style.display = "flex";
-  document.getElementById("loginLoading").style.display = "none";
-  document.getElementById("loginCard").style.display    = "block";
-  document.getElementById("loginPass").value = "";
-  loginAttempts = 0;
-  document.getElementById("loginAttempts").textContent = "";
+  sessionStorage.removeItem("hp_admin");
+  location.reload();
+}
+if (sessionStorage.getItem("hp_admin") === "1") {
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("adminWrap").style.display = "flex";
 }
 
-/* ─── INIT ──────────────────────────────────────────────── */
+/* ══ SECTION NAV ══ */
+function showSection(id, el) {
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  document.querySelectorAll(".sidebar-item").forEach(s => s.classList.remove("active"));
+  document.getElementById("section-" + id).classList.add("active");
+  el.classList.add("active");
+}
+
+/* ══ TOAST ══ */
+function toast(msg, type="ok") {
+  const t = document.getElementById("adminToast");
+  t.textContent = msg;
+  t.className = "admin-toast show " + type;
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.className = "admin-toast", 2800);
+}
+
+/* ══ INIT ══ */
 function initAdmin() {
-  buildEmojiPicker(); updatePreview();
-  loadNotifications(); loadLeaderboard(); loadLockStatus();
+  loadGamesPanel();
+  loadNotifsPanel();
 }
+if (sessionStorage.getItem("hp_admin") === "1") initAdmin();
 
-/* ─── EMOJI ─────────────────────────────────────────────── */
-function buildEmojiPicker() {
-  document.getElementById("emojiPicker").innerHTML = EMOJIS.map(e =>
-    `<span class="emoji-opt${e===selectedEmoji?" selected":""}" onclick="selectEmoji('${e}')">${e}</span>`
-  ).join("");
-}
-function selectEmoji(e) { selectedEmoji = e; buildEmojiPicker(); updatePreview(); }
-function updatePreview() {
-  document.getElementById("prevIcon").textContent  = selectedEmoji;
-  document.getElementById("prevTitle").textContent = document.getElementById("nTitle").value || "Your Title";
-  document.getElementById("prevMsg").textContent   = document.getElementById("nMsg").value   || "Your message will appear here...";
-}
+/* ══ GAMES PANEL ══ */
+let allGames = [];
+let disabledPaths = new Set();
 
-/* ─── SEND NOTIFICATION ─────────────────────────────────── */
-async function sendNotification() {
-  const title = document.getElementById("nTitle").value.trim();
-  const msg   = document.getElementById("nMsg").value.trim();
-  if (!title) { showAdminToast("⚠️ Title is required", "error"); return; }
-  if (!msg)   { showAdminToast("⚠️ Message is required", "error"); return; }
-  const btn = document.getElementById("sendBtn");
-  btn.disabled = true; btn.innerHTML = "Sending...";
+async function loadGamesPanel() {
   try {
-    const res  = await fetch(FB_NOTIF + ".json", {
-      method:"POST", headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({ title, message:msg, emoji:selectedEmoji, active:true, ts:Date.now(), created:new Date().toLocaleString() })
-    });
+    const [gamesRes, disabledRes] = await Promise.all([
+      fetch("games.json"),
+      fetch(FB + "/disabled_games.json")
+    ]);
+    allGames = await gamesRes.json();
+    const disabledData = await disabledRes.json();
+    disabledPaths = new Set(disabledData ? Object.values(disabledData) : []);
+    document.getElementById("gameLoadingMsg").style.display = "none";
+    renderGameRows(allGames);
+  } catch (e) {
+    document.getElementById("gameLoadingMsg").textContent = "Error loading games: " + e.message;
+  }
+}
+
+function filterGameRows() {
+  const q = document.getElementById("gameSearch").value.toLowerCase();
+  const filtered = allGames.filter(g => g.name.toLowerCase().includes(q));
+  renderGameRows(filtered);
+}
+
+function renderGameRows(games) {
+  const list = document.getElementById("gamesToggleList");
+  if (!games.length) { list.innerHTML = '<div style="color:#555;font-size:13px;padding:10px 0">No games found.</div>'; return; }
+
+  list.innerHTML = games.map(game => {
+    const isDisabled = disabledPaths.has(game.path);
+    const key = "gkey_" + btoa(game.path).replace(/[^a-zA-Z0-9]/g,"");
+    return `
+      <div class="game-row ${isDisabled ? "disabled-game" : ""}" id="row_${key}">
+        <img src="${game.icon}" alt="" onerror="this.style.opacity=.3">
+        <span class="game-row-name">${game.name}</span>
+        ${isDisabled ? '<span class="disabled-badge">Disabled</span>' : ''}
+        <div class="toggle-wrap">
+          <label class="toggle">
+            <input type="checkbox" ${isDisabled ? "" : "checked"} onchange="toggleGame('${game.path.replace(/'/g,"\\'")}','${key}',this.checked)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+async function toggleGame(path, key, enabled) {
+  const row = document.getElementById("row_" + key);
+  try {
+    if (enabled) {
+      // Remove from disabled list
+      disabledPaths.delete(path);
+      // Rebuild disabled_games in Firebase
+      await saveDisabledGames();
+      row.classList.remove("disabled-game");
+      const badge = row.querySelector(".disabled-badge");
+      if (badge) badge.remove();
+      toast("✅ " + (allGames.find(g=>g.path===path)||{}).name + " enabled");
+    } else {
+      disabledPaths.add(path);
+      await saveDisabledGames();
+      row.classList.add("disabled-game");
+      if (!row.querySelector(".disabled-badge")) {
+        const badge = document.createElement("span");
+        badge.className = "disabled-badge";
+        badge.textContent = "Disabled";
+        row.querySelector(".toggle-wrap").before(badge);
+      }
+      toast("🚫 " + (allGames.find(g=>g.path===path)||{}).name + " disabled", "err");
+    }
+  } catch(e) {
+    toast("Error: " + e.message, "err");
+  }
+}
+
+async function saveDisabledGames() {
+  const obj = {};
+  let i = 0;
+  disabledPaths.forEach(p => { obj[i++] = p; });
+  await fetch(FB + "/disabled_games.json", {
+    method: "PUT",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify(Object.keys(obj).length ? obj : null)
+  });
+}
+
+/* ══ NOTIFICATIONS PANEL ══ */
+let notifData = {};
+
+async function loadNotifsPanel() {
+  try {
+    const res = await fetch(FB + "/notifications.json");
     const data = await res.json();
-    if (!data?.name) throw new Error();
-    showAdminToast("✅ Notification sent!", "success");
-    document.getElementById("nTitle").value = "";
-    document.getElementById("nMsg").value   = "";
-    updatePreview(); await loadNotifications();
-  } catch { showAdminToast("❌ Failed to send.", "error"); }
-  btn.disabled = false; btn.innerHTML = "<span>📣</span> SEND NOTIFICATION";
-}
-
-/* ─── NOTIFICATIONS ─────────────────────────────────────── */
-async function loadNotifications() {
-  document.getElementById("notifList").innerHTML = '<div class="loading">Loading...</div>';
-  try {
-    const res = await fetch(FB_NOTIF + ".json");
-    allNotifs = (await res.json()) || {};
-    renderNotifList(); updateStats();
-  } catch { document.getElementById("notifList").innerHTML = '<div class="loading">Failed to load.</div>'; }
+    notifData = data || {};
+    renderNotifList();
+  } catch(e) {
+    document.getElementById("notifListWrap").innerHTML = '<div style="color:#ff5555;font-size:13px">Error loading notifications.</div>';
+  }
 }
 
 function renderNotifList() {
-  const entries = Object.entries(allNotifs).sort((a,b)=>(b[1].ts||0)-(a[1].ts||0));
+  const wrap = document.getElementById("notifListWrap");
+  const entries = Object.entries(notifData);
   if (!entries.length) {
-    document.getElementById("notifList").innerHTML = `<div class="empty-state"><span class="es-icon">🔕</span>No notifications yet.</div>`;
+    wrap.innerHTML = '<div style="color:#555;font-size:13px">No notifications yet. Create one above.</div>';
     return;
   }
-  document.getElementById("notifList").innerHTML = `<div class="notif-list">${entries.map(([id,n]) => `
-    <div class="notif-item${n.active?"":" inactive"}">
-      <span class="notif-emoji">${n.emoji||"📢"}</span>
+  const pillClass = {info:"pill-info",success:"pill-success",warning:"pill-warning",error:"pill-error"};
+  wrap.innerHTML = `<div class="notif-list">` + entries.sort((a,b)=>b[0]-a[0]).map(([fbKey, n]) => `
+    <div class="notif-item ${n.active?'':'inactive'}" id="ni_${fbKey}">
+      <div class="notif-icon-col">${n.icon||"🔔"}</div>
       <div class="notif-info">
-        <div class="notif-name">${esc(n.title)}</div>
-        <div class="notif-body">${esc(n.message)}</div>
-        <div class="notif-meta">${n.created||""}</div>
+        <div class="notif-msg">${n.message||''}</div>
+        <div class="notif-meta">
+          <span class="notif-type-pill ${pillClass[n.type]||'pill-info'}">${n.type||'info'}</span>
+          ${n.active ? '🟢 Active' : '⚪ Inactive'}
+          ${n.duration ? ` · ${n.duration}s auto-dismiss` : ' · Persistent'}
+        </div>
       </div>
-      <span class="notif-tag ${n.active?"active":"inactive"}">${n.active?"ACTIVE":"OFF"}</span>
       <div class="notif-actions">
-        <button class="btn-sm" onclick="toggleNotif('${id}',${!n.active})">${n.active?"⏸":"▶"}</button>
-        <button class="btn-sm danger" onclick="deleteNotif('${id}')">🗑</button>
+        <button class="btn ${n.active?'btn-ghost':'btn-primary'}" style="padding:7px 12px;font-size:12px" onclick="toggleNotif('${fbKey}',${!n.active})">
+          ${n.active ? 'Deactivate' : 'Activate'}
+        </button>
+        <button class="btn btn-danger" style="padding:7px 12px;font-size:12px" onclick="deleteNotif('${fbKey}')">Delete</button>
       </div>
-    </div>`).join("")}</div>`;
+    </div>`).join("") + "</div>";
 }
 
-function updateStats() {
-  const e = Object.entries(allNotifs);
-  document.getElementById("statActive").textContent = e.filter(([,n])=>n.active).length;
-  document.getElementById("statTotal").textContent  = e.length;
-}
+async function createNotif() {
+  const msg  = document.getElementById("notifMsg").value.trim();
+  if (!msg) { toast("Message is required.", "err"); return; }
+  const icon     = document.getElementById("notifIcon").value.trim() || "🔔";
+  const type     = document.getElementById("notifType").value;
+  const duration = parseInt(document.getElementById("notifDuration").value) || 0;
+  const active   = document.getElementById("notifActive").checked;
 
-async function toggleNotif(id, val) {
+  const id   = Date.now();
+  const fbKey= String(id);
+  const notif= { id, icon, message: msg, type, duration, active, created: id };
+
   try {
-    await fetch(`${FB_NOTIF}/${id}/active.json`, { method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(val) });
-    allNotifs[id].active = val; renderNotifList(); updateStats();
-    showAdminToast(val?"✅ Activated":"⏸ Deactivated","success");
-  } catch { showAdminToast("❌ Failed","error"); }
+    await fetch(FB + "/notifications/" + fbKey + ".json", {
+      method: "PUT",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(notif)
+    });
+    notifData[fbKey] = notif;
+    renderNotifList();
+    document.getElementById("notifMsg").value = "";
+    toast("✅ Notification pushed!");
+  } catch(e) {
+    toast("Error: " + e.message, "err");
+  }
 }
 
-async function deleteNotif(id) {
+async function toggleNotif(fbKey, makeActive) {
+  try {
+    await fetch(FB + "/notifications/" + fbKey + "/active.json", {
+      method: "PUT",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(makeActive)
+    });
+    if (notifData[fbKey]) notifData[fbKey].active = makeActive;
+    renderNotifList();
+    toast(makeActive ? "✅ Notification activated" : "⚪ Notification deactivated");
+  } catch(e) {
+    toast("Error: " + e.message, "err");
+  }
+}
+
+async function deleteNotif(fbKey) {
   if (!confirm("Delete this notification?")) return;
   try {
-    await fetch(`${FB_NOTIF}/${id}.json`, { method:"DELETE" });
-    delete allNotifs[id]; renderNotifList(); updateStats();
-    showAdminToast("🗑 Deleted","success");
-  } catch { showAdminToast("❌ Failed","error"); }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   LEADERBOARD EDITOR
-═══════════════════════════════════════════════════════════ */
-async function loadLeaderboard() {
-  document.getElementById("lbList").innerHTML = '<div class="loading">Loading play data...</div>';
-  try {
-    const res = await fetch(FB_PLAYS + ".json");
-    allPlays  = (await res.json()) || {};
-    document.getElementById("statGames").textContent = Object.keys(allPlays).length;
-    renderLeaderboard();
-  } catch { document.getElementById("lbList").innerHTML = '<div class="loading">Failed to load.</div>'; }
-}
-
-function renderLeaderboard() {
-  const q = (document.getElementById("lbSearch").value || "").toLowerCase();
-  const entries = Object.entries(allPlays)
-    .filter(([,g]) => !q || (g.name||"").toLowerCase().includes(q))
-    .sort((a,b) => (b[1].count||0) - (a[1].count||0));
-
-  if (!entries.length) {
-    document.getElementById("lbList").innerHTML = `<div class="empty-state"><span class="es-icon">🏆</span>No matching games.</div>`;
-    return;
+    await fetch(FB + "/notifications/" + fbKey + ".json", { method: "DELETE" });
+    delete notifData[fbKey];
+    renderNotifList();
+    toast("🗑️ Notification deleted");
+  } catch(e) {
+    toast("Error: " + e.message, "err");
   }
-  document.getElementById("lbList").innerHTML = `<div class="lb-game-list">${entries.map(([key,g]) => `
-    <div class="lb-game-row">
-      <img class="lb-game-icon" src="${esc(g.icon||"")}" alt="" onerror="this.style.visibility='hidden'">
-      <div>
-        <div class="lb-game-name">${esc(g.name||key)}</div>
-        <div class="lb-game-count">${g.count||0} plays currently</div>
-      </div>
-      <input class="lb-count-input" id="lb-${key}" type="number" min="0" value="${g.count||0}">
-      <div class="lb-actions">
-        <button class="lb-save-btn"  onclick="saveScore('${key}')">✓ Set</button>
-        <button class="lb-reset-btn" onclick="resetScore('${key}')">✕ Zero</button>
-      </div>
-    </div>`).join("")}</div>`;
-}
-
-async function saveScore(key) {
-  const input    = document.getElementById("lb-" + key);
-  const newCount = parseInt(input.value, 10);
-  if (isNaN(newCount) || newCount < 0) { showAdminToast("⚠️ Enter a valid number", "error"); return; }
-  input.disabled = true;
-  try {
-    await fetch(`${FB_PLAYS}/${key}/count.json`, { method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(newCount) });
-    allPlays[key].count = newCount;
-    showAdminToast(`✅ ${esc(allPlays[key].name||key)} → ${newCount} plays`, "success");
-    renderLeaderboard();
-  } catch { showAdminToast("❌ Failed to save","error"); input.disabled = false; }
-}
-
-async function resetScore(key) {
-  const name = allPlays[key]?.name || key;
-  if (!confirm(`Reset "${name}" to 0 plays?`)) return;
-  const input = document.getElementById("lb-" + key);
-  input.disabled = true;
-  try {
-    await fetch(`${FB_PLAYS}/${key}/count.json`, { method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(0) });
-    allPlays[key].count = 0;
-    showAdminToast(`🗑 ${esc(name)} reset to 0`, "success");
-    renderLeaderboard();
-  } catch { showAdminToast("❌ Failed to reset","error"); input.disabled = false; }
-}
-
-async function resetAllScores() {
-  const count = Object.keys(allPlays).length;
-  if (!confirm(`Reset ALL ${count} games to 0?\nThis cannot be undone.`)) return;
-  if (!confirm("Second confirmation: wipe every play count?")) return;
-  showAdminToast("⏳ Resetting all...", "info");
-  let failed = 0;
-  await Promise.all(Object.keys(allPlays).map(async key => {
-    try {
-      await fetch(`${FB_PLAYS}/${key}/count.json`, { method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(0) });
-      allPlays[key].count = 0;
-    } catch { failed++; }
-  }));
-  showAdminToast(failed ? `⚠️ Done with ${failed} errors` : "✅ All scores reset to 0", failed ? "error" : "success");
-  renderLeaderboard();
-}
-
-/* ═══════════════════════════════════════════════════════════
-   FIREBASE LOCK
-═══════════════════════════════════════════════════════════ */
-async function loadLockStatus() {
-  try {
-    const res  = await fetch(FB_LOCK + ".json");
-    const data = (await res.json()) || {};
-    applyLockUI(data.locked === true, data.reason || "");
-  } catch {}
-}
-
-function applyLockUI(locked, reason) {
-  isLocked = locked;
-
-  const badge   = document.getElementById("topbarLockBadge");
-  const box     = document.getElementById("lockStatusBox");
-  const icon    = document.getElementById("lockStatusIcon");
-  const titleEl = document.getElementById("lockStatusTitle");
-  const subEl   = document.getElementById("lockStatusSub");
-  const lockBtn = document.getElementById("lockBtn");
-
-  if (locked) {
-    badge.textContent = "🔒 LOCKED";
-    badge.className = "lock-status-badge locked";
-
-    box.className = "current-lock-status locked-state";
-    icon.textContent = "🔒";
-    titleEl.textContent = "Panel is LOCKED";
-    subEl.textContent = reason
-      ? "Reason: " + reason
-      : "No new logins are possible";
-
-    lockBtn.disabled = true; // 🔥 permanent once locked
-
-  } else {
-    badge.textContent = "🔓 UNLOCKED";
-    badge.className = "lock-status-badge unlocked";
-
-    box.className = "current-lock-status unlocked-state";
-    icon.textContent = "🔓";
-    titleEl.textContent = "Panel is UNLOCKED";
-    subEl.textContent = "Anyone with the correct password can log in";
-
-    lockBtn.disabled = false;
-  }
-}
-
-async function setLock(shouldLock) {
-  const reason = document.getElementById("lockReasonInput").value.trim();
-
-  if (!confirm(
-    "LOCK the admin panel?\n\nThis blocks ALL logins immediately.\n\nReason: " + (reason || "(none)")
-  )) return;
-
-  const spinner = document.getElementById("lockSpinner");
-  const lockBtn = document.getElementById("lockBtn");
-
-  spinner.style.display = "block";
-  lockBtn.disabled = true;
-
-  try {
-    await fetch(FB_LOCK + ".json", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        locked: true,
-        reason,
-        updated: new Date().toISOString()
-      })
-    });
-
-    applyLockUI(true, reason);
-    showAdminToast("🔒 Panel locked!", "error");
-
-    document.getElementById("lockReasonInput").value = "";
-
-  } catch (e) {
-    console.error(e);
-    showAdminToast("❌ Failed to lock.", "error");
-    applyLockUI(isLocked, reason);
-  }
-
-  spinner.style.display = "none";
-}
-
-function scrollToLock() {
-  document.getElementById("lockCard").scrollIntoView({ behavior:"smooth", block:"start" });
-}
-
-/* ─── ADMIN TOAST ───────────────────────────────────────── */
-function showAdminToast(msg, type) {
-  const t = document.getElementById("toast");
-  t.textContent = msg; t.className = "toast " + type + " show";
-  clearTimeout(t._t); t._t = setTimeout(() => { t.className = "toast " + type; }, 3200);
-}
-
-/* ─── UTIL ──────────────────────────────────────────────── */
-function esc(str) {
-  return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 }
 </script>
 </body>
