@@ -96,7 +96,7 @@
         "name": "Getaway Shootout",
         "path": "games/getaway_shootout/clgetawayshootout.html",
         "icon": "games/getaway_shootout/logo.png",
-        "tags": ["multiplayer"]
+        "tags": ["multiplayer", "shooter"]
     },
     {
         "name": "Geo Subzero",
