@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Contact – Hotdog Party</title>
+<title>Devlogs – Hotdog Party</title>
 <link rel="icon" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
 <style>
@@ -27,24 +27,31 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .games-nav-btn:hover{background:linear-gradient(45deg,rgba(255,140,0,.28),rgba(255,200,0,.18))!important;border-color:#ff8c00!important;color:#ffd000!important;box-shadow:0 0 14px rgba(255,140,0,.3);}
 .devlogs-nav-btn{background:linear-gradient(45deg,rgba(180,60,255,.15),rgba(120,40,220,.1));border-color:rgba(180,60,255,.35)!important;color:#cc88ff;font-weight:700;}
 .devlogs-nav-btn:hover{background:linear-gradient(45deg,rgba(180,60,255,.28),rgba(120,40,220,.18))!important;border-color:#b44dff!important;color:#dd99ff!important;box-shadow:0 0 14px rgba(180,60,255,.3);}
-/* CONTACT */
-.contact-wrap{max-width:560px;margin:60px auto 0;text-align:center;padding:0 20px 60px;}
-.contact-wrap h2{font-family:'Luckiest Guy';font-size:48px;background:linear-gradient(45deg,#ff7b00,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0 0 12px;}
-.contact-wrap p{color:#888;font-size:16px;margin:0 0 48px;}
-.contact-card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:20px;padding:36px 40px;margin-bottom:20px;transition:.25s;text-align:left;}
-.contact-card:hover{border-color:#ff8c00;box-shadow:0 0 22px rgba(255,140,0,.15);}
-.contact-card-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;color:#666;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
-.contact-card-label svg{width:16px;height:16px;opacity:.6;}
-.contact-email{font-size:22px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-.copy-btn{background:rgba(255,140,0,.1);border:1px solid rgba(255,140,0,.3);color:#ff8c00;font-size:13px;font-weight:700;padding:7px 16px;border-radius:8px;cursor:pointer;transition:.2s;flex-shrink:0;}
-.copy-btn:hover{background:rgba(255,140,0,.22);border-color:#ff8c00;}
-.copy-btn.copied{background:rgba(0,200,100,.12);border-color:rgba(0,200,100,.4);color:#00c864;}
-.recommend-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px;background:linear-gradient(45deg,#ff8c00,#ffd000);color:#111;font-weight:900;font-size:17px;border:none;border-radius:14px;cursor:pointer;text-decoration:none;transition:.2s;box-shadow:0 4px 20px rgba(255,140,0,.35);margin-top:8px;box-sizing:border-box;}
-.recommend-btn:hover{transform:scale(1.03);box-shadow:0 6px 28px rgba(255,140,0,.55);}
-/* Devlogs link card */
-.devlogs-link-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px;background:transparent;color:#cc88ff;font-weight:800;font-size:16px;border:2px solid rgba(180,60,255,.3);border-radius:14px;cursor:pointer;transition:.2s;box-sizing:border-box;margin-top:8px;text-decoration:none;}
-.devlogs-link-btn:hover{border-color:#b44dff;color:#dd99ff;background:rgba(180,60,255,.07);box-shadow:0 0 18px rgba(180,60,255,.15);}
-.devlogs-link-btn svg{width:20px;height:20px;}
+
+/* DEVLOGS PAGE */
+.devlogs-wrap{max-width:720px;margin:0 auto;padding:44px 24px 80px;}
+.devlogs-hero{text-align:center;margin-bottom:52px;}
+.devlogs-hero h1{font-family:'Luckiest Guy';font-size:clamp(48px,8vw,80px);margin:0;line-height:1.05;background:linear-gradient(135deg,#b44dff,#7b2fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 4px 22px rgba(180,77,255,.45));letter-spacing:2px;}
+.devlogs-hero p{font-size:17px;color:#888;margin:14px 0 0;}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:28px;}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,#b44dff,rgba(180,77,255,.1));border-radius:2px;}
+.entry{position:relative;margin-bottom:36px;}
+.entry::before{content:'';position:absolute;left:-32px;top:22px;width:12px;height:12px;background:#b44dff;border-radius:50%;box-shadow:0 0 10px rgba(180,77,255,.6);border:2px solid #121212;}
+.entry-card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:18px;padding:26px 28px;transition:.2s;}
+.entry-card:hover{border-color:rgba(180,77,255,.35);box-shadow:0 0 20px rgba(180,77,255,.1);}
+.entry-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap;}
+.entry-version{font-family:'Luckiest Guy';font-size:22px;background:linear-gradient(45deg,#b44dff,#7b2fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.5px;}
+.entry-date{font-size:12px;font-weight:700;color:#555;letter-spacing:.8px;text-transform:uppercase;background:#252525;padding:4px 10px;border-radius:6px;white-space:nowrap;}
+.entry-title{font-size:16px;font-weight:800;color:#ddd;margin-bottom:8px;}
+.entry-body{font-size:14px;color:#888;line-height:1.7;}
+
+/* LOADING / EMPTY */
+.dl-loading{text-align:center;padding:60px 20px;color:#555;font-size:15px;}
+.dl-loading-spinner{width:32px;height:32px;border:3px solid #2a2a2a;border-top-color:#b44dff;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.dl-error{text-align:center;padding:40px;color:#ff5555;font-size:14px;}
 </style>
 </head>
 <script src="notifications.js"></script>
@@ -72,51 +79,20 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
   </div>
 </div>
 
-<div class="contact-wrap">
-  <h2>📬 Contact Us</h2>
-  <p>Got questions, issues, or just want to say hey? Reach out below.</p>
-
-  <div class="contact-card">
-    <div class="contact-card-label">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      Email us
-    </div>
-    <div class="contact-email">
-      <span>hotdogparty854@gmail.com</span>
-      <button class="copy-btn" id="copyBtn" onclick="copyEmail()">Copy</button>
-    </div>
+<div class="devlogs-wrap">
+  <div class="devlogs-hero">
+    <h1>📋 DEVLOGS</h1>
+    <p>Every update, fix, and feature — straight from the dev.</p>
   </div>
-
-  <div class="contact-card">
-    <div class="contact-card-label">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      Suggest a game
+  <div class="timeline" id="timeline">
+    <div class="dl-loading">
+      <div class="dl-loading-spinner"></div>
+      Loading devlogs...
     </div>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfYiXKpJ7o2cjKgrCvz6uNZ_lulE3e90rBCsKrtCXt4oQ1qoA/viewform?usp=publish-editor" target="_blank" class="recommend-btn">
-      🎮 Recommendations
-    </a>
-  </div>
-
-  <div class="contact-card">
-    <div class="contact-card-label">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      Site updates
-    </div>
-    <a href="devlogs.html" class="devlogs-link-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-      📋 View Devlogs
-    </a>
   </div>
 </div>
 
 <script>
-function copyEmail() {
-  navigator.clipboard.writeText("hotdogparty854@gmail.com");
-  const btn = document.getElementById("copyBtn");
-  btn.textContent = "Copied!";
-  btn.classList.add("copied");
-  setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("copied"); }, 2000);
-}
 const bg = document.getElementById("bg");
 for (let i = 0; i < 30; i++) {
   const s = document.createElement("div");
@@ -126,6 +102,40 @@ for (let i = 0; i < 30; i++) {
   s.style.animationDuration = (Math.random() * 20 + 10) + "s";
   bg.appendChild(s);
 }
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+async function loadDevlogs() {
+  const timeline = document.getElementById("timeline");
+  try {
+    const res  = await fetch("logs.json");
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const logs = await res.json();
+    if (!Array.isArray(logs) || !logs.length) {
+      timeline.innerHTML = '<div class="dl-error">No devlogs found yet.</div>';
+      return;
+    }
+    logs.sort((a, b) => b.id - a.id);
+    timeline.innerHTML = logs.map(e => `
+      <div class="entry">
+        <div class="entry-card">
+          <div class="entry-top">
+            <span class="entry-version">${escHtml(e.version)}</span>
+            <span class="entry-date">${escHtml(e.date)}</span>
+          </div>
+          ${e.title ? `<div class="entry-title">${escHtml(e.title)}</div>` : ""}
+          <div class="entry-body">${escHtml(e.description)}</div>
+        </div>
+      </div>`).join("");
+  } catch (err) {
+    timeline.innerHTML = `<div class="dl-error">⚠️ Could not load devlogs.<br><small>${err.message}</small></div>`;
+  }
+}
+
+loadDevlogs();
 </script>
 </body>
 </html>

@@ -8,8 +8,7 @@
 <style>
 *{box-sizing:border-box;}
 body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:#0e0e0e;color:#e0e0e0;min-height:100vh;}
-
-/* ── LOGIN SCREEN ── */
+/* LOGIN */
 .login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
 .login-card{background:#161616;border:1px solid #2a2a2a;border-radius:20px;padding:44px 48px;width:100%;max-width:420px;text-align:center;}
 .login-title{font-family:'Luckiest Guy';font-size:38px;background:linear-gradient(45deg,#ff7b00,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;margin-bottom:6px;}
@@ -19,35 +18,28 @@ body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:#0e0e0e;col
 .login-btn{width:100%;padding:13px;background:linear-gradient(45deg,#ff8c00,#ffd000);color:#111;font-weight:900;font-size:16px;border:none;border-radius:10px;cursor:pointer;transition:.2s;}
 .login-btn:hover{transform:scale(1.03);box-shadow:0 4px 20px rgba(255,140,0,.5);}
 .login-err{color:#ff5555;font-size:13px;margin-top:10px;display:none;}
-
-/* ── ADMIN LAYOUT ── */
+/* ADMIN LAYOUT */
 .admin-wrap{display:none;flex-direction:column;min-height:100vh;}
 .admin-header{background:#111;border-bottom:1px solid rgba(255,140,0,.18);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
-.admin-logo{font-family:'Luckiest Guy';font-size:26px;background:linear-gradient(45deg,#ff7b00,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.admin-logo{font-family:'Luckiest Guy';font-size:26px;background:linear-gradient(45deg,#ff7b00,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;}
 .admin-badge{background:rgba(255,140,0,.15);border:1px solid rgba(255,140,0,.35);color:#ffb347;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.8px;margin-left:10px;}
 .logout-btn{background:rgba(255,80,80,.1);border:1px solid rgba(255,80,80,.3);color:#ff7070;padding:8px 18px;border-radius:9px;font-weight:700;font-size:13px;cursor:pointer;transition:.2s;}
-.logout-btn:hover{background:rgba(255,80,80,.2);border-color:#ff5555;}
-
-.admin-body{display:flex;flex:1;gap:0;}
+.logout-btn:hover{background:rgba(255,80,80,.2);}
+.admin-body{display:flex;flex:1;}
 .admin-sidebar{width:220px;background:#111;border-right:1px solid #1e1e1e;padding:24px 0;flex-shrink:0;position:sticky;top:61px;align-self:flex-start;height:calc(100vh - 61px);overflow-y:auto;}
 .sidebar-item{display:flex;align-items:center;gap:10px;padding:11px 20px;cursor:pointer;font-size:14px;font-weight:600;color:#666;transition:.2s;border-left:3px solid transparent;}
 .sidebar-item:hover{color:#ddd;background:rgba(255,255,255,.04);}
 .sidebar-item.active{color:#ff8c00;border-left-color:#ff8c00;background:rgba(255,140,0,.07);}
 .sidebar-item svg{width:18px;height:18px;flex-shrink:0;}
-
 .admin-content{flex:1;padding:32px;max-width:1100px;}
-
-/* ── SECTIONS ── */
-.section{display:none;}
-.section.active{display:block;}
+/* SECTIONS */
+.section{display:none;}.section.active{display:block;}
 .section-title{font-family:'Luckiest Guy';font-size:30px;background:linear-gradient(45deg,#ff7b00,#ffae00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;letter-spacing:1px;}
 .section-sub{color:#555;font-size:13px;margin-bottom:28px;}
-
-/* ── CARDS ── */
+/* CARDS */
 .card{background:#161616;border:1px solid #222;border-radius:16px;padding:24px;margin-bottom:20px;}
 .card-title{font-size:14px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-
-/* ── FORM ELEMENTS ── */
+/* FORM */
 input[type=text],input[type=number],select,textarea{background:#1e1e1e;border:2px solid #2a2a2a;border-radius:9px;color:#fff;font-size:14px;padding:9px 13px;outline:none;transition:.2s;width:100%;}
 input[type=text]:focus,input[type=number]:focus,select:focus,textarea:focus{border-color:#ff8c00;box-shadow:0 0 8px rgba(255,140,0,.25);}
 textarea{resize:vertical;min-height:80px;font-family:inherit;}
@@ -62,8 +54,7 @@ label{font-size:13px;font-weight:600;color:#888;display:block;margin-bottom:6px;
 .btn-danger:hover{background:rgba(200,40,40,.2);border-color:#ff4444;}
 .btn-ghost{background:transparent;border-color:#333;color:#888;}
 .btn-ghost:hover{border-color:#ff8c00;color:#ff8c00;}
-
-/* ── TOGGLE SWITCH ── */
+/* TOGGLE */
 .toggle-wrap{display:flex;align-items:center;gap:10px;}
 .toggle{position:relative;width:44px;height:24px;flex-shrink:0;}
 .toggle input{opacity:0;width:0;height:0;position:absolute;}
@@ -72,8 +63,7 @@ label{font-size:13px;font-weight:600;color:#888;display:block;margin-bottom:6px;
 .toggle input:checked+.toggle-slider{background:linear-gradient(45deg,#ff8c00,#ffd000);}
 .toggle input:checked+.toggle-slider::before{transform:translateX(20px);background:#111;}
 .toggle-label{font-size:13px;font-weight:600;color:#aaa;}
-
-/* ── NOTIFICATION LIST ── */
+/* NOTIFICATION LIST */
 .notif-list{display:flex;flex-direction:column;gap:10px;}
 .notif-item{background:#1a1a1a;border:1px solid #282828;border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:14px;}
 .notif-item.inactive{opacity:.5;}
@@ -87,12 +77,10 @@ label{font-size:13px;font-weight:600;color:#888;display:block;margin-bottom:6px;
 .pill-warning{background:rgba(255,140,0,.2);color:#ffa940;}
 .pill-error{background:rgba(200,40,40,.2);color:#ff7070;}
 .notif-actions{display:flex;gap:6px;flex-shrink:0;}
-
-/* ── GAME TOGGLE LIST ── */
-.game-search{margin-bottom:14px;}
+/* GAME LIST */
+.game-search-input{margin-bottom:14px;}
 .games-toggle-list{display:flex;flex-direction:column;gap:8px;max-height:520px;overflow-y:auto;padding-right:4px;}
 .games-toggle-list::-webkit-scrollbar{width:5px;}
-.games-toggle-list::-webkit-scrollbar-track{background:transparent;}
 .games-toggle-list::-webkit-scrollbar-thumb{background:#333;border-radius:3px;}
 .games-toggle-list::-webkit-scrollbar-thumb:hover{background:#ff8c00;}
 .game-row{background:#1a1a1a;border:1px solid #252525;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:12px;transition:.15s;}
@@ -100,14 +88,23 @@ label{font-size:13px;font-weight:600;color:#888;display:block;margin-bottom:6px;
 .game-row img{width:40px;height:40px;border-radius:7px;object-fit:cover;flex-shrink:0;border:1px solid #2a2a2a;}
 .game-row-name{flex:1;font-size:13px;font-weight:700;color:#ddd;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .disabled-badge{background:rgba(200,40,40,.15);border:1px solid rgba(200,40,40,.3);color:#ff7070;font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;flex-shrink:0;text-transform:uppercase;letter-spacing:.4px;}
-
-/* ── STATS ── */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;}
-.stat-box{background:#1a1a1a;border:1px solid #252525;border-radius:14px;padding:20px;text-align:center;}
-.stat-n{font-family:'Luckiest Guy';font-size:40px;background:linear-gradient(45deg,#ff7b00,#ffae00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;}
-.stat-lbl{font-size:12px;color:#555;margin-top:6px;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
-
-/* ── TOAST ── */
+/* MEDIA UPLOAD */
+.drop-zone{border:2px dashed #333;border-radius:14px;padding:40px;text-align:center;cursor:pointer;transition:.2s;position:relative;}
+.drop-zone:hover,.drop-zone.drag-over{border-color:#ff8c00;background:rgba(255,140,0,.04);}
+.drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.drop-icon{font-size:48px;margin-bottom:12px;}
+.drop-text{font-size:15px;font-weight:700;color:#888;margin-bottom:6px;}
+.drop-sub{font-size:12px;color:#555;}
+.media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:16px;}
+.media-item{background:#1a1a1a;border:1px solid #252525;border-radius:10px;overflow:hidden;position:relative;}
+.media-item img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;}
+.media-item-bar{padding:8px 10px;display:flex;flex-direction:column;gap:4px;}
+.media-item-name{font-size:11px;color:#888;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.media-item-url{font-size:11px;color:#ff8c00;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:underline;}
+.media-item-url:hover{color:#ffd000;}
+.upload-progress{height:4px;background:#2a2a2a;border-radius:2px;margin-top:8px;overflow:hidden;display:none;}
+.upload-progress-bar{height:100%;background:linear-gradient(90deg,#ff8c00,#ffd000);border-radius:2px;width:0;transition:width .2s;}
+/* TOAST */
 .admin-toast{position:fixed;bottom:28px;right:28px;background:#1e1e1e;border:1px solid #333;border-radius:12px;padding:11px 20px;font-size:13px;font-weight:600;color:#ddd;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;transform:translateY(10px);z-index:9999;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.5);}
 .admin-toast.show{opacity:1;transform:translateY(0);}
 .admin-toast.ok{border-color:rgba(0,200,100,.4);color:#3fd68a;}
@@ -116,7 +113,7 @@ label{font-size:13px;font-weight:600;color:#888;display:block;margin-bottom:6px;
 </head>
 <body>
 
-<!-- ══ LOGIN ══ -->
+<!-- LOGIN -->
 <div class="login-screen" id="loginScreen">
   <div class="login-card">
     <div class="login-title">🌭 Admin</div>
@@ -127,11 +124,10 @@ label{font-size:13px;font-weight:600;color:#888;display:block;margin-bottom:6px;
   </div>
 </div>
 
-<!-- ══ ADMIN PANEL ══ -->
+<!-- ADMIN PANEL -->
 <div class="admin-wrap" id="adminWrap">
-
   <div class="admin-header">
-    <div style="display:flex;align-items:center;gap:0">
+    <div style="display:flex;align-items:center">
       <a href="index.html" class="admin-logo">🌭 Hotdog Party</a>
       <span class="admin-badge">Admin</span>
     </div>
@@ -139,332 +135,276 @@ label{font-size:13px;font-weight:600;color:#888;display:block;margin-bottom:6px;
   </div>
 
   <div class="admin-body">
-    <!-- Sidebar -->
     <div class="admin-sidebar">
-      <div class="sidebar-item active" data-section="games" onclick="showSection('games',this)">
+      <div class="sidebar-item active" onclick="showSection('games',this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="12" rx="4"/><path d="M8 11v4M6 13h4"/><circle cx="16" cy="12" r="1" fill="currentColor"/><circle cx="18" cy="14" r="1" fill="currentColor"/></svg>
         Games
       </div>
-      <div class="sidebar-item" data-section="notifs" onclick="showSection('notifs',this)">
+      <div class="sidebar-item" onclick="showSection('notifs',this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         Notifications
       </div>
+      <div class="sidebar-item" onclick="showSection('media',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Media
+      </div>
     </div>
 
-    <!-- Content -->
     <div class="admin-content">
 
-      <!-- ══ GAMES ══ -->
+      <!-- GAMES -->
       <div class="section active" id="section-games">
         <div class="section-title">🎮 Game Manager</div>
-        <div class="section-sub">Toggle games on or off. Disabled games are hidden from players on the Games page.</div>
-
+        <div class="section-sub">Toggle games on/off. Disabled games are hidden from players on the Games page.</div>
         <div class="card">
-          <div class="card-title">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            Search & Toggle
-          </div>
-          <input class="game-search" type="text" id="gameSearch" placeholder="Search games..." oninput="filterGameRows()">
+          <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Search & Toggle</div>
+          <input class="game-search-input" type="text" id="gameSearch" placeholder="Search games..." oninput="filterGameRows()">
           <div id="gameLoadingMsg" style="color:#555;font-size:13px;padding:20px 0">Loading games...</div>
           <div class="games-toggle-list" id="gamesToggleList"></div>
         </div>
       </div>
 
-      <!-- ══ NOTIFICATIONS ══ -->
+      <!-- NOTIFICATIONS -->
       <div class="section" id="section-notifs">
         <div class="section-title">🔔 Notifications</div>
-        <div class="section-sub">Push site-wide notifications that appear on every page. Dismissed notifications won't reappear for the same user.</div>
-
-        <!-- CREATE FORM -->
+        <div class="section-sub">Push site-wide banners that appear on every page load. They re-appear on each refresh.</div>
         <div class="card">
           <div class="card-title">✏️ Create Notification</div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Icon (emoji)</label>
-              <input type="text" id="notifIcon" value="🔔" maxlength="4">
-            </div>
-            <div class="form-group">
-              <label>Type</label>
-              <select id="notifType">
-                <option value="info">Info (blue)</option>
-                <option value="success">Success (green)</option>
-                <option value="warning">Warning (orange)</option>
-                <option value="error">Error (red)</option>
-              </select>
-            </div>
+            <div class="form-group"><label>Icon (emoji)</label><input type="text" id="notifIcon" value="🔔" maxlength="4"></div>
+            <div class="form-group"><label>Type</label><select id="notifType"><option value="info">Info (blue)</option><option value="success">Success (green)</option><option value="warning">Warning (orange)</option><option value="error">Error (red)</option></select></div>
           </div>
-          <div class="form-group">
-            <label>Message</label>
-            <textarea id="notifMsg" placeholder="Enter notification message..."></textarea>
-          </div>
+          <div class="form-group"><label>Message</label><textarea id="notifMsg" placeholder="Enter notification message..."></textarea></div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Auto-dismiss after (seconds, 0 = never)</label>
-              <input type="number" id="notifDuration" value="0" min="0">
-            </div>
-            <div class="form-group" style="display:flex;align-items:flex-end;">
-              <div class="toggle-wrap" style="margin-bottom:2px">
-                <label class="toggle"><input type="checkbox" id="notifActive" checked><span class="toggle-slider"></span></label>
-                <span class="toggle-label">Active immediately</span>
-              </div>
-            </div>
+            <div class="form-group"><label>Auto-dismiss after (seconds, 0 = never)</label><input type="number" id="notifDuration" value="0" min="0"></div>
+            <div class="form-group" style="display:flex;align-items:flex-end"><div class="toggle-wrap"><label class="toggle"><input type="checkbox" id="notifActive" checked><span class="toggle-slider"></span></label><span class="toggle-label">Active immediately</span></div></div>
           </div>
           <button class="btn btn-primary" onclick="createNotif()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Push Notification
           </button>
         </div>
-
-        <!-- LIST -->
         <div class="card">
           <div class="card-title">📋 Existing Notifications</div>
-          <div id="notifListWrap">
-            <div style="color:#555;font-size:13px">Loading...</div>
-          </div>
+          <div id="notifListWrap"><div style="color:#555;font-size:13px">Loading...</div></div>
         </div>
       </div>
 
-    </div><!-- /admin-content -->
-  </div><!-- /admin-body -->
-</div><!-- /admin-wrap -->
+      <!-- MEDIA -->
+      <div class="section" id="section-media">
+        <div class="section-title">🖼️ Media Uploads</div>
+        <div class="section-sub">Upload images to Firebase Storage. Click a URL below to copy it for use in notifications, devlogs, etc.</div>
+        <div class="card">
+          <div class="card-title">📤 Upload Image</div>
+          <div class="drop-zone" id="dropZone">
+            <input type="file" id="fileInput" accept="image/*" multiple onchange="handleFiles(this.files)">
+            <div class="drop-icon">🖼️</div>
+            <div class="drop-text">Drop images here or click to browse</div>
+            <div class="drop-sub">PNG, JPG, GIF, WEBP — max 5 MB each</div>
+          </div>
+          <div class="upload-progress" id="uploadProgress"><div class="upload-progress-bar" id="uploadProgressBar"></div></div>
+          <div id="uploadStatus" style="margin-top:10px;font-size:13px;color:#666;"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">📁 Uploaded Files</div>
+          <div style="font-size:12px;color:#555;margin-bottom:12px">⚠️ Make sure Firebase Storage rules allow writes:<br><code style="background:#1e1e1e;padding:2px 6px;border-radius:4px;color:#ff8c00">allow read, write: if true;</code></div>
+          <div id="mediaGrid" class="media-grid"><div style="color:#555;font-size:13px">No uploads yet.</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <div class="admin-toast" id="adminToast"></div>
 
 <script>
-/* ══ CONFIG ══ */
-// Change this to your desired admin password.
-const ADMIN_PASSWORD = "rLEsrUWu@QH#-PVM#1r[\@";
-const FB = "https://hotdog-party-61e77-default-rtdb.firebaseio.com";
+const ADMIN_PASSWORD = "hotdog2025"; // ← change this
+const FB   = "https://hotdog-party-61e77-default-rtdb.firebaseio.com";
+const BUCKET = "hotdog-party-61e77.appspot.com"; // Firebase Storage bucket
 
-/* ══ AUTH ══ */
+/* AUTH */
 function doLogin() {
-  const pw = document.getElementById("pwInput").value;
-  if (pw === ADMIN_PASSWORD) {
-    sessionStorage.setItem("hp_admin", "1");
-    document.getElementById("loginScreen").style.display = "none";
-    document.getElementById("adminWrap").style.display = "flex";
+  if (document.getElementById("pwInput").value === ADMIN_PASSWORD) {
+    sessionStorage.setItem("hp_admin","1");
+    document.getElementById("loginScreen").style.display="none";
+    document.getElementById("adminWrap").style.display="flex";
     initAdmin();
   } else {
-    const err = document.getElementById("loginErr");
-    err.style.display = "block";
-    setTimeout(() => err.style.display = "none", 2500);
+    const e=document.getElementById("loginErr"); e.style.display="block";
+    setTimeout(()=>e.style.display="none",2500);
   }
 }
-function doLogout() {
-  sessionStorage.removeItem("hp_admin");
-  location.reload();
-}
-if (sessionStorage.getItem("hp_admin") === "1") {
-  document.getElementById("loginScreen").style.display = "none";
-  document.getElementById("adminWrap").style.display = "flex";
+function doLogout() { sessionStorage.removeItem("hp_admin"); location.reload(); }
+if (sessionStorage.getItem("hp_admin")==="1") {
+  document.getElementById("loginScreen").style.display="none";
+  document.getElementById("adminWrap").style.display="flex";
 }
 
-/* ══ SECTION NAV ══ */
+/* NAV */
 function showSection(id, el) {
-  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
-  document.querySelectorAll(".sidebar-item").forEach(s => s.classList.remove("active"));
-  document.getElementById("section-" + id).classList.add("active");
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.querySelectorAll(".sidebar-item").forEach(s=>s.classList.remove("active"));
+  document.getElementById("section-"+id).classList.add("active");
   el.classList.add("active");
 }
 
-/* ══ TOAST ══ */
-function toast(msg, type="ok") {
-  const t = document.getElementById("adminToast");
-  t.textContent = msg;
-  t.className = "admin-toast show " + type;
-  clearTimeout(t._t);
-  t._t = setTimeout(() => t.className = "admin-toast", 2800);
+/* TOAST */
+function toast(msg,type="ok") {
+  const t=document.getElementById("adminToast");
+  t.textContent=msg; t.className="admin-toast show "+type;
+  clearTimeout(t._t); t._t=setTimeout(()=>t.className="admin-toast",2800);
 }
 
-/* ══ INIT ══ */
-function initAdmin() {
-  loadGamesPanel();
-  loadNotifsPanel();
-}
-if (sessionStorage.getItem("hp_admin") === "1") initAdmin();
+/* INIT */
+function initAdmin() { loadGamesPanel(); loadNotifsPanel(); loadMediaGrid(); }
+if (sessionStorage.getItem("hp_admin")==="1") initAdmin();
 
-/* ══ GAMES PANEL ══ */
-let allGames = [];
-let disabledPaths = new Set();
-
+/* ── GAMES ── */
+let allGames=[], disabledPaths=new Set();
 async function loadGamesPanel() {
   try {
-    const [gamesRes, disabledRes] = await Promise.all([
-      fetch("games.json"),
-      fetch(FB + "/disabled_games.json")
-    ]);
-    allGames = await gamesRes.json();
-    const disabledData = await disabledRes.json();
-    disabledPaths = new Set(disabledData ? Object.values(disabledData) : []);
-    document.getElementById("gameLoadingMsg").style.display = "none";
+    const [gRes,dRes]=await Promise.all([fetch("games.json"),fetch(FB+"/disabled_games.json")]);
+    allGames=await gRes.json();
+    const dd=await dRes.json();
+    disabledPaths=new Set(dd?Object.values(dd):[]);
+    document.getElementById("gameLoadingMsg").style.display="none";
     renderGameRows(allGames);
-  } catch (e) {
-    document.getElementById("gameLoadingMsg").textContent = "Error loading games: " + e.message;
-  }
+  } catch(e) { document.getElementById("gameLoadingMsg").textContent="Error: "+e.message; }
 }
-
 function filterGameRows() {
-  const q = document.getElementById("gameSearch").value.toLowerCase();
-  const filtered = allGames.filter(g => g.name.toLowerCase().includes(q));
-  renderGameRows(filtered);
+  const q=document.getElementById("gameSearch").value.toLowerCase();
+  renderGameRows(allGames.filter(g=>g.name.toLowerCase().includes(q)));
 }
-
 function renderGameRows(games) {
-  const list = document.getElementById("gamesToggleList");
-  if (!games.length) { list.innerHTML = '<div style="color:#555;font-size:13px;padding:10px 0">No games found.</div>'; return; }
-
-  list.innerHTML = games.map(game => {
-    const isDisabled = disabledPaths.has(game.path);
-    const key = "gkey_" + btoa(game.path).replace(/[^a-zA-Z0-9]/g,"");
-    return `
-      <div class="game-row ${isDisabled ? "disabled-game" : ""}" id="row_${key}">
-        <img src="${game.icon}" alt="" onerror="this.style.opacity=.3">
-        <span class="game-row-name">${game.name}</span>
-        ${isDisabled ? '<span class="disabled-badge">Disabled</span>' : ''}
-        <div class="toggle-wrap">
-          <label class="toggle">
-            <input type="checkbox" ${isDisabled ? "" : "checked"} onchange="toggleGame('${game.path.replace(/'/g,"\\'")}','${key}',this.checked)">
-            <span class="toggle-slider"></span>
-          </label>
-        </div>
-      </div>`;
+  const list=document.getElementById("gamesToggleList");
+  if(!games.length){list.innerHTML='<div style="color:#555;font-size:13px;padding:10px 0">No games found.</div>';return;}
+  list.innerHTML=games.map(g=>{
+    const isD=disabledPaths.has(g.path);
+    const key="gkey_"+btoa(encodeURIComponent(g.path)).replace(/[^a-zA-Z0-9]/g,"");
+    return `<div class="game-row ${isD?"disabled-game":""}" id="row_${key}">
+      <img src="${g.icon}" alt="" onerror="this.style.opacity=.3">
+      <span class="game-row-name">${g.name}</span>
+      ${isD?'<span class="disabled-badge">Disabled</span>':''}
+      <div class="toggle-wrap"><label class="toggle"><input type="checkbox" ${isD?'':'checked'} onchange="toggleGame('${g.path.replace(/'/g,"\\'")}','${key}',this.checked)"><span class="toggle-slider"></span></label></div>
+    </div>`;
   }).join("");
 }
-
-async function toggleGame(path, key, enabled) {
-  const row = document.getElementById("row_" + key);
-  try {
-    if (enabled) {
-      // Remove from disabled list
-      disabledPaths.delete(path);
-      // Rebuild disabled_games in Firebase
-      await saveDisabledGames();
-      row.classList.remove("disabled-game");
-      const badge = row.querySelector(".disabled-badge");
-      if (badge) badge.remove();
-      toast("✅ " + (allGames.find(g=>g.path===path)||{}).name + " enabled");
-    } else {
-      disabledPaths.add(path);
-      await saveDisabledGames();
-      row.classList.add("disabled-game");
-      if (!row.querySelector(".disabled-badge")) {
-        const badge = document.createElement("span");
-        badge.className = "disabled-badge";
-        badge.textContent = "Disabled";
-        row.querySelector(".toggle-wrap").before(badge);
-      }
-      toast("🚫 " + (allGames.find(g=>g.path===path)||{}).name + " disabled", "err");
-    }
-  } catch(e) {
-    toast("Error: " + e.message, "err");
-  }
+async function toggleGame(path,key,enabled) {
+  const row=document.getElementById("row_"+key);
+  if(enabled){disabledPaths.delete(path);}else{disabledPaths.add(path);}
+  await saveDisabledGames();
+  if(enabled){row.classList.remove("disabled-game");const b=row.querySelector(".disabled-badge");if(b)b.remove();toast("✅ Enabled");}
+  else{row.classList.add("disabled-game");if(!row.querySelector(".disabled-badge")){const b=document.createElement("span");b.className="disabled-badge";b.textContent="Disabled";row.querySelector(".toggle-wrap").before(b);}toast("🚫 Disabled","err");}
+}
+async function saveDisabledGames() {
+  const obj={};let i=0;disabledPaths.forEach(p=>{obj[i++]=p;});
+  await fetch(FB+"/disabled_games.json",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(Object.keys(obj).length?obj:null)});
 }
 
-async function saveDisabledGames() {
-  const obj = {};
-  let i = 0;
-  disabledPaths.forEach(p => { obj[i++] = p; });
-  await fetch(FB + "/disabled_games.json", {
-    method: "PUT",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify(Object.keys(obj).length ? obj : null)
+/* ── NOTIFICATIONS ── */
+let notifData={};
+async function loadNotifsPanel() {
+  try{const d=await(await fetch(FB+"/notifications.json")).json();notifData=d||{};renderNotifList();}
+  catch{document.getElementById("notifListWrap").innerHTML='<div style="color:#ff5555;font-size:13px">Error loading.</div>';}
+}
+function renderNotifList() {
+  const wrap=document.getElementById("notifListWrap");
+  const entries=Object.entries(notifData);
+  if(!entries.length){wrap.innerHTML='<div style="color:#555;font-size:13px">No notifications yet.</div>';return;}
+  const pill={info:"pill-info",success:"pill-success",warning:"pill-warning",error:"pill-error"};
+  wrap.innerHTML=`<div class="notif-list">`+entries.sort((a,b)=>b[0]-a[0]).map(([k,n])=>`
+    <div class="notif-item ${n.active?'':'inactive'}" id="ni_${k}">
+      <div class="notif-icon-col">${n.icon||"🔔"}</div>
+      <div class="notif-info"><div class="notif-msg">${n.message||''}</div><div class="notif-meta"><span class="notif-type-pill ${pill[n.type]||'pill-info'}">${n.type||'info'}</span>${n.active?'🟢 Active':'⚪ Inactive'}${n.duration?` · ${n.duration}s`:' · Persistent'}</div></div>
+      <div class="notif-actions">
+        <button class="btn ${n.active?'btn-ghost':'btn-primary'}" style="padding:7px 12px;font-size:12px" onclick="toggleNotif('${k}',${!n.active})">${n.active?'Deactivate':'Activate'}</button>
+        <button class="btn btn-danger" style="padding:7px 12px;font-size:12px" onclick="deleteNotif('${k}')">Delete</button>
+      </div>
+    </div>`).join("")+"</div>";
+}
+async function createNotif() {
+  const msg=document.getElementById("notifMsg").value.trim();
+  if(!msg){toast("Message is required.","err");return;}
+  const id=Date.now(),fbKey=String(id);
+  const n={id,icon:document.getElementById("notifIcon").value.trim()||"🔔",message:msg,type:document.getElementById("notifType").value,duration:parseInt(document.getElementById("notifDuration").value)||0,active:document.getElementById("notifActive").checked,created:id};
+  try{await fetch(FB+"/notifications/"+fbKey+".json",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(n)});notifData[fbKey]=n;renderNotifList();document.getElementById("notifMsg").value="";toast("✅ Notification pushed!");}
+  catch(e){toast("Error: "+e.message,"err");}
+}
+async function toggleNotif(k,v) {
+  try{await fetch(FB+"/notifications/"+k+"/active.json",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(v)});if(notifData[k])notifData[k].active=v;renderNotifList();toast(v?"✅ Activated":"⚪ Deactivated");}
+  catch(e){toast("Error: "+e.message,"err");}
+}
+async function deleteNotif(k) {
+  if(!confirm("Delete this notification?"))return;
+  try{await fetch(FB+"/notifications/"+k+".json",{method:"DELETE"});delete notifData[k];renderNotifList();toast("🗑️ Deleted");}
+  catch(e){toast("Error: "+e.message,"err");}
+}
+
+/* ── MEDIA UPLOAD ── */
+const uploadedMedia = JSON.parse(localStorage.getItem("hp_media")||"[]");
+
+const dropZone=document.getElementById("dropZone");
+dropZone.addEventListener("dragover",e=>{e.preventDefault();dropZone.classList.add("drag-over");});
+dropZone.addEventListener("dragleave",()=>dropZone.classList.remove("drag-over"));
+dropZone.addEventListener("drop",e=>{e.preventDefault();dropZone.classList.remove("drag-over");handleFiles(e.dataTransfer.files);});
+
+function handleFiles(files) {
+  [...files].forEach(f => {
+    if(!f.type.startsWith("image/")){toast("Only image files allowed.","err");return;}
+    if(f.size>5*1024*1024){toast(f.name+" is over 5 MB — skipped.","err");return;}
+    uploadFile(f);
   });
 }
 
-/* ══ NOTIFICATIONS PANEL ══ */
-let notifData = {};
+async function uploadFile(file) {
+  const prog=document.getElementById("uploadProgress");
+  const bar=document.getElementById("uploadProgressBar");
+  const status=document.getElementById("uploadStatus");
+  prog.style.display="block"; bar.style.width="10%";
+  status.textContent="Uploading "+file.name+"...";
 
-async function loadNotifsPanel() {
+  const safeName=Date.now()+"_"+file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+  const uploadUrl=`https://firebasestorage.googleapis.com/v0/b/${BUCKET}/o?uploadType=media&name=uploads/${safeName}`;
+
   try {
-    const res = await fetch(FB + "/notifications.json");
-    const data = await res.json();
-    notifData = data || {};
-    renderNotifList();
+    bar.style.width="40%";
+    const res=await fetch(uploadUrl,{method:"POST",headers:{"Content-Type":file.type},body:file});
+    if(!res.ok) throw new Error("Upload failed: HTTP "+res.status);
+    bar.style.width="80%";
+    const data=await res.json();
+    const publicUrl=`https://firebasestorage.googleapis.com/v0/b/${BUCKET}/o/${encodeURIComponent("uploads/"+safeName)}?alt=media`;
+    bar.style.width="100%";
+    status.textContent="✅ Uploaded "+file.name;
+    uploadedMedia.unshift({name:file.name, url:publicUrl, ts:Date.now()});
+    localStorage.setItem("hp_media",JSON.stringify(uploadedMedia.slice(0,200)));
+    renderMediaGrid();
+    toast("✅ "+file.name+" uploaded!");
   } catch(e) {
-    document.getElementById("notifListWrap").innerHTML = '<div style="color:#ff5555;font-size:13px">Error loading notifications.</div>';
+    status.textContent="❌ "+e.message;
+    toast("Upload failed: "+e.message,"err");
   }
+  setTimeout(()=>{prog.style.display="none";bar.style.width="0";},1200);
 }
 
-function renderNotifList() {
-  const wrap = document.getElementById("notifListWrap");
-  const entries = Object.entries(notifData);
-  if (!entries.length) {
-    wrap.innerHTML = '<div style="color:#555;font-size:13px">No notifications yet. Create one above.</div>';
-    return;
-  }
-  const pillClass = {info:"pill-info",success:"pill-success",warning:"pill-warning",error:"pill-error"};
-  wrap.innerHTML = `<div class="notif-list">` + entries.sort((a,b)=>b[0]-a[0]).map(([fbKey, n]) => `
-    <div class="notif-item ${n.active?'':'inactive'}" id="ni_${fbKey}">
-      <div class="notif-icon-col">${n.icon||"🔔"}</div>
-      <div class="notif-info">
-        <div class="notif-msg">${n.message||''}</div>
-        <div class="notif-meta">
-          <span class="notif-type-pill ${pillClass[n.type]||'pill-info'}">${n.type||'info'}</span>
-          ${n.active ? '🟢 Active' : '⚪ Inactive'}
-          ${n.duration ? ` · ${n.duration}s auto-dismiss` : ' · Persistent'}
-        </div>
+function loadMediaGrid() { renderMediaGrid(); }
+function renderMediaGrid() {
+  const grid=document.getElementById("mediaGrid");
+  if(!uploadedMedia.length){grid.innerHTML='<div style="color:#555;font-size:13px">No uploads yet.</div>';return;}
+  grid.innerHTML=uploadedMedia.map(m=>`
+    <div class="media-item">
+      <img src="${m.url}" alt="${m.name}" onerror="this.style.display='none'">
+      <div class="media-item-bar">
+        <span class="media-item-name">${m.name}</span>
+        <span class="media-item-url" onclick="copyUrl('${m.url}',this)" title="${m.url}">📋 Copy URL</span>
       </div>
-      <div class="notif-actions">
-        <button class="btn ${n.active?'btn-ghost':'btn-primary'}" style="padding:7px 12px;font-size:12px" onclick="toggleNotif('${fbKey}',${!n.active})">
-          ${n.active ? 'Deactivate' : 'Activate'}
-        </button>
-        <button class="btn btn-danger" style="padding:7px 12px;font-size:12px" onclick="deleteNotif('${fbKey}')">Delete</button>
-      </div>
-    </div>`).join("") + "</div>";
+    </div>`).join("");
 }
-
-async function createNotif() {
-  const msg  = document.getElementById("notifMsg").value.trim();
-  if (!msg) { toast("Message is required.", "err"); return; }
-  const icon     = document.getElementById("notifIcon").value.trim() || "🔔";
-  const type     = document.getElementById("notifType").value;
-  const duration = parseInt(document.getElementById("notifDuration").value) || 0;
-  const active   = document.getElementById("notifActive").checked;
-
-  const id   = Date.now();
-  const fbKey= String(id);
-  const notif= { id, icon, message: msg, type, duration, active, created: id };
-
-  try {
-    await fetch(FB + "/notifications/" + fbKey + ".json", {
-      method: "PUT",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify(notif)
-    });
-    notifData[fbKey] = notif;
-    renderNotifList();
-    document.getElementById("notifMsg").value = "";
-    toast("✅ Notification pushed!");
-  } catch(e) {
-    toast("Error: " + e.message, "err");
-  }
-}
-
-async function toggleNotif(fbKey, makeActive) {
-  try {
-    await fetch(FB + "/notifications/" + fbKey + "/active.json", {
-      method: "PUT",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify(makeActive)
-    });
-    if (notifData[fbKey]) notifData[fbKey].active = makeActive;
-    renderNotifList();
-    toast(makeActive ? "✅ Notification activated" : "⚪ Notification deactivated");
-  } catch(e) {
-    toast("Error: " + e.message, "err");
-  }
-}
-
-async function deleteNotif(fbKey) {
-  if (!confirm("Delete this notification?")) return;
-  try {
-    await fetch(FB + "/notifications/" + fbKey + ".json", { method: "DELETE" });
-    delete notifData[fbKey];
-    renderNotifList();
-    toast("🗑️ Notification deleted");
-  } catch(e) {
-    toast("Error: " + e.message, "err");
-  }
+function copyUrl(url,el) {
+  navigator.clipboard.writeText(url).then(()=>{
+    el.textContent="✅ Copied!";
+    setTimeout(()=>el.textContent="📋 Copy URL",1800);
+  });
 }
 </script>
 </body>

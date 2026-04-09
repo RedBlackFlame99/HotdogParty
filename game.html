@@ -11,8 +11,6 @@ body{font-family:"Segoe UI",system-ui,sans-serif;background:#121212;color:white;
 .bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;overflow:hidden;}
 .shape{position:absolute;width:60px;height:60px;background:linear-gradient(45deg,#ff7b00,#ffae00);opacity:.18;border-radius:14px;animation:float 18s linear infinite;}
 @keyframes float{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-70px) rotate(180deg)}100%{transform:translateY(0) rotate(360deg)}}
-
-/* TOPBAR */
 .topbar{position:fixed;top:0;left:0;width:100%;background:rgba(18,18,18,.97);backdrop-filter:blur(12px);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 24px rgba(0,0,0,.7);z-index:1000;border-bottom:1px solid rgba(255,140,0,.12);}
 .top-center{position:absolute;left:50%;transform:translateX(-50%);font-size:13px;font-weight:600;color:#555;pointer-events:none;letter-spacing:.5px;}
 .top-left{display:flex;align-items:center;cursor:pointer;background:rgba(255,140,0,.07);border:1px solid rgba(255,140,0,.18);border-radius:12px;padding:6px 14px 6px 10px;transition:.2s;text-decoration:none;}
@@ -27,102 +25,26 @@ body{font-family:"Segoe UI",system-ui,sans-serif;background:#121212;color:white;
 .games-nav-btn{background:linear-gradient(45deg,rgba(255,140,0,.15),rgba(255,200,0,.1));border-color:rgba(255,140,0,.35)!important;color:#ffb347;font-weight:700;}
 .games-nav-btn svg{opacity:1;color:#ff8c00;}
 .games-nav-btn:hover{background:linear-gradient(45deg,rgba(255,140,0,.28),rgba(255,200,0,.18))!important;border-color:#ff8c00!important;color:#ffd000!important;box-shadow:0 0 14px rgba(255,140,0,.3);}
-.discord-btn{display:flex;align-items:center;gap:8px;background:#5865F2;padding:8px 16px;border-radius:10px;color:white;text-decoration:none;font-weight:700;font-size:14px;border:1px solid rgba(255,255,255,.1);transition:.2s;box-shadow:0 2px 10px rgba(88,101,242,.35);}
-.discord-btn svg{width:22px;height:22px;}
-.discord-btn:hover{background:#ff8c00;box-shadow:0 0 16px rgba(255,140,0,.5);}
-
+.devlogs-nav-btn{background:linear-gradient(45deg,rgba(180,60,255,.15),rgba(120,40,220,.1));border-color:rgba(180,60,255,.35)!important;color:#cc88ff;font-weight:700;}
+.devlogs-nav-btn:hover{background:linear-gradient(45deg,rgba(180,60,255,.28),rgba(120,40,220,.18))!important;border-color:#b44dff!important;color:#dd99ff!important;box-shadow:0 0 14px rgba(180,60,255,.3);}
 /* PAGE */
-.page-wrap{
-  padding: 90px 24px 32px;
-  display:flex;
-  justify-content:center;
-  align-items:start;
-  gap:24px;
-  min-height:100vh;
-}
-
+.page-wrap{padding:90px 24px 32px;display:flex;justify-content:center;align-items:start;gap:24px;min-height:100vh;}
 /* PLAYER */
-.player-main{
-  flex:0 1 900px;
-  min-width:0;
-  background:#0e0e0e;
-  border:2px solid #2a2a2a;
-  border-radius:18px;
-  overflow:hidden;
-  display:flex;flex-direction:column;
-}
-.player-toolbar{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 14px;background:#161616;border-bottom:1px solid #2a2a2a;
-}
+.player-main{flex:0 1 900px;min-width:0;background:#0e0e0e;border:2px solid #2a2a2a;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;}
+.player-toolbar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#161616;border-bottom:1px solid #2a2a2a;}
 .player-game-icon{width:32px;height:32px;border-radius:7px;object-fit:cover;flex-shrink:0;}
 .player-game-title{font-weight:700;font-size:15px;color:#eee;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .toolbar-btn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:9px;border:1px solid #2e2e2e;background:#1e1e1e;cursor:pointer;transition:.18s;flex-shrink:0;color:#bbb;}
 .toolbar-btn:hover{background:#2a2a2a;border-color:#ff8c00;color:#ff8c00;box-shadow:0 0 10px rgba(255,140,0,.25);}
 .toolbar-btn svg{width:17px;height:17px;pointer-events:none;}
-
-/* Report toolbar button */
 .toolbar-btn.report-btn{border-color:rgba(255,80,80,.25);color:#ff8080;}
 .toolbar-btn.report-btn:hover{background:rgba(200,40,40,.2);border-color:#ff4444;color:#ff6060;box-shadow:0 0 10px rgba(255,50,50,.3);}
 .toolbar-btn.report-btn.reported{border-color:rgba(80,200,80,.3);color:#5ec45e;background:rgba(40,120,40,.15);}
-.toolbar-btn.report-btn.reported:hover{background:rgba(40,120,40,.2);border-color:#4daa4d;color:#5ec45e;box-shadow:none;}
 .back-btn{display:flex;align-items:center;gap:7px;padding:7px 14px;border-radius:9px;border:1px solid #2e2e2e;background:#1e1e1e;cursor:pointer;transition:.18s;color:#bbb;font-size:13px;font-weight:700;flex-shrink:0;text-decoration:none;}
 .back-btn:hover{background:#2a2a2a;border-color:#ff8c00;color:#ff8c00;}
 .back-btn svg{width:16px;height:16px;}
 .player-iframe-wrap{flex:1;position:relative;min-height:520px;}
 .player-iframe-wrap iframe{width:100%;height:100%;border:none;position:absolute;inset:0;}
-
-/* ---- PLAY TIMER PILL ---- */
-#playTimerPill {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 12px;
-  border-radius: 20px;
-  background: rgba(255,140,0,.10);
-  border: 1px solid rgba(255,140,0,.3);
-  font-size: 12px;
-  font-weight: 700;
-  color: #ffb347;
-  flex-shrink: 0;
-  transition: all .4s ease;
-  white-space: nowrap;
-}
-#playTimerPill.counted {
-  background: rgba(80,200,80,.12);
-  border-color: rgba(80,200,80,.35);
-  color: #6ddb6d;
-}
-#playTimerPill .timer-ring {
-  position: relative;
-  width: 22px;
-  height: 22px;
-  flex-shrink: 0;
-}
-#playTimerPill .timer-ring svg {
-  width: 22px;
-  height: 22px;
-  transform: rotate(-90deg);
-}
-#playTimerPill .timer-ring .track {
-  fill: none;
-  stroke: rgba(255,255,255,.08);
-  stroke-width: 3;
-}
-#playTimerPill .timer-ring .fill {
-  fill: none;
-  stroke: #ff8c00;
-  stroke-width: 3;
-  stroke-linecap: round;
-  stroke-dasharray: 56.5;
-  stroke-dashoffset: 56.5;
-  transition: stroke-dashoffset .9s linear, stroke .4s;
-}
-#playTimerPill.counted .timer-ring .fill {
-  stroke: #5ec45e;
-  stroke-dashoffset: 0;
-}
-
 /* SIDEBAR */
 .player-sidebar{flex:0 0 240px;display:flex;flex-direction:column;gap:10px;position:sticky;top:104px;}
 .sidebar-title{font-family:'Luckiest Guy';font-size:16px;background:linear-gradient(45deg,#ff7b00,#ffae00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;margin:0 0 4px;}
@@ -130,50 +52,22 @@ body{font-family:"Segoe UI",system-ui,sans-serif;background:#121212;color:white;
 .sidebar-game:hover{border-color:#ff8c00;box-shadow:0 0 14px rgba(255,140,0,.2);transform:translateX(3px);}
 .sidebar-game img{width:52px;height:52px;border-radius:8px;object-fit:cover;flex-shrink:0;}
 .sidebar-game-name{font-size:13px;font-weight:700;color:#ddd;line-height:1.3;}
-
-/* not-found */
 .not-found{padding:80px 20px;text-align:center;color:#555;font-size:18px;}
 .not-found a{color:#ff8c00;text-decoration:none;font-weight:700;}
-.not-found a:hover{text-decoration:underline;}
-
-/* Report/general toast */
-.report-toast{
-  position:fixed;
-  bottom:28px;
-  left:50%;
-  transform:translateX(-50%) translateY(20px);
-  background:#1e1e1e;
-  border:1px solid #333;
-  border-radius:12px;
-  padding:10px 20px;
-  font-size:13px;
-  font-weight:600;
-  color:#ddd;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .25s, transform .25s;
-  z-index:9999;
-  white-space:nowrap;
-  box-shadow:0 4px 20px rgba(0,0,0,.5);
-}
+/* Report toast */
+.report-toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:#1e1e1e;border:1px solid #333;border-radius:12px;padding:10px 20px;font-size:13px;font-weight:600;color:#ddd;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:9999;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.5);}
 .report-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 .report-toast.success{border-color:rgba(80,200,80,.4);color:#6ddb6d;}
 .report-toast.error{border-color:rgba(255,80,80,.4);color:#ff7070;}
-
-/* Notifications handled by notifications.js */
 </style>
 </head>
 <script src="notifications.js"></script>
 <body>
-
 <div class="bg" id="bg"></div>
-
-<!-- Report Toast -->
 <div class="report-toast" id="reportToast"></div>
 
-
 <div class="topbar">
-  <div class="top-center">Created by RedTheDev & ControlMC</div>
+  <div class="top-center">Created by RedTheDev &amp; ControlMC</div>
   <a class="top-left" href="index.html">
     <div class="logo-emoji">🌭</div>
     <div class="header-text">Hotdog Party</div>
@@ -183,13 +77,13 @@ body{font-family:"Segoe UI",system-ui,sans-serif;background:#121212;color:white;
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="12" rx="4"/><path d="M8 11v4M6 13h4"/><circle cx="16" cy="12" r="1" fill="currentColor"/><circle cx="18" cy="14" r="1" fill="currentColor"/></svg>
       Games
     </a>
+    <a class="nav-btn devlogs-nav-btn" href="devlogs.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Devlogs
+    </a>
     <a class="nav-btn" href="contact.html">
       <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
       Contact
-    </a>
-    <a href="https://discord.gg/3y28DJYaVY" target="_blank" class="discord-btn">
-      <svg viewBox="0 0 127.14 96.36"><path fill="white" d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,33.64-1.71,58.52.54,83.06a105.73,105.73,0,0,0,32.17,16.3,77.7,77.7,0,0,0,6.89-11.14,68.42,68.42,0,0,1-10.85-5.18c.91-.67,1.8-1.36,2.66-2.07a75.48,75.48,0,0,0,64.32,0c.87.71,1.76,1.4,2.66,2.07a68.68,68.68,0,0,1-10.87,5.19,77.23,77.23,0,0,0,6.9,11.13A105.25,105.25,0,0,0,126.6,83C129.2,54.59,122.2,30,107.7,8.07Z"/></svg>
-      Discord
     </a>
   </div>
 </div>
@@ -203,18 +97,6 @@ body{font-family:"Segoe UI",system-ui,sans-serif;background:#121212;color:white;
       </a>
       <img class="player-game-icon" id="playerIcon" src="" alt="">
       <div class="player-game-title" id="playerTitle">Loading...</div>
-
-      <!-- 10-second play timer pill -->
-      <div id="playTimerPill">
-        <div class="timer-ring">
-          <svg viewBox="0 0 22 22">
-            <circle class="track" cx="11" cy="11" r="9"/>
-            <circle class="fill" id="timerArc" cx="11" cy="11" r="9"/>
-          </svg>
-        </div>
-        <span id="timerLabel">Play for 10s</span>
-      </div>
-
       <button class="toolbar-btn" title="Refresh" onclick="refreshGame()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
       </button>
@@ -237,222 +119,110 @@ body{font-family:"Segoe UI",system-ui,sans-serif;background:#121212;color:white;
 </div>
 
 <script>
-// ====== CONFIG ======
-const DISCORD_WEBHOOK_URL = "https://discordapp.com/api/webhooks/1483646977874071582/79ofgNKX7G7v3VMZdp7FWR4tX9u95EXILarCZTlvh1vDBalJId3EyhFvImNyJqrbML6B";
 const FB_URL    = "https://hotdog-party-61e77-default-rtdb.firebaseio.com/plays";
 const FB_ACTIVE = "https://hotdog-party-61e77-default-rtdb.firebaseio.com/active";
 const LB_LOCAL  = "hotdog_lb";
-const PLAY_THRESHOLD_MS = 10000; // 10 seconds required
-
 const sessionId = Math.random().toString(36).slice(2);
 
-// ---- URL PARAMS ----
 const params      = new URLSearchParams(location.search);
 const currentPath = params.get("path") || "";
 const currentName = params.get("name") || "Game";
 const currentIcon = params.get("icon") || "";
 
-function gameURL(game) {
-  return "game.html?path=" + encodeURIComponent(game.path) +
-         "&name=" + encodeURIComponent(game.name) +
-         "&icon=" + encodeURIComponent(game.icon);
-}
+function gameURL(g) { return "game.html?path="+encodeURIComponent(g.path)+"&name="+encodeURIComponent(g.name)+"&icon="+encodeURIComponent(g.icon); }
 
-// ---- REPORT ----
+/* ── REPORT (no webhook — logs to Firebase instead) ── */
 async function reportCurrentGame() {
   const btn = document.getElementById("reportToolbarBtn");
-  const reported = JSON.parse(sessionStorage.getItem("hotdog_reported") || "[]");
-  if (reported.includes(currentPath)) {
-    showToast("⚠️ You already reported this game.", "error");
-    return;
-  }
+  const reported = JSON.parse(sessionStorage.getItem("hotdog_reported")||"[]");
+  if (reported.includes(currentPath)) { showToast("⚠️ You already reported this game.","error"); return; }
+
   try {
-    await fetch(DISCORD_WEBHOOK_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        embeds: [{
-          title: "🚨 Broken Game Report",
-          description: "A user reported that a game isn't working.",
-          color: 0xff4444,
-          fields: [
-            { name: "🎮 Game", value: currentName, inline: true },
-            { name: "📁 Path", value: currentPath, inline: true }
-          ],
-          footer: { text: "Hotdog Party · Game Player" },
-          timestamp: new Date().toISOString()
-        }]
-      })
+    const key = currentName.replace(/[.#$[\]/ ]/g,"_");
+    await fetch(`https://hotdog-party-61e77-default-rtdb.firebaseio.com/reports/${key}.json`, {
+      method: "PUT",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ name: currentName, path: currentPath, ts: Date.now() })
     });
     reported.push(currentPath);
     sessionStorage.setItem("hotdog_reported", JSON.stringify(reported));
     btn.classList.add("reported");
     btn.title = "Already reported";
     btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
-    showToast("✅ Reported \"" + currentName + "\" as broken!", "success");
+    showToast("✅ Reported \""+currentName+"\" as broken!","success");
   } catch {
-    showToast("❌ Failed to send report. Try again.", "error");
+    showToast("❌ Failed to send report. Try again.","error");
   }
 }
 
 function showToast(msg, type) {
-  const toast = document.getElementById("reportToast");
-  toast.textContent = msg;
-  toast.className = "report-toast " + type + " show";
-  clearTimeout(toast._t);
-  toast._t = setTimeout(() => { toast.className = "report-toast " + type; }, 2800);
+  const t = document.getElementById("reportToast");
+  t.textContent = msg;
+  t.className = "report-toast " + type + " show";
+  clearTimeout(t._t);
+  t._t = setTimeout(() => { t.className = "report-toast "+type; }, 2800);
 }
 
-// ---- PLAY TIMER (10 seconds) ----
-const CIRCUMFERENCE = 2 * Math.PI * 9; // r=9 → ~56.55
-let playTimerInterval = null;
-let playRegistered    = false;
-let elapsed           = 0;
-
-function startPlayTimer() {
-  const arc   = document.getElementById("timerArc");
-  const label = document.getElementById("timerLabel");
-  const pill  = document.getElementById("playTimerPill");
-
-  arc.style.strokeDasharray  = CIRCUMFERENCE;
-  arc.style.strokeDashoffset = CIRCUMFERENCE;
-
-  playTimerInterval = setInterval(() => {
-    elapsed += 200;
-    const progress = Math.min(elapsed / PLAY_THRESHOLD_MS, 1);
-    const offset   = CIRCUMFERENCE * (1 - progress);
-    arc.style.strokeDashoffset = offset;
-
-    const remaining = Math.ceil((PLAY_THRESHOLD_MS - elapsed) / 1000);
-    if (remaining > 0) {
-      label.textContent = "Play for " + remaining + "s";
-    }
-
-    if (elapsed >= PLAY_THRESHOLD_MS && !playRegistered) {
-      clearInterval(playTimerInterval);
-      playRegistered = true;
-      pill.classList.add("counted");
-      arc.style.stroke = "#5ec45e";
-      label.textContent = "▶ Play counted!";
-      incrementPlayCount();
-      setTimeout(() => {
-        pill.style.opacity = "0";
-        pill.style.pointerEvents = "none";
-      }, 3000);
-    }
-  }, 200);
-}
-
-// ---- FIREBASE: play count ----
-async function incrementPlayCount() {
-  const key = currentName.replace(/[.#$\[\]\/ ]/g, "_");
-  try {
-    const r   = await fetch(FB_URL + "/" + key + ".json");
-    const cur = await r.json();
-    const prev = cur && cur.count ? cur.count : 0;
-    await fetch(FB_URL + "/" + key + ".json", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ count: prev + 1, name: currentName, icon: currentIcon, path: currentPath })
-    });
-  } catch {
-    const local = JSON.parse(localStorage.getItem(LB_LOCAL) || "{}");
-    local[key] = { count: ((local[key] || {}).count || 0) + 1, name: currentName, icon: currentIcon, path: currentPath };
-    localStorage.setItem(LB_LOCAL, JSON.stringify(local));
-  }
-}
-
-// ---- FIREBASE: active ping ----
-async function pingActive() {
-  try {
-    await fetch(FB_ACTIVE + "/" + sessionId + ".json", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ game: currentName, icon: currentIcon, path: currentPath, ts: Date.now() })
-    });
-  } catch {}
-}
-
-// ---- NOTIFICATIONS: handled by notifications.js ----
-
-
-// ---- INIT ----
 function initPlayer() {
   if (!currentPath) {
-    document.querySelector(".player-main").innerHTML =
-      '<div class="not-found">No game selected. <a href="games.html">Browse games →</a></div>';
+    document.querySelector(".player-main").innerHTML = '<div class="not-found">No game selected. <a href="games.html">Browse games →</a></div>';
     return;
   }
   document.title = currentName + " – Hotdog Party";
-  document.getElementById("playerIcon").src         = currentIcon;
+  document.getElementById("playerIcon").src = currentIcon;
   document.getElementById("playerTitle").textContent = currentName;
-  document.getElementById("gameFrame").src           = currentPath;
+  document.getElementById("gameFrame").src = currentPath;
 
-  // Start 10-second timer — play is NOT counted until user has been on the page for 10s
-  startPlayTimer();
+  /* track recently played */
+  const RECENT_KEY = "hotdog_recent";
+  const recent = JSON.parse(localStorage.getItem(RECENT_KEY)||"[]")
+    .filter(g => g.path !== currentPath)
+    .slice(0, 9);
+  recent.unshift({ name: currentName, path: currentPath, icon: currentIcon, ts: Date.now() });
+  localStorage.setItem(RECENT_KEY, JSON.stringify(recent));
 
+  incrementPlayCount();
   pingActive();
   setInterval(pingActive, 90000);
 }
 
-// ---- TOOLBAR ----
-function refreshGame() {
-  const f = document.getElementById("gameFrame");
-  // Reset timer on refresh
-  clearInterval(playTimerInterval);
-  elapsed = playRegistered = false;
-  elapsed = 0;
-  const pill  = document.getElementById("playTimerPill");
-  const arc   = document.getElementById("timerArc");
-  const label = document.getElementById("timerLabel");
-  pill.classList.remove("counted");
-  pill.style.opacity       = "1";
-  pill.style.pointerEvents = "auto";
-  arc.style.strokeDashoffset = CIRCUMFERENCE;
-  arc.style.stroke = "#ff8c00";
-  label.textContent = "Play for 10s";
-  f.src = f.src;
-  startPlayTimer();
-}
-
-function fullscreenGame() {
-  const f = document.getElementById("gameFrame");
-  if (f.requestFullscreen) f.requestFullscreen();
-  else if (f.webkitRequestFullscreen) f.webkitRequestFullscreen();
-  else if (f.mozRequestFullScreen) f.mozRequestFullScreen();
-}
-
-// ---- SIDEBAR ----
-function shuffle(arr) { return [...arr].sort(() => Math.random() - .5); }
-
-async function loadSidebar() {
+async function incrementPlayCount() {
+  const key = currentName.replace(/[.#$[\]/ ]/g,"_");
   try {
-    const res   = await fetch("games.json");
-    const games = await res.json();
-    const others = shuffle(games.filter(g => g.path !== currentPath)).slice(0, 5);
-    document.getElementById("playerSidebarGames").innerHTML = others.map(g =>
-      `<a class="sidebar-game" href="${gameURL(g)}">
-        <img src="${g.icon}" alt="${g.name}">
-        <div class="sidebar-game-name">${g.name}</div>
-      </a>`
-    ).join("");
+    const r   = await fetch(FB_URL+"/"+key+".json");
+    const cur = await r.json();
+    const prev = cur&&cur.count?cur.count:0;
+    await fetch(FB_URL+"/"+key+".json",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({count:prev+1,name:currentName,icon:currentIcon,path:currentPath})});
+  } catch {
+    const local=JSON.parse(localStorage.getItem(LB_LOCAL)||"{}");
+    local[key]={count:((local[key]||{}).count||0)+1,name:currentName,icon:currentIcon,path:currentPath};
+    localStorage.setItem(LB_LOCAL,JSON.stringify(local));
+  }
+}
+
+async function pingActive() {
+  try {
+    await fetch(FB_ACTIVE+"/"+sessionId+".json",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({game:currentName,icon:currentIcon,path:currentPath,ts:Date.now()})});
   } catch {}
 }
 
-// ---- BG SHAPES ----
-const bg = document.getElementById("bg");
-for (let i = 0; i < 30; i++) {
-  const s = document.createElement("div");
-  s.className = "shape";
-  s.style.left = Math.random() * 100 + "%";
-  s.style.top  = Math.random() * 100 + "%";
-  s.style.animationDuration = (Math.random() * 20 + 10) + "s";
-  bg.appendChild(s);
+function refreshGame() { const f=document.getElementById("gameFrame"); f.src=f.src; }
+function fullscreenGame() { const f=document.getElementById("gameFrame"); if(f.requestFullscreen)f.requestFullscreen(); else if(f.webkitRequestFullscreen)f.webkitRequestFullscreen(); else if(f.mozRequestFullScreen)f.mozRequestFullScreen(); }
+
+function shuffle(arr) { return [...arr].sort(()=>Math.random()-.5); }
+async function loadSidebar() {
+  try {
+    const res=await fetch("games.json"); const games=await res.json();
+    const others=shuffle(games.filter(g=>g.path!==currentPath)).slice(0,5);
+    document.getElementById("playerSidebarGames").innerHTML=others.map(g=>`<a class="sidebar-game" href="${gameURL(g)}"><img src="${g.icon}" alt="${g.name}"><div class="sidebar-game-name">${g.name}</div></a>`).join("");
+  } catch {}
 }
+
+const bg=document.getElementById("bg");
+for(let i=0;i<30;i++){const s=document.createElement("div");s.className="shape";s.style.left=Math.random()*100+"%";s.style.top=Math.random()*100+"%";s.style.animationDuration=(Math.random()*20+10)+"s";bg.appendChild(s);}
 
 initPlayer();
 loadSidebar();
 </script>
-<script src="notifications.js"></script>
 </body>
 </html>
