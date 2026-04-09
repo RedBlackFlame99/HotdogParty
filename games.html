@@ -10,6 +10,7 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;overflow:hidden;}
 .shape{position:absolute;width:60px;height:60px;background:linear-gradient(45deg,#ff7b00,#ffae00);opacity:.18;border-radius:14px;animation:float 18s linear infinite;}
 @keyframes float{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-70px) rotate(180deg)}100%{transform:translateY(0) rotate(360deg)}}
+/* TOPBAR */
 .topbar{position:fixed;top:0;left:0;width:100%;background:rgba(18,18,18,.97);backdrop-filter:blur(12px);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 24px rgba(0,0,0,.7);box-sizing:border-box;z-index:1000;border-bottom:1px solid rgba(255,140,0,.12);}
 .top-center{position:absolute;left:50%;transform:translateX(-50%);font-size:13px;font-weight:600;color:#555;pointer-events:none;letter-spacing:.5px;}
 .top-left{display:flex;align-items:center;cursor:pointer;background:rgba(255,140,0,.07);border:1px solid rgba(255,140,0,.18);border-radius:12px;padding:6px 14px 6px 10px;transition:.2s;text-decoration:none;}
@@ -24,11 +25,14 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .games-nav-btn{background:linear-gradient(45deg,rgba(255,140,0,.15),rgba(255,200,0,.1));border-color:rgba(255,140,0,.35)!important;color:#ffb347;font-weight:700;}
 .games-nav-btn svg{opacity:1;color:#ff8c00;}
 .games-nav-btn:hover{background:linear-gradient(45deg,rgba(255,140,0,.28),rgba(255,200,0,.18))!important;border-color:#ff8c00!important;color:#ffd000!important;box-shadow:0 0 14px rgba(255,140,0,.3);}
-.devlogs-nav-btn{background:linear-gradient(45deg,rgba(180,60,255,.15),rgba(120,40,220,.1));border-color:rgba(180,60,255,.35)!important;color:#cc88ff;font-weight:700;}
-.devlogs-nav-btn:hover{background:linear-gradient(45deg,rgba(180,60,255,.28),rgba(120,40,220,.18))!important;border-color:#b44dff!important;color:#dd99ff!important;box-shadow:0 0 14px rgba(180,60,255,.3);}
+.discord-btn{display:flex;align-items:center;gap:8px;background:#5865F2;padding:8px 16px;border-radius:10px;color:white;text-decoration:none;font-weight:700;font-size:14px;border:1px solid rgba(255,255,255,.1);transition:.2s;box-shadow:0 2px 10px rgba(88,101,242,.35);}
+.discord-btn svg{width:22px;height:22px;}
+.discord-btn:hover{background:#ff8c00;box-shadow:0 0 16px rgba(255,140,0,.5);}
 /* LAYOUT */
 .games-layout{display:flex;justify-content:center;align-items:start;gap:24px;padding:24px 24px 0;}
+/* LEFT PANEL */
 .games-left{flex:0 0 220px;position:sticky;top:104px;display:flex;flex-direction:column;gap:14px;}
+/* Game of the Day */
 .gotd-panel{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:16px;overflow:hidden;}
 .gotd-header{padding:12px 14px;background:#161616;border-bottom:1px solid #2a2a2a;display:flex;align-items:center;gap:8px;}
 .gotd-header-title{font-family:'Luckiest Guy';font-size:16px;background:linear-gradient(45deg,#ff7b00,#ffae00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;}
@@ -40,13 +44,14 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .gotd-name{font-size:14px;font-weight:700;color:#ddd;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .gotd-play-btn{width:100%;padding:9px;background:linear-gradient(45deg,#ff8c00,#ffd000);border:none;border-radius:9px;color:#111;font-weight:900;font-size:13px;cursor:pointer;transition:.2s;text-decoration:none;display:block;text-align:center;}
 .gotd-play-btn:hover{transform:scale(1.03);box-shadow:0 4px 16px rgba(255,140,0,.5);}
+/* Recently Played */
 .recent-panel{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:16px;overflow:hidden;}
 .recent-header{padding:12px 14px;background:#161616;border-bottom:1px solid #2a2a2a;display:flex;align-items:center;justify-content:space-between;gap:8px;}
 .recent-header-title{font-family:'Luckiest Guy';font-size:16px;background:linear-gradient(45deg,#ff7b00,#ffae00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;}
 .recent-clear{font-size:11px;font-weight:700;color:#444;background:none;border:none;cursor:pointer;padding:3px 7px;border-radius:6px;transition:.15s;letter-spacing:.3px;}
 .recent-clear:hover{color:#ff8c00;background:rgba(255,140,0,.08);}
 .recent-list{padding:8px 0;}
-.recent-row{display:flex;align-items:center;gap:10px;padding:8px 12px;text-decoration:none;transition:.15s;}
+.recent-row{display:flex;align-items:center;gap:10px;padding:8px 12px;text-decoration:none;transition:.15s;border-radius:0;}
 .recent-row:hover{background:rgba(255,140,0,.06);}
 .recent-icon{width:40px;height:40px;border-radius:8px;object-fit:cover;flex-shrink:0;border:1px solid #2a2a2a;}
 .recent-info{flex:1;min-width:0;}
@@ -58,19 +63,23 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .recent-empty-icon{font-size:32px;margin-bottom:8px;}
 .recent-empty-text{font-size:12px;color:#555;font-weight:600;line-height:1.5;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+/* CENTER */
 .games-center{flex:0 1 900px;min-width:0;}
+/* Search */
 .search-container{position:relative;max-width:100%;margin-bottom:12px;}
 .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;fill:#aaa;pointer-events:none;}
 .search{width:100%;padding:11px 16px 11px 42px;border-radius:12px;border:2px solid #2a2a2a;background:#1a1a1a;color:#fff;font-size:15px;outline:none;transition:.25s;box-sizing:border-box;}
 .search::placeholder{color:#555;}
 .search:focus{border-color:#ff8c00;box-shadow:0 0 10px rgba(255,140,0,.4);background:#1f1f1f;}
-/* TAG BAR */
+
+/* ── TAG FILTER BAR ── */
 .tag-bar{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;min-height:0;}
 .tag-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border-radius:20px;border:1px solid #2a2a2a;background:#1a1a1a;color:#888;font-size:12px;font-weight:700;cursor:pointer;transition:.18s;white-space:nowrap;text-transform:capitalize;letter-spacing:.3px;}
 .tag-btn:hover{border-color:#ff8c00;color:#ffb347;background:rgba(255,140,0,.08);}
 .tag-btn.active{background:linear-gradient(45deg,rgba(255,140,0,.2),rgba(255,200,0,.1));border-color:#ff8c00;color:#ffb347;box-shadow:0 0 10px rgba(255,140,0,.2);}
 .tag-btn .tag-count{font-size:10px;opacity:.65;font-weight:600;}
-/* GAMES GRID */
+
+/* Games grid */
 .games{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
 .no-games-msg{color:#555;font-size:14px;padding:40px 0;text-align:center;grid-column:1/-1;}
 .game{position:relative;aspect-ratio:1/1;border-radius:12px;overflow:hidden;cursor:pointer;background:#1a1a1a;transition:.2s;border:2px solid transparent;text-decoration:none;display:block;}
@@ -78,7 +87,7 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .game img{width:100%;height:100%;object-fit:cover;}
 .game .title{position:absolute;bottom:0;width:100%;text-align:center;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.45) 50%,rgba(0,0,0,0) 100%);padding:28px 8px 8px;opacity:0;transition:.22s;font-weight:600;font-size:12px;box-sizing:border-box;color:white;}
 .game:hover .title{opacity:1;}
-/* LEADERBOARD */
+/* Leaderboard */
 .games-right{flex:0 0 240px;position:sticky;top:104px;}
 .leaderboard-panel{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:16px;overflow:hidden;}
 .lb-header{padding:14px 16px;border-bottom:1px solid #2a2a2a;background:#161616;display:flex;align-items:center;gap:8px;}
@@ -88,7 +97,10 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .lb-row{display:flex;align-items:center;gap:10px;padding:9px 14px;transition:.15s;cursor:pointer;text-decoration:none;}
 .lb-row:hover{background:rgba(255,140,0,.06);}
 .lb-rank{font-family:'Luckiest Guy';font-size:18px;width:26px;text-align:center;flex-shrink:0;line-height:1;}
-.lb-rank.gold{color:#ffd700;}.lb-rank.silver{color:#c0c0c0;}.lb-rank.bronze{color:#cd7f32;}.lb-rank.other{color:#555;}
+.lb-rank.gold{color:#ffd700;}
+.lb-rank.silver{color:#c0c0c0;}
+.lb-rank.bronze{color:#cd7f32;}
+.lb-rank.other{color:#555;}
 .lb-icon{width:40px;height:40px;border-radius:8px;object-fit:cover;flex-shrink:0;border:1px solid #2a2a2a;}
 .lb-info{flex:1;min-width:0;}
 .lb-name{font-size:13px;font-weight:700;color:#ddd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -96,6 +108,7 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 .lb-bar-wrap{height:3px;background:#222;border-radius:2px;margin-top:5px;}
 .lb-bar{height:3px;background:linear-gradient(90deg,#ff7b00,#ffcc00);border-radius:2px;transition:width .4s;}
 .lb-empty{padding:24px;text-align:center;color:#444;font-size:13px;}
+/* Scroll top */
 .scroll-top{position:fixed;bottom:28px;right:28px;width:46px;height:46px;background:linear-gradient(45deg,#ff8c00,#ffd000);border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(255,140,0,.5);opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .25s,transform .25s;z-index:999;}
 .scroll-top.visible{opacity:1;pointer-events:auto;transform:translateY(0);}
 .scroll-top:hover{transform:translateY(-3px);}
@@ -106,7 +119,7 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 <body>
 <div class="bg" id="bg"></div>
 <div class="topbar">
-  <div class="top-center">Created by RedTheDev &amp; ControlMC</div>
+  <div class="top-center">Created by RedTheDev & ControlMC</div>
   <a class="top-left" href="index.html">
     <div class="logo-emoji">🌭</div>
     <div class="header-text">Hotdog Party</div>
@@ -116,28 +129,35 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="12" rx="4"/><path d="M8 11v4M6 13h4"/><circle cx="16" cy="12" r="1" fill="currentColor"/><circle cx="18" cy="14" r="1" fill="currentColor"/></svg>
       Games
     </a>
-    <a class="nav-btn devlogs-nav-btn" href="devlogs.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-      Devlogs
-    </a>
     <a class="nav-btn" href="contact.html">
       <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
       Contact
+    </a>
+    <a href="https://discord.gg/3y28DJYaVY" target="_blank" class="discord-btn">
+      <svg viewBox="0 0 127.14 96.36"><path fill="white" d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,33.64-1.71,58.52.54,83.06a105.73,105.73,0,0,0,32.17,16.3,77.7,77.7,0,0,0,6.89-11.14,68.42,68.42,0,0,1-10.85-5.18c.91-.67,1.8-1.36,2.66-2.07a75.48,75.48,0,0,0,64.32,0c.87.71,1.76,1.4,2.66,2.07a68.68,68.68,0,0,1-10.87,5.19,77.23,77.23,0,0,0,6.9,11.13A105.25,105.25,0,0,0,126.6,83C129.2,54.59,122.2,30,107.7,8.07Z"/></svg>
+      Discord
     </a>
   </div>
 </div>
 
 <div class="games-layout">
+  <!-- LEFT PANEL -->
   <div class="games-left">
     <div class="gotd-panel">
-      <div class="gotd-header"><span>📅</span><div class="gotd-header-title">Game of the Day</div></div>
+      <div class="gotd-header">
+        <span>📅</span>
+        <div class="gotd-header-title">Game of the Day</div>
+      </div>
       <div class="gotd-body">
         <div class="gotd-date" id="gotdDate"></div>
-        <a class="gotd-img-wrap" id="gotdLink" href="#"><img id="gotdImg" src="" alt=""></a>
+        <a class="gotd-img-wrap" id="gotdLink" href="#">
+          <img id="gotdImg" src="" alt="">
+        </a>
         <div class="gotd-name" id="gotdName">Loading...</div>
         <a class="gotd-play-btn" id="gotdBtn" href="#">▶ Play Now</a>
       </div>
     </div>
+
     <div class="recent-panel">
       <div class="recent-header">
         <div class="recent-header-title">🕹️ Recently Played</div>
@@ -147,22 +167,27 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
     </div>
   </div>
 
+  <!-- CENTER: search + tag bar + grid -->
   <div class="games-center">
     <div class="search-container">
       <svg class="search-icon" viewBox="0 0 24 24"><path d="M21 20l-5.2-5.2a7 7 0 10-1 1L20 21zM10 16a6 6 0 110-12 6 6 0 010 12z"/></svg>
       <input class="search" id="search" placeholder="Search games...">
     </div>
+    <!-- Tag filter bar — only renders when games have tags -->
     <div class="tag-bar" id="tagBar"></div>
     <div class="games" id="games"></div>
   </div>
 
+  <!-- RIGHT: leaderboard -->
   <div class="games-right">
     <div class="leaderboard-panel">
       <div class="lb-header">
         <div class="lb-header-title">🏆 Most Played</div>
         <div class="lb-live-dot"></div>
       </div>
-      <div class="lb-list" id="lbList"><div class="lb-empty">Loading leaderboard...</div></div>
+      <div class="lb-list" id="lbList">
+        <div class="lb-empty">Loading leaderboard...</div>
+      </div>
     </div>
   </div>
 </div>
@@ -172,120 +197,191 @@ body{margin:0;padding-top:90px;font-family:"Segoe UI",system-ui,sans-serif;backg
 </button>
 
 <script>
-const FB_URL      = "https://hotdog-party-61e77-default-rtdb.firebaseio.com/plays";
-const FB_DISABLED = "https://hotdog-party-61e77-default-rtdb.firebaseio.com/disabled_games.json";
-let allGames = [], activeTag = null, searchQuery = "";
+const FB_URL       = "https://hotdog-party-61e77-default-rtdb.firebaseio.com/plays";
+const FB_DISABLED  = "https://hotdog-party-61e77-default-rtdb.firebaseio.com/disabled_games.json";
 
-function gameURL(g) {
-  return "game.html?path="+encodeURIComponent(g.path)+"&name="+encodeURIComponent(g.name)+"&icon="+encodeURIComponent(g.icon);
+let allGames      = [];   // all enabled games
+let activeTag     = null; // currently selected tag filter
+let searchQuery   = "";
+
+function gameURL(game) {
+  return "game.html?path=" + encodeURIComponent(game.path) +
+         "&name=" + encodeURIComponent(game.name) +
+         "&icon=" + encodeURIComponent(game.icon);
 }
 
-function setupGotd(games) {
+/* ── GAME OF THE DAY ── */
+function setupGameOfTheDay(games) {
   if (!games.length) return;
   const today = new Date();
-  const seed  = today.getFullYear()*10000+(today.getMonth()+1)*100+today.getDate();
-  const g     = games[seed % games.length];
-  const mo    = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  document.getElementById("gotdDate").textContent = mo[today.getMonth()]+" "+today.getDate()+", "+today.getFullYear();
-  document.getElementById("gotdImg").src  = g.icon;
-  document.getElementById("gotdName").textContent = g.name;
-  document.getElementById("gotdLink").href = gameURL(g);
-  document.getElementById("gotdBtn").href  = gameURL(g);
+  const seed  = today.getFullYear() * 10000 + (today.getMonth()+1) * 100 + today.getDate();
+  const game  = games[seed % games.length];
+  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  document.getElementById("gotdDate").textContent = months[today.getMonth()] + " " + today.getDate() + ", " + today.getFullYear();
+  document.getElementById("gotdImg").src  = game.icon;
+  document.getElementById("gotdName").textContent = game.name;
+  document.getElementById("gotdLink").href = gameURL(game);
+  document.getElementById("gotdBtn").href  = gameURL(game);
 }
 
+/* ── RECENTLY PLAYED ── */
 const RECENT_KEY = "hotdog_recent";
-function loadRecent() {
+function loadRecentlyPlayed() {
   const container = document.getElementById("recentList");
-  const btn       = document.getElementById("recentClear");
-  const recent    = JSON.parse(localStorage.getItem(RECENT_KEY)||"[]");
+  const clearBtn  = document.getElementById("recentClear");
+  const recent    = JSON.parse(localStorage.getItem(RECENT_KEY) || "[]");
   if (!recent.length) {
-    btn.style.display = "none";
+    clearBtn.style.display = "none";
     container.innerHTML = `<div class="recent-empty"><div class="recent-empty-icon">🎮</div><div class="recent-empty-text">No games played yet.<br>Jump in and start exploring!</div></div>`;
     return;
   }
-  btn.style.display = "";
+  clearBtn.style.display = "";
   const now = Date.now();
   container.innerHTML = recent.map(g => {
-    const url = gameURL(g), age = now-(g.ts||0);
-    const sub = age<60000?"Just now":age<3600000?Math.floor(age/60000)+"m ago":age<86400000?Math.floor(age/3600000)+"h ago":Math.floor(age/86400000)+"d ago";
-    return `<a class="recent-row" href="${url}"><img class="recent-icon" src="${g.icon}" onerror="this.style.opacity=.3"><div class="recent-info"><div class="recent-name">${g.name}</div><div class="recent-sub">${sub}</div></div><div class="recent-play">▶</div></a>`;
+    const url = gameURL(g);
+    const age = now - (g.ts || 0);
+    const sub = age < 60000 ? "Just now" : age < 3600000 ? Math.floor(age/60000) + "m ago" : age < 86400000 ? Math.floor(age/3600000) + "h ago" : Math.floor(age/86400000) + "d ago";
+    return `<a class="recent-row" href="${url}"><img class="recent-icon" src="${g.icon}" alt="${g.name}" onerror="this.style.opacity=.3"><div class="recent-info"><div class="recent-name">${g.name}</div><div class="recent-sub">${sub}</div></div><div class="recent-play">▶</div></a>`;
   }).join("");
 }
-function clearRecent() { localStorage.removeItem(RECENT_KEY); loadRecent(); }
+function clearRecent() { localStorage.removeItem(RECENT_KEY); loadRecentlyPlayed(); }
 
+/* ── LEADERBOARD ── */
 async function loadLeaderboard(games) {
   try {
-    const data = await (await fetch(FB_URL+".json")).json();
-    if (data) { renderLb(Object.values(data).filter(e=>e&&e.count).sort((a,b)=>b.count-a.count).slice(0,10), games); return; }
+    const r    = await fetch(FB_URL + ".json");
+    const data = await r.json();
+    if (data) { renderLeaderboard(Object.values(data).filter(e=>e&&e.count).sort((a,b)=>b.count-a.count).slice(0,10), games); return; }
   } catch {}
-  renderLb([], games);
+  renderLeaderboard([], games);
 }
-function renderLb(entries, games) {
-  const c = document.getElementById("lbList");
-  if (!entries.length) { c.innerHTML='<div class="lb-empty">Play some games to start the leaderboard!</div>'; return; }
-  const max = entries[0].count;
-  const medals=["🥇","🥈","🥉"], cls=["gold","silver","bronze"];
-  c.innerHTML = entries.map((e,i) => {
-    const g = games.find(g=>g.path===e.path);
-    return `<a class="lb-row" href="${g?gameURL(g):"#"}"><div class="lb-rank ${i<3?cls[i]:'other'}">${i<3?medals[i]:i+1}</div><img class="lb-icon" src="${e.icon}" onerror="this.style.opacity=0"><div class="lb-info"><div class="lb-name">${e.name}</div><div class="lb-plays">${e.count===1?"1 play":e.count+" plays"}</div><div class="lb-bar-wrap"><div class="lb-bar" style="width:${Math.round(e.count/max*100)}%"></div></div></div></a>`;
+
+function renderLeaderboard(entries, games) {
+  const container = document.getElementById("lbList");
+  if (!container) return;
+  if (!entries || !entries.length) { container.innerHTML = '<div class="lb-empty">Play some games to start the leaderboard!</div>'; return; }
+  const maxCount = entries[0].count;
+  const medals   = ["🥇","🥈","🥉"];
+  const classes  = ["gold","silver","bronze"];
+  container.innerHTML = entries.map((e, i) => {
+    const pct  = Math.round((e.count / maxCount) * 100);
+    const game = games.find(g => g.path === e.path);
+    const href = game ? gameURL(game) : "#";
+    return `<a class="lb-row" href="${href}"><div class="lb-rank ${i<3?classes[i]:'other'}">${i<3?medals[i]:i+1}</div><img class="lb-icon" src="${e.icon}" alt="${e.name}" onerror="this.style.opacity=0"><div class="lb-info"><div class="lb-name">${e.name}</div><div class="lb-plays">${e.count===1?"1 play":e.count+" plays"}</div><div class="lb-bar-wrap"><div class="lb-bar" style="width:${pct}%"></div></div></div></a>`;
   }).join("");
 }
 
+/* ── TAG FILTER BAR ── */
 function buildTagBar(games) {
-  const bar = document.getElementById("tagBar");
-  const counts = {};
-  games.forEach(g => { if (Array.isArray(g.tags)) g.tags.forEach(t => { const k=t.toLowerCase().trim(); counts[k]=(counts[k]||0)+1; }); });
-  const tags = Object.keys(counts).sort();
-  if (!tags.length) { bar.innerHTML=""; return; }
-  bar.innerHTML = `<button class="tag-btn active" onclick="selectTag('',this)">🎮 All <span class="tag-count">(${games.length})</span></button>` +
-    tags.map(t=>`<button class="tag-btn" onclick="selectTag('${t}',this)">${t} <span class="tag-count">(${counts[t]})</span></button>`).join("");
+  const tagBar = document.getElementById("tagBar");
+  // Collect all tags across all games that have the "tags" field
+  const tagCounts = {};
+  games.forEach(g => {
+    if (Array.isArray(g.tags)) {
+      g.tags.forEach(t => {
+        const tag = t.toLowerCase().trim();
+        tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+      });
+    }
+  });
+  const tags = Object.keys(tagCounts).sort();
+  if (!tags.length) { tagBar.innerHTML = ""; return; } // No tagged games — hide bar
+
+  const allBtn = `<button class="tag-btn active" data-tag="" onclick="selectTag('',this)">🎮 All <span class="tag-count">(${games.length})</span></button>`;
+  const tagBtns = tags.map(tag =>
+    `<button class="tag-btn" data-tag="${tag}" onclick="selectTag('${tag}',this)">${tag} <span class="tag-count">(${tagCounts[tag]})</span></button>`
+  ).join("");
+  tagBar.innerHTML = allBtn + tagBtns;
 }
+
 function selectTag(tag, el) {
-  activeTag = tag||null;
-  document.querySelectorAll(".tag-btn").forEach(b=>b.classList.remove("active"));
+  activeTag = tag || null;
+  document.querySelectorAll(".tag-btn").forEach(b => b.classList.remove("active"));
   el.classList.add("active");
   applyFilters();
 }
 
+/* ── GAMES GRID ── */
 function applyFilters() {
-  let g = allGames;
-  if (searchQuery) g = g.filter(x=>x.name.toLowerCase().includes(searchQuery));
-  if (activeTag)   g = g.filter(x=>Array.isArray(x.tags)&&x.tags.map(t=>t.toLowerCase()).includes(activeTag));
-  renderGames(g);
+  let games = allGames;
+  if (searchQuery) {
+    games = games.filter(g => g.name.toLowerCase().includes(searchQuery));
+  }
+  if (activeTag) {
+    games = games.filter(g => Array.isArray(g.tags) && g.tags.map(t=>t.toLowerCase()).includes(activeTag));
+  }
+  renderGames(games);
 }
+
 function renderGames(games) {
-  const c = document.getElementById("games");
-  if (!games.length) { c.innerHTML='<div class="no-games-msg">No games match your filter.</div>'; return; }
-  c.innerHTML = "";
-  games.forEach(g => {
+  const container = document.getElementById("games");
+  if (!games.length) {
+    container.innerHTML = '<div class="no-games-msg">No games match your filter.</div>';
+    return;
+  }
+  container.innerHTML = "";
+  games.forEach(game => {
     const a = document.createElement("a");
-    a.className="game"; a.href=gameURL(g);
-    a.innerHTML=`<img src="${g.icon}"><div class="title">${g.name}</div>`;
-    c.appendChild(a);
+    a.className = "game";
+    a.href = gameURL(game);
+    a.innerHTML = `<img src="${game.icon}"><div class="title">${game.name}</div>`;
+    container.appendChild(a);
   });
 }
 
-document.getElementById("search").addEventListener("input", e => { searchQuery=e.target.value.toLowerCase(); applyFilters(); });
+/* ── SEARCH ── */
+document.getElementById("search").addEventListener("input", e => {
+  searchQuery = e.target.value.toLowerCase();
+  applyFilters();
+});
 
+/* ── LOAD EVERYTHING ── */
 async function loadGames() {
   try {
-    const [gRes, dRes] = await Promise.all([fetch("games.json"), fetch(FB_DISABLED).catch(()=>({json:async()=>null}))]);
-    let games = await gRes.json();
-    const disabled = new Set(Object.values((await dRes.json())||{}));
-    games = games.filter(g=>!disabled.has(g.path)).sort((a,b)=>a.name.localeCompare(b.name));
+    // Fetch games and disabled list in parallel
+    const [gamesRes, disabledRes] = await Promise.all([
+      fetch("games.json"),
+      fetch(FB_DISABLED).catch(() => ({ json: async () => null }))
+    ]);
+    let games        = await gamesRes.json();
+    const disabledData = await disabledRes.json();
+
+    // Build set of disabled paths
+    const disabledPaths = new Set(disabledData ? Object.values(disabledData) : []);
+
+    // Filter out disabled games
+    games = games.filter(g => !disabledPaths.has(g.path));
+
+    // Sort alphabetically
+    games.sort((a, b) => a.name.localeCompare(b.name));
+
     allGames = games;
     buildTagBar(games);
     renderGames(games);
     loadLeaderboard(games);
-    setupGotd(games);
-    loadRecent();
-  } catch(e) { console.error("Could not load games:", e); }
+    setupGameOfTheDay(games);
+    loadRecentlyPlayed();
+  } catch(e) {
+    console.error("Could not load games:", e);
+  }
 }
 
 loadGames();
+
+// Background shapes
 const bg = document.getElementById("bg");
-for (let i=0;i<30;i++) { const s=document.createElement("div"); s.className="shape"; s.style.left=Math.random()*100+"%"; s.style.top=Math.random()*100+"%"; s.style.animationDuration=(Math.random()*20+10)+"s"; bg.appendChild(s); }
-window.addEventListener("scroll",()=>document.getElementById("scrollTopBtn").classList.toggle("visible",window.scrollY>300));
+for (let i = 0; i < 30; i++) {
+  const s = document.createElement("div");
+  s.className = "shape";
+  s.style.left = Math.random() * 100 + "%";
+  s.style.top  = Math.random() * 100 + "%";
+  s.style.animationDuration = (Math.random() * 20 + 10) + "s";
+  bg.appendChild(s);
+}
+
+window.addEventListener("scroll", () => {
+  document.getElementById("scrollTopBtn").classList.toggle("visible", window.scrollY > 300);
+});
 </script>
 </body>
 </html>
