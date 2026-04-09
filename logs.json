@@ -1,5 +1,17 @@
 [
   {
+    "id": 5,
+    "version": "v1.3.0",
+    "date": "April 8, 2026",
+    "description": "Updated Framework Backend + Added Public Devlogs Page."
+  },
+  {
+    "id": 4,
+    "version": "v1.2.1",
+    "date": "April 7, 2026",
+    "description": "Added 20+ new games along with games being able to be sorted by categories."
+  },
+  {
     "id": 3,
     "version": "v1.2.0",
     "date": "March 21, 2026",
