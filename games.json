@@ -376,8 +376,8 @@
         "icon": "games/buildnow_gg/icon.png"
     },
     {
-        "name": "Death Run",
-        "path": "games/death_run/game.html",
+        "name": "Death Run 3D",
+        "path": "games/death_run/index.html",
         "icon": "games/death_run/icon.png"
     },
     {
