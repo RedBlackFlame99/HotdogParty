@@ -225,7 +225,7 @@
     },
     {
         "name": "Doodle Jump",
-        "path": "games/doodle_jump/cldoodlejump.html",
+        "path": "games/doodle_jump/index.html",
         "icon": "games/doodle_jump/icon.png"
     },
     {
