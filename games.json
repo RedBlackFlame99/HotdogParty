@@ -58,8 +58,8 @@
     },
     {
         "name": "Slope",
-        "path": "games/slope/clslopeplus.html",
-        "icon": "games/slope/slope.png"
+        "path": "games/slope/one/index.html",
+        "icon": "games/slope/one/slope.png"
     },
     {
         "name": "Slope 2 Player",
