@@ -1116,5 +1116,20 @@
         "name": "Survivor.io",
         "path": "games/survivor-io/index.html",
         "icon": "games/survivor-io/icon.png"
+    },
+    {
+        "name": "Granny",
+        "path": "games/granny/index1.html",
+        "icon": "games/granny/icon1.png"
+    },
+    {
+        "name": "Granny II",
+        "path": "games/granny/index2.html",
+        "icon": "games/granny/icon2.png"
+    },
+    {
+        "name": "Granny III",
+        "path": "games/granny/index3.html",
+        "icon": "games/granny/icon3.png"
     }
 ]
