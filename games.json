@@ -1141,5 +1141,10 @@
         "name": "Hollow Knight",
         "path": "games/hollow-knight/hollow-knight.html",
         "icon": "games/hollow-knight/icon.png"
+    },
+    {
+        "name": "Recoil",
+        "path": "games/recoil/index.html",
+        "icon": "games/recoil/icon.png"
     }
 ]
