@@ -1146,5 +1146,10 @@
         "name": "Recoil",
         "path": "games/recoil/index.html",
         "icon": "games/recoil/icon.png"
+    },
+    {
+        "name": "Money Rush",
+        "path": "games/money-rush/index.html",
+        "icon": "games/money-rush/icon.png"
     }
 ]
