@@ -1131,5 +1131,15 @@
         "name": "Granny III",
         "path": "games/granny/index3.html",
         "icon": "games/granny/icon3.png"
+    },
+    {
+        "name": "Karlson",
+        "path": "games/karlson/index.html",
+        "icon": "games/karlson/icon.png"
+    },
+    {
+        "name": "Hollow Knight",
+        "path": "games/hollow-knight/hollow-knight.html",
+        "icon": "games/hollow-knight/icon.png"
     }
 ]
