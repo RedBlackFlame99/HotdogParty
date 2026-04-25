@@ -1151,5 +1151,40 @@
         "name": "Money Rush",
         "path": "games/money-rush/index.html",
         "icon": "games/money-rush/icon.png"
+    },
+    {
+        "name": "Baseball Bros",
+        "path": "games/baseball-bros/index.html",
+        "icon": "games/baseball-bros/icon.png"
+    },
+    {
+        "name": "Bloxorz",
+        "path": "games/bloxorz/index.html",
+        "icon": "games/bloxorz/icon.png"
+    },
+    {
+        "name": "Boxing Random",
+        "path": "games/boxing-random/index.html",
+        "icon": "games/boxing-random/icon.png"
+    },
+    {
+        "name": "Flappy Dunk",
+        "path": "games/flappy-dunk/index.html",
+        "icon": "games/flappy-dunk/icon.png"
+    },
+    {
+        "name": "Football Bros",
+        "path": "games/football-bros/index.html",
+        "icon": "games/football-bros/icon.png"
+    },
+    {
+        "name": "Iron Lung",
+        "path": "games/iron-lung/index.html",
+        "icon": "games/iron-lung/icon.png"
+    },
+    {
+        "name": "Jetpack Joyride",
+        "path": "games/jetpack-joyride/index.html",
+        "icon": "games/jetpack-joyride/icon.png"
     }
 ]
