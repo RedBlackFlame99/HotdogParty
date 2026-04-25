@@ -1186,5 +1186,20 @@
         "name": "Jetpack Joyride",
         "path": "games/jetpack-joyride/index.html",
         "icon": "games/jetpack-joyride/icon.png"
+    },
+    {
+        "name": "Plinko",
+        "path": "games/plinko/index.html",
+        "icon": "games/plinko/icon.png"
+    },
+    {
+        "name": "Vex 1",
+        "path": "games/vex/v1.html",
+        "icon": "games/vex/icon1.png"
+    },
+    {
+        "name": "Vex 2",
+        "path": "games/vex/v2.html",
+        "icon": "games/vex/icon.png"
     }
 ]
