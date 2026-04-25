@@ -993,8 +993,8 @@
     },
     {
         "name": "Run 3",
-        "path": "games/run3/clrun3.html",
-        "icon": "games/run3/icon.png"
+        "path": "games/run/run3.html",
+        "icon": "games/run/icon3.png"
     },
     {
         "name": "Bloons Tower Defense 4",
@@ -1200,6 +1200,6 @@
     {
         "name": "Vex 2",
         "path": "games/vex/v2.html",
-        "icon": "games/vex/icon.png"
+        "icon": "games/vex/icon2.png"
     }
 ]
