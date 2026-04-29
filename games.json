@@ -1201,5 +1201,10 @@
         "name": "Vex 2",
         "path": "games/vex/v2.html",
         "icon": "games/vex/icon2.png"
+    },
+    {
+        "name": "Balatro",
+        "path": "test/balatro/main.html",
+        "icon": "test/balatro/icon.png"
     }
 ]
