@@ -1206,5 +1206,10 @@
         "name": "Balatro",
         "path": "test/balatro/main.html",
         "icon": "test/balatro/icon.png"
+    },
+    {
+        "name": "Getting Over It (Real)",
+        "path": "test/getting-over-it-real/index.html",
+        "icon": "test/getting-over-it-real/icon.png"
     }
 ]
